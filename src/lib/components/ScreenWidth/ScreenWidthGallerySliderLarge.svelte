@@ -5,7 +5,7 @@
 
 
     import { onMount } from "svelte";
-    import { swipe } from "svelte-gestures";
+    import { useSwipe } from "svelte-gestures";
     import placeholder from "../../assets/images/image_placeholder.svg";
     import ContentWidth from "../ContentWidth/ContentWidth.svelte";
     import type { SwipePointerEventDetail } from "svelte-gestures";
@@ -135,7 +135,7 @@
   <svelte:window bind:innerWidth />
       
   <section class="pb-32 {passedClasses}">
-      <div use:swipe={()=>({ timeframe: 300, minSwipeDistance: 60 })}  onswipe={handleSwipe} class="h-py-2 relative" style="height:{imageWidth*0.95}px;">
+      <div {...useSwipe(handleSwipe, () => ({ timeframe: 300, minSwipeDistance: 60 }))} class="h-py-2 relative" style="height:{imageWidth*0.95}px;">
       <div  class="h-full flex flex-row flex-nowrap {isSlideAnimated ? 'transition-transform duration-[2000ms]': ''}"
       style= "width:{(imageWidth-8)*tripledItems.length}px; margin-left:calc(50vw - {(imageWidth-8)/2}px); transform:translateX({-(sliderIndex+itemArray.length)*(imageWidth-8)}px); ">   
           {#each tripledItems as item }

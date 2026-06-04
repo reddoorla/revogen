@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { swipe, type SwipeCustomEvent } from 'svelte-gestures';
+	import { useSwipe, type SwipeCustomEvent } from 'svelte-gestures';
 	import { fade } from 'svelte/transition';
 	import { onMount } from 'svelte';
     import profilePlaceholder from '$lib/assets/images/profile_placeholder.png'
@@ -95,8 +95,7 @@
   <ContentWidth class=" lg:h-[560px] relative">
   <div
 	class="w-full h-full overflow-hidden relative"
-	use:swipe={()=>({ timeframe: 300, minSwipeDistance: 60 })}
-	onswipe={handleSwipe}
+	{...useSwipe(handleSwipe, () => ({ timeframe: 300, minSwipeDistance: 60 }))}
   >
 	{#if tripledTestimonials.length > 0}
 	  <div

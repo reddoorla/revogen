@@ -3,7 +3,7 @@
   import { run } from 'svelte/legacy';
 
     import { onMount } from "svelte";
-    import { swipe } from "svelte-gestures";
+    import { useSwipe } from "svelte-gestures";
     import placeholder from "../../assets/images/background_placeholder.svg";
     import ContentWidth from "../ContentWidth/ContentWidth.svelte";
     import type { SwipePointerEventDetail } from "svelte-gestures";
@@ -97,7 +97,7 @@
   </script>
       
   <section class="pb-32 {passedClasses}">
-      <div use:swipe={()=>({ timeframe: 300, minSwipeDistance: 60 })}  onswipe={handleSwipe} class="h-[320px] py-2 relative" >
+      <div {...useSwipe(handleSwipe, () => ({ timeframe: 300, minSwipeDistance: 60 }))} class="h-[320px] py-2 relative" >
       <div  class="h-full flex flex-row flex-nowrap {isSlideAnimated ? 'transition-transform duration-[2000ms]': ''}"
       style= "width:{352*tripledImages.length}px; margin-left:calc(50vw - 176px); transform:translateX({-(sliderIndex+imageArray.length)*352}px); ">
           
