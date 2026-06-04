@@ -12,7 +12,7 @@
   </script>
   
   <div class="w-full flex flex-col border-light border-b-2 cursor-pointer">
-    {#each labels as label, i}
+    {#each labels as label, i (i)}
       <button class="w-full border-t-2 border-light cursor-pointer" onclick={() => activeAccordians[i] = !activeAccordians[i]}>
         <div class="h-20 p-8 w-full flex flex-row justify-between items-center">
           <p class="text-left">{label}</p>

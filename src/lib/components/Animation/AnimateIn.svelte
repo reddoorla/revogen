@@ -21,7 +21,7 @@
                   transitionDelay= transitionDelayMax * (rect.left/window.innerWidth)
               }
       }
-      let checking:NodeJS.Timeout;
+      let checking: ReturnType<typeof setInterval>;
   
       onMount(()=>{
           checkViewport()

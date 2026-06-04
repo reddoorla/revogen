@@ -7,7 +7,7 @@
 	import { onMount} from 'svelte';
 	interface Props {
 		children?: import('svelte').Snippet;
-		[key: string]: any
+		[key: string]: unknown
 	}
 
 	let { ...props }: Props = $props();
@@ -36,12 +36,14 @@
 
 	let windowWidth: string = $state('');
 
-	const debounce = (func: Function, delay: number) => {
-		let timer: NodeJS.Timeout;
-		return function (this: any, ...args: any[]) {
-			const context = this;
+	const debounce = <Args extends unknown[]>(
+		func: (...args: Args) => void,
+		delay: number
+	) => {
+		let timer: ReturnType<typeof setTimeout>;
+		return (...args: Args) => {
 			clearTimeout(timer);
-			timer = setTimeout(() => func.apply(context, args), delay);
+			timer = setTimeout(() => func(...args), delay);
 		};
 	};
 
@@ -59,9 +61,9 @@
 	});
 
 	$effect(() => {
-		windowWidth;
+		void windowWidth;
 		if (parent) {
-			nodes = [...parent?.children] as HTMLElement[];
+			nodes = [...parent.children] as HTMLElement[];
 			console.log(nodes);
 			const parentWidth = parent.offsetWidth;
 			let largestChildWidth = 1;

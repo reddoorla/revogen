@@ -1,12 +1,9 @@
 <script lang="ts">
 	import { useSwipe, type SwipeCustomEvent } from 'svelte-gestures';
-	import { fade } from 'svelte/transition';
 	import { onMount } from 'svelte';
     import profilePlaceholder from '$lib/assets/images/profile_placeholder.png'
     import featuredPlaceholder from '$lib/assets/images/background_placeholder.svg'
   import ContentWidth from './ContentWidth.svelte';
-  
-	let viewportWidth = $state(1024);
 
     type Testimonial = {
         title: string;
@@ -103,7 +100,7 @@
 		class="flex flex-row justify-between flex-nowrap h-full w-full overflow-hidden
 		{isSlideAnimated ? 'transition-transform duration-[2000ms]' : ''}"
 	  >
-		{#each tripledTestimonials as testimonial, i}
+		{#each tripledTestimonials as testimonial, i (i)}
 		  <div
 			style="width: {100 / tripledTestimonials.length}%;"
 			class="h-full relative overflow-hidden bg-dark flex flex-col-reverse gap-12 lg:flex-row p-4 lg:p-0"

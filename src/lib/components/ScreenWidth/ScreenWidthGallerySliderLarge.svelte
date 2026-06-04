@@ -11,15 +11,6 @@
     import type { SwipePointerEventDetail } from "svelte-gestures";
 
 
-    type GalleryItem = {
-  name: string;
-  featuredText?: string;
-  href?: string;
-  featuredImage?: string;
-  filters?: string[];
-};
-
-
   let { itemArray = [
             {
                 name: "Item 1",
@@ -42,7 +33,6 @@
 
       
   
-      const SLIDER_TRANSITION_FUNCTION="cubic-bezier(.5,0,0,1)";
       const SLIDER_TRANSITION_LENGTH_IN_MS=2000;
       const SLIDER_INTERVAL_IN_MS = 5000;
       
@@ -97,7 +87,7 @@
           sliderInterval = setInterval(()=>slideRight(), SLIDER_INTERVAL_IN_MS);
       }
   
-      let sliderInterval:NodeJS.Timeout;
+      let sliderInterval: ReturnType<typeof setInterval>;
   
       const handleSwipe = (e:CustomEvent<SwipePointerEventDetail>) => {
         if(e.detail.direction==="left") 
@@ -107,24 +97,6 @@
           slideLeft();
       }
 
-      let progressPosistion = $state(0);
-      let progressWrapForwardPosition = $state(-100);
-      let progressWrapBackwardPosition = $state(itemArray.length*100)
-
-      $effect(() => {
-        progressPosistion= (sliderIndex)*100;
-        if(sliderIndex==itemArray.length)
-            progressWrapForwardPosition=0;
-        else
-        progressWrapForwardPosition = 100;
-        
-        if(sliderIndex==-1)
-            progressWrapBackwardPosition=itemArray.length*100-100;
-        else
-            progressWrapBackwardPosition = itemArray.length*100;
-
-      });
-  
       onMount(()=>{
          sliderInterval = setInterval(()=>slideRight(), SLIDER_INTERVAL_IN_MS);
       });
@@ -138,7 +110,7 @@
       <div {...useSwipe(handleSwipe, () => ({ timeframe: 300, minSwipeDistance: 60 }))} class="h-py-2 relative" style="height:{imageWidth*0.95}px;">
       <div  class="h-full flex flex-row flex-nowrap {isSlideAnimated ? 'transition-transform duration-[2000ms]': ''}"
       style= "width:{(imageWidth-8)*tripledItems.length}px; margin-left:calc(50vw - {(imageWidth-8)/2}px); transform:translateX({-(sliderIndex+itemArray.length)*(imageWidth-8)}px); ">   
-          {#each tripledItems as item }
+          {#each tripledItems as item, i (i) }
           {#if item.href}
           <a href={item?.href||"#"} class="h-full mx-4 relative" style="width:{imageWidth}px;">
               <img  src={item?.featuredImage} alt={item.name} class="h-full object-cover -z-10"/>
@@ -158,7 +130,7 @@
       <div class="absolute flex justify-center w-full bottom-0">
         <ContentWidth class="h-full relative w-full">
             <div class="h-10 flex align-middle justify-center bottom-10">
-                {#each  itemArray as item, i}
+                {#each  itemArray as _item, i (i)}
                     <button class="h-[10px] w-[10px] border-2  rounded-full transition-colors duration-1000 cursor-pointer active:-translate-y-[0.5px] hover:opacity-60 mx-2 translate-x-2
                                     {(sliderIndex%itemArray.length>=0&&sliderIndex%itemArray.length===i)|| (sliderIndex%itemArray.length<=0&&itemArray.length+sliderIndex%itemArray.length===i) ? "bg-dark border-dark" : "border-light"}"
                         onclick={()=>setSliderIndex(i)}

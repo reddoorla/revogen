@@ -1,5 +1,4 @@
 <script lang="ts">
-  import type { ImageField } from "@prismicio/client";
   import { isFilled } from "@prismicio/client";
   import placeholder from "../../assets/images/background_placeholder.svg";
   import { PrismicImage } from "@prismicio/svelte";

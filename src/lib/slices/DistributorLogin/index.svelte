@@ -8,7 +8,7 @@ import type { SliceComponentProps } from "@prismicio/svelte";
 
   import { distributorData } from "$lib/stores/distributorData";
 
-interface Props extends SliceComponentProps<Content.DistributorLoginSlice> {}
+type Props = SliceComponentProps<Content.DistributorLoginSlice>;
 const { slice }: Props = $props();
 
 let isAuthenticated = $state(false);
@@ -204,7 +204,7 @@ onMount(() => {
         <!-- Desktop Layout (unchanged) -->
         <div class="w-full justify-center flex-wrap gap-12 hidden md:flex">
           {#if $distributorData}
-            {#each $distributorData as category, i}
+            {#each $distributorData as category, i (i)}
             <div class="flex flex-col gap-2 items-center justify-center">
             <button class="w-44 h-44 border-[1px] rounded-full border-white drop-shadow-sm hover:grayscale-0 hover:opacity-100 transition {activeCategory===i?"pointer-events-none cursor-regular":"opacity-80 grayscale"}" onclick={()=>activeCategory=i}>
               <PrismicImage field={category.data.image} class="w-full h-full rounded-full scale-[92%] object-cover" />
@@ -236,7 +236,7 @@ onMount(() => {
             aria-valuenow={activeCategory}
           >
             {#if $distributorData}
-              {#each $distributorData as category, i}
+              {#each $distributorData as category, i (i)}
                 <div class="flex flex-col gap-2 items-center justify-center flex-shrink-0" style="scroll-snap-align: center;">
                   <button 
                     class="w-32 h-32 border-[1px] rounded-full border-white drop-shadow-sm hover:grayscale-0 hover:opacity-100 transition {activeCategory===i?"pointer-events-none cursor-regular":"opacity-80 grayscale"}" 
@@ -276,7 +276,7 @@ onMount(() => {
          {#if docs.length>0&&isFilled.link(docs[0])}
                 <h5 class="mt-6 md:mt-10 uppercase">{title}</h5>
                 <div class="h-0.5 w-full bg-white my-4"></div>
-                {#each docs as doc}
+                {#each docs as doc, i (i)}
                   {#if isFilled.link(doc)}
                   <a class="flex flex-row gap-3 items-center mt-4 hover:opacity-80 active:opacity-100 transition-opacity active:transition-none" href={doc.url} target="_blank">
                     <svg class="h-3 translate-y-[1px]" viewBox="0 0 11 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -294,7 +294,7 @@ onMount(() => {
       <div class="w-full mt-6 md:mt-32 relative transition-all duration-300 ease-in-out mb-32" style="height: {containerHeight}px" in:slide>
         {#key activeCategory}
            <div class="absolute top-0 left-0 w-full flex flex-col gap-16" in:fade={{delay:700}} out:fade>
-            {#each $distributorData[activeCategory].data.headers as header }
+            {#each $distributorData[activeCategory].data.headers as header, i (i) }
             <div>
               <h2>
                 {header.name}
@@ -317,15 +317,15 @@ onMount(() => {
         <!-- Hidden elements for measuring each category's height -->
         <div class="absolute top-0 left-0 w-full pointer-events-none opacity-0 z-[-1]">
           {#if $distributorData}
-            {#each $distributorData as category, categoryIndex}
+            {#each $distributorData as category, categoryIndex (categoryIndex)}
               <div bind:this={categoryRefs[categoryIndex]} class="flex flex-col gap-16">
-                {#each category.data.headers as header}
+                {#each category.data.headers as header, headerIndex (headerIndex)}
                   <div>
                     <h2>{header.name}</h2>
                     {#if header.distributor_documents.length !== 0}
                       <h5 class="mt-10 uppercase">Distributor Documents</h5>
                       <div class="h-0.5 w-full bg-white my-4"></div>
-                      {#each header.distributor_documents as doc}
+                      {#each header.distributor_documents as doc, docIndex (docIndex)}
                         {#if isFilled.link(doc)}
                           <div class="flex flex-row gap-3 items-center mt-4">
                             <svg class="h-3 translate-y-[1px]" viewBox="0 0 11 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -340,7 +340,7 @@ onMount(() => {
                     {#if header.white_papers.length !== 0}
                       <h5 class="mt-10 uppercase">White paper / case studies</h5>
                       <div class="h-0.5 w-full bg-white my-4"></div>
-                      {#each header.white_papers as doc}
+                      {#each header.white_papers as doc, docIndex (docIndex)}
                         {#if isFilled.link(doc)}
                           <div class="flex flex-row gap-3 items-center mt-4">
                             <svg class="h-3 translate-y-[1px]" viewBox="0 0 11 16" fill="none" xmlns="http://www.w3.org/2000/svg">

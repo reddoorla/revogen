@@ -1,14 +1,14 @@
 <script lang="ts">
-    import type { MouseEventHandler } from "svelte/elements";
+  import type { Snippet } from "svelte";
   import DelayedLink from "../DelayedLink.svelte";
     interface ButtonProps {
    href?: string;
-   onclick?: (event: MouseEvent ) => any;
+   onclick?: (event: MouseEvent ) => void;
    class?: string;
-   children?: any;
-   [key: string]: any;
+   children?: Snippet;
+   [key: string]: unknown;
  }
-    let { href = "", onclick = () => {}, class:passedClasses = '', children = undefined, ...others  } : ButtonProps = $props();
+    let { href = "", onclick = () => {}, class:passedClasses = '', children = undefined, ..._others } : ButtonProps = $props();
 
     const baseClasses = "rounded-sm border-[1px] border-solid border-white text-white px-[10px] py-2 uppercase transition hover:text-black hover:bg-white active:bg-white/50"
 

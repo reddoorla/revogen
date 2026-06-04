@@ -1,12 +1,10 @@
 <script lang="ts">
 	import { useSwipe, type SwipeCustomEvent } from 'svelte-gestures';
-	import { fade } from 'svelte/transition';
 	import { PrismicImage } from '@prismicio/svelte';
 	import type { ImageField } from '@prismicio/client';
 	import { onMount } from 'svelte';
     import placeholder from '$lib/assets/images/background_placeholder.svg'
-  
-	let viewportWidth: number;
+
 	let imageArray: (ImageField | string)[] = $state([placeholder, placeholder, placeholder]);
 	let tripledImages: (ImageField |string)[] = $state([]);
   
@@ -67,7 +65,7 @@
 		class="flex flex-row justify-between flex-nowrap h-full w-full overflow-hidden
 		{isSlideAnimated ? 'transition-transform duration-[2000ms]' : ''}"
 	  >
-		{#each tripledImages as image, i}
+		{#each tripledImages as image, i (i)}
 		  <div
 			style="width: {100 / tripledImages.length}%;"
 			class="h-full relative overflow-hidden"

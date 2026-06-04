@@ -3,7 +3,7 @@
 	import type { Content } from "@prismicio/client";
 	import { PrismicImage, type SliceComponentProps } from "@prismicio/svelte";
 
-	interface Props extends SliceComponentProps<Content.ImageRowSlice> {}
+	type Props = SliceComponentProps<Content.ImageRowSlice>;
 
 	const { slice }: Props = $props();
 </script>
@@ -15,7 +15,7 @@
 	class="text-white"
 >
 	<ContentWidth class="flex flex-wrap justify-center gap-6 md:gap-12">
-		{#each slice.primary.images as item}
+		{#each slice.primary.images as item, i (i)}
 			<div class="flex flex-col gap-2 items-center justify-center">
 				<div class="w-44 h-44 border-[1px] rounded-full border-white drop-shadow-sm">
 					<PrismicImage field={item.image} class="w-full h-full rounded-full scale-[92%] object-cover" />

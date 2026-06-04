@@ -1,9 +1,6 @@
-import { asText } from '@prismicio/client';
-import { distributorData } from '$lib/stores/distributorData';
 import { error } from '@sveltejs/kit';
 
 import { createClient } from '$lib/prismicio';
-import { get } from 'svelte/store';
 
 export async function load({ params, fetch, cookies }) {
 	const client = createClient({ fetch, cookies });
@@ -11,7 +8,7 @@ export async function load({ params, fetch, cookies }) {
 	let page;
 	try {
 		page = await client.getByUID('page', params.uid);
-	} catch (e) {
+	} catch {
 		throw error(404, `Page "${params.uid}" not found`);
 	}
 

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { afterNavigate, beforeNavigate, onNavigate } from "$app/navigation";
+    import { afterNavigate } from "$app/navigation";
     import { fade } from "svelte/transition";
     import { isTransitioning } from "$lib/stores/isTransitioning";
 

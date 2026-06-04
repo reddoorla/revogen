@@ -8,7 +8,6 @@
   import gridlines from "$lib/assets/icons/linework.svg";
 
   import { onMount } from "svelte";
-  import AnimateIn from "$lib/components/Animation/AnimateIn.svelte";
 
   type Props = SliceComponentProps<Content.HomeHeroSlice>;
 

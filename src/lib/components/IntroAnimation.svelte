@@ -101,7 +101,7 @@ onMount(() => {
 
   isIntroRunning = true;
 
-  const timeouts: NodeJS.Timeout[] = [];
+  const timeouts: ReturnType<typeof setTimeout>[] = [];
   
   timeouts.push(setTimeout(() => showLogo = true, 300));  // Logo appears first
   timeouts.push(setTimeout(() => fillLogo = true, 500)); // Then fills in after a pause

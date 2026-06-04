@@ -94,16 +94,13 @@
 
           const vmi = riveInstance?.viewModelInstance;
           if (vmi) {
-            const overridesRaw = (slice.primary as any).rive_overrides;
-            const overrides = ((Array.isArray(overridesRaw) ? overridesRaw[0] : overridesRaw) ?? {}) as {
-              top_left_corner_text?: string | null;
-              top_right_corner_text?: string | null;
-              bottom_left_corner_text?: string | null;
-              bottom_right_corner_text?: string | null;
-              text_hover_top?: string | null;
-              text_hover_right?: string | null;
-              text_hover_left?: string | null;
-            };
+            const overridesRaw = (
+              slice.primary as {
+                rive_overrides?: Content.TwoColSliceDefaultPrimaryRiveOverridesItem[];
+              }
+            ).rive_overrides;
+            const overrides: Partial<Content.TwoColSliceDefaultPrimaryRiveOverridesItem> =
+              (Array.isArray(overridesRaw) ? overridesRaw[0] : overridesRaw) ?? {};
             const setText = (prop: string, value: string | null | undefined) => {
               if (!value) return;
               const p = vmi.string(prop);
@@ -249,7 +246,7 @@
               <p class="uppercase w-1/3 ml-auto">{slice.primary.last_col_label||"part number"}</p>
             </div>
             <div class="h-[1px] w-full bg-white"></div>
-            {#each slice.primary.products as product}
+            {#each slice.primary.products as product, productIndex (productIndex)}
               <div class="w-full flex flex-row">
                 <p class="{slice.primary.table_column === "desc & #, no sizes"?"w-2/3": "w-1/3" } pr-4">{product.description}</p>
                 {#if slice.primary.table_column !== "desc & #, no sizes"}
@@ -580,7 +577,7 @@
             <p class="uppercase w-1/3 ml-auto">{slice.primary.last_col_label||"part number"}</p>
           </div>
           <div class="h-[1px] w-full bg-white"></div>
-          {#each slice.primary.products as product}
+          {#each slice.primary.products as product, productIndex (productIndex)}
             <div class="w-full flex flex-row">
               <p class=" {slice.primary.table_column === "desc & #, no sizes"?"w-2/3":"w-1/3"} pr-4">{product.description}</p>
               {#if slice.primary.table_column !== "desc & #, no sizes"}

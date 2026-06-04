@@ -20,7 +20,6 @@
 	let viewportWidth=$state(1024);
 	let puttyCanvas:HTMLCanvasElement|undefined= $state();
 	let riveInstance: rive.Rive | null = null;
-	let isInViewport = $state(false);
 
 	const { slice }: Props = $props();
 
@@ -50,11 +49,9 @@
 			entries.forEach((entry) => {
 				if (entry.isIntersecting && entry.intersectionRatio >= 1) {
 					// Fully in viewport
-					isInViewport = true;
 					riveInstance?.play();
 				} else {
 					// Not fully in viewport
-					isInViewport = false;
 					riveInstance?.pause();
 				}
 			});
