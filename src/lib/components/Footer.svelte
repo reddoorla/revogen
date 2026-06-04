@@ -96,15 +96,18 @@
         San Antonio, TX 78240 <br />
         <a
           href="mailto:sales@revogen.com"
-          class="underline hover:opacity-85 transition-opacity duration-300">sales@revogen.com</a
+          class="underline hover:opacity-85 transition-opacity duration-300 inline-block py-1"
+          >sales@revogen.com</a
         ><br />
         <a
           href="tel:210.607.4037"
-          class="underline hover:opacity-85 transition-opacity duration-300">210.607.4037</a
+          class="underline hover:opacity-85 transition-opacity duration-300 inline-block py-1"
+          >210.607.4037</a
         ><br />
         <a
           href="https://www.linkedin.com/company/revogen-biologics"
-          class="underline hover:opacity-85 transition-opacity duration-300">LinkedIn</a
+          class="underline hover:opacity-85 transition-opacity duration-300 inline-block py-1"
+          >LinkedIn</a
         >
       </div>
     </div>
