@@ -19,15 +19,10 @@
   let viewportWidth: number = $state(768);
 </script>
 
-<svelte:window
-  bind:innerHeight={viewportHeight}
-  bind:innerWidth={viewportWidth}
-/>
+<svelte:window bind:innerHeight={viewportHeight} bind:innerWidth={viewportWidth} />
 
 <section
-  class="w-screen overflow-clip {backdrop
-    ? 'sticky -z-10 top-0 left-0'
-    : 'relative'}"
+  class="w-screen overflow-clip {backdrop ? 'sticky -z-10 top-0 left-0' : 'relative'}"
   style="height: {percentHeight}lvh"
 >
   <div
@@ -37,10 +32,7 @@
       : `width: 100vw; min-height: ${percentHeight}lvh`}
   >
     {#if isFilled.image(field)}
-      <PrismicImage
-        {field}
-        class="absolute h-full w-full object-cover -z-10 {passedClasses}"
-      />
+      <PrismicImage {field} class="absolute h-full w-full object-cover -z-10 {passedClasses}" />
     {:else if typeof src === "string"}
       <img
         {src}
@@ -81,10 +73,6 @@
   .bg-darken-gradient {
     background:
       linear-gradient(0deg, rgba(0, 38, 62, 0.5) 0%, rgba(0, 38, 62, 0.5) 100%),
-      linear-gradient(
-        180deg,
-        rgba(0, 38, 62, 0.75) -3.96%,
-        rgba(0, 38, 62, 0) 49.92%
-      );
+      linear-gradient(180deg, rgba(0, 38, 62, 0.75) -3.96%, rgba(0, 38, 62, 0) 49.92%);
   }
 </style>

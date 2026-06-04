@@ -15,26 +15,14 @@
 </script>
 
 {#if isNavModalOpen}
-  <div
-    class="fixed w-screen h-screen top-0 left-0 z-50"
-    in:fade
-    out:fade={{ delay: 200 }}
-  >
-    <div
-      class="w-full h-full absolute -z-10 menu-background will-change-transform"
-    ></div>
+  <div class="fixed w-screen h-screen top-0 left-0 z-50" in:fade out:fade={{ delay: 200 }}>
+    <div class="w-full h-full absolute -z-10 menu-background will-change-transform"></div>
     <ContentWidth class="my-20 md:my-48 md:px-24">
       <div class="h-0.5 bg-white w-full"></div>
       <div class="flex flex-col md:flex-row gap-6 md:gap-10 mt-10 text-white">
         <div class="w-full md:w-1/2 flex flex-col gap-6 md:gap-10 nav">
-          <DelayedLink
-            href="/about"
-            class="bump w-fit"
-            onclick={() => (isNavModalOpen = false)}
-          >
-            <h2 class="hover:text-white/80 transition duration-300 ease-out">
-              About
-            </h2>
+          <DelayedLink href="/about" class="bump w-fit" onclick={() => (isNavModalOpen = false)}>
+            <h2 class="hover:text-white/80 transition duration-300 ease-out">About</h2>
           </DelayedLink>
           <DelayedLink
             href="/distribution-opportunities"
@@ -61,9 +49,7 @@
             class="bump w-fit"
             onclick={() => (isNavModalOpen = false)}
           >
-            <h2 class="hover:text-white/80 transition duration-300 ease-out">
-              Surgical Grafts
-            </h2>
+            <h2 class="hover:text-white/80 transition duration-300 ease-out">Surgical Grafts</h2>
           </DelayedLink>
           <DelayedLink
             href="/surgical-grafts/allografts"
@@ -88,36 +74,24 @@
             class="bump w-fit ml-8 md:ml-0 opacity-75"
             onclick={() => (isNavModalOpen = false)}
           >
-            <h2 class="hover:text-white/80 transition duration-300 ease-out">
-              Amnion Patches
-            </h2>
+            <h2 class="hover:text-white/80 transition duration-300 ease-out">Amnion Patches</h2>
           </DelayedLink>
           <DelayedLink
             href="/surgical-grafts/synthetics"
             class="bump w-fit ml-8 md:ml-0 opacity-75"
             onclick={() => (isNavModalOpen = false)}
           >
-            <h2 class="hover:text-white/80 transition duration-300 ease-out">
-              Synthetics
-            </h2>
+            <h2 class="hover:text-white/80 transition duration-300 ease-out">Synthetics</h2>
           </DelayedLink>
           <DelayedLink
             href="/wound-care"
             class="bump w-fit"
             onclick={() => (isNavModalOpen = false)}
           >
-            <h2 class="hover:text-white/80 transition duration-300 ease-out">
-              Wound Care Grafts
-            </h2>
+            <h2 class="hover:text-white/80 transition duration-300 ease-out">Wound Care Grafts</h2>
           </DelayedLink>
-          <DelayedLink
-            href="/ocular"
-            class="bump w-fit"
-            onclick={() => (isNavModalOpen = false)}
-          >
-            <h2 class="hover:text-white/80 transition duration-300 ease-out">
-              Ocular Grafts
-            </h2>
+          <DelayedLink href="/ocular" class="bump w-fit" onclick={() => (isNavModalOpen = false)}>
+            <h2 class="hover:text-white/80 transition duration-300 ease-out">Ocular Grafts</h2>
           </DelayedLink>
         </div>
       </div>

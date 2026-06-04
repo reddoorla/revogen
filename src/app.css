@@ -6,20 +6,20 @@
   --screen-md: 768px;
   --screen-lg: 1024px;
   --screen-xl: 1340px;
-  
+
   --color-transparent: transparent;
   --color-current: currentColor;
   --color-black: #000;
   --color-white: #fff;
-  --color-light-pink: #FBE2F1;
-  --color-primary: #103A85;
-  --color-light-blue: #B7D3EE;
-  --color-light-teal: #BCDEED;
-  
+  --color-light-pink: #fbe2f1;
+  --color-primary: #103a85;
+  --color-light-blue: #b7d3ee;
+  --color-light-teal: #bcdeed;
+
   --transition-in-expo: cubic-bezier(0.95, 0.05, 0.795, 0.035);
   --transition-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
-  --transition-fast-slow: cubic-bezier(.5, 0, 0, 1);
-  
+  --transition-fast-slow: cubic-bezier(0.5, 0, 0, 1);
+
   --height-screen-75: 75vh;
   --height-screen-50: 50vh;
   --height-screen-25: 25vh;
@@ -36,493 +36,555 @@
   --height-640: 160rem;
 }
 
-
-
-body, main{
-    font-family: "citrine-variable", sans-serif;
-    font-variation-settings: "wght" 400;
-    transition-property: all;
-    transition-timing-function: cubic-bezier(.5,0,0,1);
-    transition-duration: 500ms;
-    width: 100vw;
-    height:100vh;
-    overflow-x: clip;
-    scrollbar-width: none !important;
-    overflow-y: auto;
-    margin:0;
-	font-variant-numeric: proportional-nums;
+body,
+main {
+  font-family: "citrine-variable", sans-serif;
+  font-variation-settings: "wght" 400;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.5, 0, 0, 1);
+  transition-duration: 500ms;
+  width: 100vw;
+  height: 100vh;
+  overflow-x: clip;
+  scrollbar-width: none !important;
+  overflow-y: auto;
+  margin: 0;
+  font-variant-numeric: proportional-nums;
 }
 
-body::-webkit-scrollbar, main::-webkit-scrollbar { 
-    display: none !important; 
-    width: 0 !important; /* Safari and Chrome */
+body::-webkit-scrollbar,
+main::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important; /* Safari and Chrome */
 }
 
-
-.bump, .negative-bump{
-    transition: transform 200ms ease-out;
+.bump,
+.negative-bump {
+  transition: transform 200ms ease-out;
 }
 
-.bump:active{
-    transform: translateY(-4px);
+.bump:active {
+  transform: translateY(-4px);
 }
 
-.negative-bump:active{
-    transform: translateY(4px);
+.negative-bump:active {
+  transform: translateY(4px);
 }
 
 @keyframes pos-y-wiggle {
-    0% {
-        transform: translateY(1px);
-    }
-    50% {
-        transform: translateY(-1px);
-    }
-    100% {
-        transform: translateY(1px);
-    }
+  0% {
+    transform: translateY(1px);
+  }
+  50% {
+    transform: translateY(-1px);
+  }
+  100% {
+    transform: translateY(1px);
+  }
 }
 .bob-on-hover:hover {
-    animation-name: pos-y-wiggle;
-    animation-play-state: running;
+  animation-name: pos-y-wiggle;
+  animation-play-state: running;
 }
 
-.bob-always{
-
-    animation: 1s infinite forwards pos-y-wiggle ease-out;
+.bob-always {
+  animation: 1s infinite forwards pos-y-wiggle ease-out;
 }
 
 @keyframes pulse-scale {
-    0% {
-        transform: scale(1.01);
-    }
-    50% {
-        transform: scale(0.99);
-    }
-    100% {
-        transform: scale(1.01);
-    }
+  0% {
+    transform: scale(1.01);
+  }
+  50% {
+    transform: scale(0.99);
+  }
+  100% {
+    transform: scale(1.01);
+  }
 }
 
-.pulse-always{
-    animation: 1.5s infinite forwards pulse-scale ease-out;
+.pulse-always {
+  animation: 1.5s infinite forwards pulse-scale ease-out;
 }
 
-
-a, button{
-    cursor: pointer;
+a,
+button {
+  cursor: pointer;
 }
 
-
-
-h1{
-font-size: 80px;
-font-style: normal;
-font-weight: 400;
-line-height: 1.2em;
+h1 {
+  font-size: 80px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.2em;
 }
 
-h2{
-    font-size: 40px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
+h2 {
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
-h3{
-    font-size: 20px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
-text-transform: uppercase;
+h3 {
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-transform: uppercase;
 }
 
-h4{
-font-size: 24px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
+h4 {
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
-h5{
-   font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 125%; /* 17.5px */
-    text-transform: uppercase;
+h5 {
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 125%; /* 17.5px */
+  text-transform: uppercase;
 }
 
-h6{
-font-size: 10px;
-font-style: normal;
-font-weight: 400;
-line-height: 145%; /* 14.5px */
-letter-spacing: 1px;
-text-transform: uppercase;
+h6 {
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 145%; /* 14.5px */
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
-p{
+p {
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 145%; /* 21.75px */
+}
+
+p.body-2 {
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 145%; /* 17.4px */
+}
+
+p.body-3 {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 145%; /* 23.2px */
+  font-variation-settings: "wght" 600;
+}
+
+.label,
+button,
+p em,
+.default-button a {
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 145%; /* 17.4px */
+  text-transform: uppercase;
+}
+
+.copyright,
+.footer {
+  font-size: 15px;
+  font-weight: 400;
+}
+
+span {
+  display: inline-block;
+}
+
+@media only screen and (max-width: 1024px) {
+  h1 {
+  }
+
+  h2 {
+  }
+
+  h3 {
+  }
+
+  h4 {
+  }
+
+  h5 {
+  }
+
+  p {
+  }
+}
+
+@media only screen and (max-width: 786px) {
+  h1 {
+    font-size: 48px;
+  }
+
+  h2 {
+    font-size: 25px;
+  }
+
+  h3 {
     font-size: 15px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 145%; /* 21.75px */
+  }
+
+  h4 {
+  }
+
+  h5 {
+  }
+
+  p {
+    font-size: 13px;
+  }
 }
 
-p.body-2{
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 145%; /* 17.4px */
+@media only screen and (max-width: 560px) {
+  h1 {
+  }
+
+  h2 {
+  }
+
+  h3 {
+  }
+
+  h4 {
+  }
+
+  h5 {
+  }
+
+  p {
+  }
 }
 
-p.body-3{
-    font-size: 16px;
-font-style: normal;
-font-weight: 600;
-line-height: 145%; /* 23.2px */
-   font-variation-settings: "wght" 600;
+/* Option 0 - Blue Theme - HSL Colors for smoother gradients */
+.option-0-layer1 {
+  background: radial-gradient(
+    ellipse 115% 115% at 75% 5%,
+    hsl(210, 100%, 95%) 0%,
+    hsl(210, 100%, 85%) 15%,
+    hsl(210, 100%, 80%) 25%,
+    hsl(210, 100%, 70%) 35%,
+    hsl(210, 100%, 60%) 50%,
+    hsl(210, 100%, 50%) 65%,
+    hsl(210, 100%, 40%) 80%,
+    hsl(210, 100%, 24%) 100%
+  );
+  animation: circling 5s linear infinite;
 }
 
-.label, button, p em, .default-button a{
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 145%; /* 17.4px */
-    text-transform: uppercase;
+.option-0-layer2 {
+  background: radial-gradient(
+    circle 90% at 5% 70%,
+    hsla(210, 100%, 60%, 0.3) 0%,
+    hsla(210, 100%, 45%, 0.4) 30%,
+    hsla(210, 100%, 40%, 0.5) 50%,
+    transparent 100%
+  );
+  animation: circling 12s linear infinite;
+  opacity: 0.6;
 }
 
-.copyright, .footer{
-
-font-size: 15px;
-font-weight: 400;
-
+.option-0-layer3 {
+  background: radial-gradient(
+    ellipse 100% 100% at 85% 85%,
+    hsla(210, 100%, 95%, 0.4) 0%,
+    hsla(210, 100%, 80%, 0.3) 25%,
+    hsla(209, 28%, 67%, 0.3) 50%,
+    transparent 100%
+  );
+  animation: circlingOpposite 8s linear infinite;
+  opacity: 0.4;
 }
 
-span{
-    display: inline-block;
+/* Option 1 - Pink Theme - HSL Colors for smoother gradients */
+.option-1-layer1 {
+  background: radial-gradient(
+    ellipse 110% 110% at 65% 85%,
+    hsl(333, 25%, 92%) 0%,
+    hsl(333, 20%, 82%) 15%,
+    hsl(333, 25%, 75%) 25%,
+    hsl(333, 30%, 65%) 35%,
+    hsl(333, 35%, 55%) 50%,
+    hsl(333, 45%, 50%) 65%,
+    hsl(333, 35%, 55%) 80%,
+    hsl(333, 25%, 65%) 100%
+  );
+  animation: circling 5s linear infinite;
 }
 
-@media only screen and (max-width:1024px) {
-    h1{
-        
-    }
-    
-    h2{
-    }
-    
-    h3{
-        
-    }
-    
-    h4{
-        
-    }
-    
-    h5{
-       
-    }
-    
-    
-    p{
-        
-    }
-    
-
-
+.option-1-layer2 {
+  background: radial-gradient(
+    circle 100% at 30% 30%,
+    hsla(333, 45%, 52%, 0.4) 0%,
+    hsla(333, 30%, 58%, 0.4) 30%,
+    hsla(333, 25%, 65%, 0.5) 65%,
+    transparent 100%
+  );
+  animation: circling 12s linear infinite;
+  opacity: 0.5;
 }
 
-@media only screen and (max-width:786px) {
-    h1{
-        font-size: 48px;
-    }
-    
-    h2{
-         font-size: 25px;
-        
-    }
-    
-    h3{
-        font-size: 15px;
-    }
-    
-    h4{
-        
-    }
-    
-    h5{
-       
-    }
-    
-    
-    p{
-       font-size: 13px;
-    }
-    
-
-    
+.option-1-layer3 {
+  background: radial-gradient(
+    ellipse 95% 95% at 2% 50%,
+    hsla(333, 25%, 92%, 0.5) 0%,
+    hsla(333, 20%, 82%, 0.4) 35%,
+    hsla(333, 20%, 75%, 0.4) 60%,
+    transparent 100%
+  );
+  animation: circlingOpposite 8s linear infinite reverse;
+  opacity: 0.6;
 }
 
-@media only screen and (max-width:560px) {
-    h1{
-        
-    }
-    
-    h2{
-        
-    }
-    
-    h3{
-    }
-    
-    h4{
-        
-    }
-    
-    h5{
-       
-    }
-    
-    
-    p{
-        
-    }
-    
-
-    
+/* Option 2 - Deep Blue Theme - HSL Colors for smoother gradients */
+.option-2-layer1 {
+  background: radial-gradient(
+    ellipse 130% 130% at 5% 25%,
+    hsl(211, 100%, 89%) 0%,
+    hsl(210, 60%, 75%) 10%,
+    hsl(210, 85%, 65%) 20%,
+    hsl(210, 90%, 55%) 30%,
+    hsl(210, 85%, 40%) 50%,
+    hsl(234, 53%, 32%) 73%,
+    hsl(234, 85%, 30%) 100%
+  );
+  animation: circling 5s linear infinite;
 }
 
+.option-2-layer2 {
+  background: radial-gradient(
+    circle 90% at 80% 60%,
+    hsla(210, 85%, 40%, 0.3) 0%,
+    hsla(234, 53%, 42%, 0.4) 30%,
+    hsla(234, 53%, 32%, 0.5) 55%,
+    transparent 100%
+  );
+  animation: circling 12s linear infinite;
+  opacity: 1;
+}
 
+.option-2-layer3 {
+  background: radial-gradient(
+    ellipse 110% 110% at 40% 2%,
+    hsla(209, 100%, 88%, 0.299) 0%,
+    hsla(234, 85%, 45%, 0.3) 25%,
+    hsla(234, 85%, 30%, 0.3) 45%,
+    transparent 100%
+  );
+  animation: circling 8s linear infinite reverse;
+  opacity: 1;
+}
 
+/* Option 3 - Teal Theme - HSL Colors for smoother gradients */
+.option-3-layer1 {
+  background: radial-gradient(
+    ellipse 125% 125% at 5% 65%,
+    hsl(190, 40%, 80%) 0%,
+    hsl(185, 35%, 68%) 8%,
+    hsl(185, 45%, 60%) 15%,
+    hsl(185, 60%, 50%) 25%,
+    hsl(185, 100%, 37%) 40%,
+    hsl(188, 60%, 25%) 73%,
+    hsl(193, 40%, 22%) 100%
+  );
+  animation: circling 5s linear infinite;
+}
 
+.option-3-layer2 {
+  background: radial-gradient(
+    circle 95% at 50% 80%,
+    hsla(185, 100%, 37%, 0.4) 0%,
+    hsla(188, 80%, 30%, 0.4) 30%,
+    hsla(188, 60%, 25%, 0.5) 60%,
+    transparent 100%
+  );
+  animation: circling 12s linear infinite;
+  opacity: 0.5;
+}
 
-	/* Option 0 - Blue Theme - HSL Colors for smoother gradients */
-	.option-0-layer1 {
-		background: 
-			radial-gradient(ellipse 115% 115% at 75% 5%, 
-				hsl(210, 100%, 95%) 0%, 
-				hsl(210, 100%, 85%) 15%, 
-				hsl(210, 100%, 80%) 25%, 
-				hsl(210, 100%, 70%) 35%, 
-				hsl(210, 100%, 60%) 50%, 
-				hsl(210, 100%, 50%) 65%, 
-				hsl(210, 100%, 40%) 80%, 
-				hsl(210, 100%, 24%) 100%);
-		animation: circling 5s linear infinite;
-	}
-	
-	.option-0-layer2 {
-		background: 
-			radial-gradient(circle 90% at 5% 70%, 
-				hsla(210, 100%, 60%, 0.3) 0%, 
-				hsla(210, 100%, 45%, 0.4) 30%, 
-				hsla(210, 100%, 40%, 0.5) 50%, 
-				transparent 100%);
-		animation: circling 12s linear infinite;
-		opacity: 0.6;
-	}
-	
-	.option-0-layer3 {
-		background: 
-			radial-gradient(ellipse 100% 100% at 85% 85%, 
-				hsla(210, 100%, 95%, 0.4) 0%, 
-				hsla(210, 100%, 80%, 0.3) 25%, 
-				hsla(209, 28%, 67%, 0.3) 50%, 
-				transparent 100%);
-		animation: circlingOpposite 8s linear infinite;
-		opacity: 0.4;
-	}
+.option-3-layer3 {
+  background: radial-gradient(
+    ellipse 100% 100% at 90% 40%,
+    hsla(190, 40%, 80%, 0.5) 0%,
+    hsla(190, 35%, 65%, 0.4) 25%,
+    hsla(193, 40%, 22%, 0.4) 50%,
+    transparent 100%
+  );
+  animation: circlingOpposite 8s linear infinite reverse;
+  opacity: 0.6;
+}
 
-	/* Option 1 - Pink Theme - HSL Colors for smoother gradients */
-	.option-1-layer1 {
-		background: 
-			radial-gradient(ellipse 110% 110% at 65% 85%, 
-				hsl(333, 25%, 92%) 0%, 
-				hsl(333, 20%, 82%) 15%, 
-				hsl(333, 25%, 75%) 25%, 
-				hsl(333, 30%, 65%) 35%, 
-				hsl(333, 35%, 55%) 50%, 
-				hsl(333, 45%, 50%) 65%, 
-				hsl(333, 35%, 55%) 80%, 
-				hsl(333, 25%, 65%) 100%);
-		animation: circling 5s linear infinite;
-	}
-	
-	.option-1-layer2 {
-		background: 
-			radial-gradient(circle 100% at 30% 30%, 
-				hsla(333, 45%, 52%, 0.4) 0%, 
-				hsla(333, 30%, 58%, 0.4) 30%, 
-				hsla(333, 25%, 65%, 0.5) 65%, 
-				transparent 100%);
-		animation: circling 12s linear infinite;
-		opacity: 0.5;
-	}
-	
-	.option-1-layer3 {
-		background: 
-			radial-gradient(ellipse 95% 95% at 2% 50%, 
-				hsla(333, 25%, 92%, 0.5) 0%, 
-				hsla(333, 20%, 82%, 0.4) 35%, 
-				hsla(333, 20%, 75%, 0.4) 60%, 
-				transparent 100%);
-		animation: circlingOpposite 8s linear infinite reverse;
-		opacity: 0.6;
-	}
-
-	/* Option 2 - Deep Blue Theme - HSL Colors for smoother gradients */
-	.option-2-layer1 {
-		background: 
-			radial-gradient(ellipse 130% 130% at 5% 25%, 
-				hsl(211, 100%, 89%) 0%, 
-				hsl(210, 60%, 75%) 10%, 
-				hsl(210, 85%, 65%) 20%, 
-				hsl(210, 90%, 55%) 30%, 
-				hsl(210, 85%, 40%) 50%, 
-				hsl(234, 53%, 32%) 73%, 
-				hsl(234, 85%, 30%) 100%);
-		animation: circling 5s linear infinite;
-	}
-	
-	.option-2-layer2 {
-		background: 
-			radial-gradient(circle 90% at 80% 60%, 
-				hsla(210, 85%, 40%, 0.3) 0%, 
-				hsla(234, 53%, 42%, 0.4) 30%, 
-				hsla(234, 53%, 32%, 0.5) 55%, 
-				transparent 100%);
-		animation: circling 12s linear infinite;
-		opacity: 1;
-	}
-	
-	.option-2-layer3 {
-		background: 
-			radial-gradient(ellipse 110% 110% at 40% 2%, 
-				hsla(209, 100%, 88%, 0.299) 0%, 
-				hsla(234, 85%, 45%, 0.3) 25%, 
-				hsla(234, 85%, 30%, 0.3) 45%, 
-				transparent 100%);
-		animation: circling 8s linear infinite reverse;
-		opacity: 1;
-	}
-
-	/* Option 3 - Teal Theme - HSL Colors for smoother gradients */
-	.option-3-layer1 {
-		background: 
-			radial-gradient(ellipse 125% 125% at 5% 65%, 
-				hsl(190, 40%, 80%) 0%, 
-				hsl(185, 35%, 68%) 8%, 
-				hsl(185, 45%, 60%) 15%, 
-				hsl(185, 60%, 50%) 25%, 
-				hsl(185, 100%, 37%) 40%, 
-				hsl(188, 60%, 25%) 73%, 
-				hsl(193, 40%, 22%) 100%);
-		animation: circling 5s linear infinite;
-	}
-	
-	.option-3-layer2 {
-		background: 
-			radial-gradient(circle 95% at 50% 80%, 
-				hsla(185, 100%, 37%, 0.4) 0%, 
-				hsla(188, 80%, 30%, 0.4) 30%, 
-				hsla(188, 60%, 25%, 0.5) 60%, 
-				transparent 100%);
-		animation: circling 12s linear infinite;
-		opacity: 0.5;
-	}
-	
-	.option-3-layer3 {
-		background: 
-			radial-gradient(ellipse 100% 100% at 90% 40%, 
-				hsla(190, 40%, 80%, 0.5) 0%, 
-				hsla(190, 35%, 65%, 0.4) 25%, 
-				hsla(193, 40%, 22%, 0.4) 50%, 
-				transparent 100%);
-		animation: circlingOpposite 8s linear infinite reverse;
-		opacity: 0.6;
-	}
-
-	.option-0-layer1, .option-0-layer2, .option-0-layer3,
-.option-1-layer1, .option-1-layer2, .option-1-layer3,
-.option-2-layer1, .option-2-layer2, .option-2-layer3,
-.option-3-layer1, .option-3-layer2, .option-3-layer3 {
+.option-0-layer1,
+.option-0-layer2,
+.option-0-layer3,
+.option-1-layer1,
+.option-1-layer2,
+.option-1-layer3,
+.option-2-layer1,
+.option-2-layer2,
+.option-2-layer3,
+.option-3-layer1,
+.option-3-layer2,
+.option-3-layer3 {
   -webkit-transform-style: preserve-3d;
   -webkit-backface-visibility: hidden;
   transform-style: preserve-3d;
   backface-visibility: hidden;
 }
 
-
-
-
 @keyframes circling {
-  0% { transform: translate(0, -5vh); }
-  6.25% { transform: translate(2vw, -5vh); }
-  12.5% { transform: translate(4vw, -4vh); }
-  18.75% { transform: translate(5vw, -2vh); }
-  25% { transform: translate(5vw, 0); }
-  31.25% { transform: translate(5vw, 2vh); }
-  37.5% { transform: translate(4vw, 4vh); }
-  43.75% { transform: translate(2vw, 5vh); }
-  50% { transform: translate(0, 5vh); }
-  56.25% { transform: translate(-2vw, 5vh); }
-  62.5% { transform: translate(-4vw, 4vh); }
-  68.75% { transform: translate(-5vw, 2vh); }
-  75% { transform: translate(-5vw, 0); }
-  81.25% { transform: translate(-5vw, -2vh); }
-  87.5% { transform: translate(-4vw, -4vh); }
-  93.75% { transform: translate(-2vw, -5vh); }
-  100% { transform: translate(0, -5vh); }
+  0% {
+    transform: translate(0, -5vh);
+  }
+  6.25% {
+    transform: translate(2vw, -5vh);
+  }
+  12.5% {
+    transform: translate(4vw, -4vh);
+  }
+  18.75% {
+    transform: translate(5vw, -2vh);
+  }
+  25% {
+    transform: translate(5vw, 0);
+  }
+  31.25% {
+    transform: translate(5vw, 2vh);
+  }
+  37.5% {
+    transform: translate(4vw, 4vh);
+  }
+  43.75% {
+    transform: translate(2vw, 5vh);
+  }
+  50% {
+    transform: translate(0, 5vh);
+  }
+  56.25% {
+    transform: translate(-2vw, 5vh);
+  }
+  62.5% {
+    transform: translate(-4vw, 4vh);
+  }
+  68.75% {
+    transform: translate(-5vw, 2vh);
+  }
+  75% {
+    transform: translate(-5vw, 0);
+  }
+  81.25% {
+    transform: translate(-5vw, -2vh);
+  }
+  87.5% {
+    transform: translate(-4vw, -4vh);
+  }
+  93.75% {
+    transform: translate(-2vw, -5vh);
+  }
+  100% {
+    transform: translate(0, -5vh);
+  }
 }
 
 @keyframes circlingOpposite {
-  0% { transform: translate(0, -5vh); }
-  6.25% { transform: translate(-2vw, -5vh); }
-  12.5% { transform: translate(-4vw, -4vh); }
-  18.75% { transform: translate(-5vw, -2vh); }
-  25% { transform: translate(-5vw, 0); }
-  31.25% { transform: translate(-5vw, 2vh); }
-  37.5% { transform: translate(-4vw, 4vh); }
-  43.75% { transform: translate(-2vw, 5vh); }
-  50% { transform: translate(0, 5vh); }
-  56.25% { transform: translate(2vw, 5vh); }
-  62.5% { transform: translate(4vw, 4vh); }
-  68.75% { transform: translate(5vw, 2vh); }
-  75% { transform: translate(5vw, 0); }
-  81.25% { transform: translate(5vw, -2vh); }
-  87.5% { transform: translate(4vw, -4vh); }
-  93.75% { transform: translate(2vw, -5vh); }
-  100% { transform: translate(0, -5vh); }
+  0% {
+    transform: translate(0, -5vh);
+  }
+  6.25% {
+    transform: translate(-2vw, -5vh);
+  }
+  12.5% {
+    transform: translate(-4vw, -4vh);
+  }
+  18.75% {
+    transform: translate(-5vw, -2vh);
+  }
+  25% {
+    transform: translate(-5vw, 0);
+  }
+  31.25% {
+    transform: translate(-5vw, 2vh);
+  }
+  37.5% {
+    transform: translate(-4vw, 4vh);
+  }
+  43.75% {
+    transform: translate(-2vw, 5vh);
+  }
+  50% {
+    transform: translate(0, 5vh);
+  }
+  56.25% {
+    transform: translate(2vw, 5vh);
+  }
+  62.5% {
+    transform: translate(4vw, 4vh);
+  }
+  68.75% {
+    transform: translate(5vw, 2vh);
+  }
+  75% {
+    transform: translate(5vw, 0);
+  }
+  81.25% {
+    transform: translate(5vw, -2vh);
+  }
+  87.5% {
+    transform: translate(4vw, -4vh);
+  }
+  93.75% {
+    transform: translate(2vw, -5vh);
+  }
+  100% {
+    transform: translate(0, -5vh);
+  }
 }
 
+/* Base background colors - converted to HSL */
+.bg-base {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transition: background-color 0.5s ease;
+}
 
-	/* Base background colors - converted to HSL */
-	.bg-base {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		transition: background-color 0.5s ease;
-	}
+.bg-base.option-0 {
+  background-color: hsl(210, 100%, 85%);
+}
+.bg-base.option-1 {
+  background-color: hsl(333, 20%, 82%);
+}
+.bg-base.option-2 {
+  background-color: hsl(210, 60%, 75%);
+}
+.bg-base.option-3 {
+  background-color: hsl(185, 35%, 68%);
+}
 
-	.bg-base.option-0 { background-color: hsl(210, 100%, 85%); }
-	.bg-base.option-1 { background-color: hsl(333, 20%, 82%); }
-	.bg-base.option-2 { background-color: hsl(210, 60%, 75%); }
-	.bg-base.option-3 { background-color: hsl(185, 35%, 68%); }
-
-	/* Optimized noise effect */
-	.add-noise::after {
-		content: '';
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		background: 
-			radial-gradient(circle at 5% 80%, transparent 70%, rgba(255,255,255,0.15) 100%),
-			radial-gradient(circle at 80% 5%, transparent 70%, rgba(0,0,0,0.05) 100%);
-        background-image: radial-gradient(circle, rgba(255,255,255,0.05) 0.5px, transparent 0.5px);
-    background-size: 1px 1px;
-		opacity: 0.4;
-		pointer-events: none;
-		will-change: transform;
-        filter:blur(0.5px)
-	}
+/* Optimized noise effect */
+.add-noise::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(circle at 5% 80%, transparent 70%, rgba(255, 255, 255, 0.15) 100%),
+    radial-gradient(circle at 80% 5%, transparent 70%, rgba(0, 0, 0, 0.05) 100%);
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0.5px, transparent 0.5px);
+  background-size: 1px 1px;
+  opacity: 0.4;
+  pointer-events: none;
+  will-change: transform;
+  filter: blur(0.5px);
+}

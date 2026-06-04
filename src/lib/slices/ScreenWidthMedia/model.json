@@ -45,10 +45,7 @@
             "allowTargetBlank": true,
             "allowText": true,
             "repeat": false,
-            "variants": [
-              "Primary",
-              "Secondary"
-            ]
+            "variants": ["Primary", "Secondary"]
           }
         },
         "text_float": {
@@ -56,10 +53,7 @@
           "config": {
             "label": "text float",
             "placeholder": "",
-            "options": [
-              "center",
-              "bottom"
-            ],
+            "options": ["center", "bottom"],
             "default_value": "center"
           }
         },
@@ -68,10 +62,7 @@
           "config": {
             "label": "height",
             "placeholder": "",
-            "options": [
-              "screen",
-              "half screen"
-            ],
+            "options": ["screen", "half screen"],
             "default_value": "screen"
           }
         },
@@ -89,10 +80,7 @@
           "config": {
             "label": "max width",
             "placeholder": "",
-            "options": [
-              "full",
-              "limited"
-            ],
+            "options": ["full", "limited"],
             "default_value": "full"
           }
         },
@@ -114,10 +102,7 @@
             "allowTargetBlank": true,
             "allowText": true,
             "repeat": false,
-            "variants": [
-              "Primary",
-              "Secondary"
-            ]
+            "variants": ["Primary", "Secondary"]
           }
         }
       },

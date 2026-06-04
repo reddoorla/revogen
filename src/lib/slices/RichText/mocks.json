@@ -1,58 +1,58 @@
 [
-	{
-		"__TYPE__": "SharedSliceContent",
-		"variation": "default",
-		"primary": {
-			"text": {
-				"__TYPE__": "StructuredTextContent",
-				"value": [
-					{
-						"type": "paragraph",
-						"content": {
-							"text": "Proident deserunt voluptate adipisicing veniam sunt Lorem. Minim qui officia nostrud magna magna non id sit aliquip anim duis mollit."
-						}
-					}
-				]
-			},
-			"button": {
-				"key": "a2d81dd1-8e35-436b-ba15-4cfe64ee161b",
-				"__TYPE__": "LinkContent",
-				"value": {
-					"__TYPE__": "ExternalLink",
-					"url": "https://slicemachine.dev",
-					"text": "mouth",
-					"variant": "Primary"
-				}
-			},
-			"show_scroll_arrow": {
-				"__TYPE__": "BooleanContent",
-				"value": true
-			},
-			"vertical_padding": {
-				"__TYPE__": "FieldContent",
-				"value": "0",
-				"type": "Select"
-			},
-			"max_width": {
-				"__TYPE__": "FieldContent",
-				"value": "full",
-				"type": "Select"
-			},
-			"floatCenter": {
-				"__TYPE__": "BooleanContent",
-				"value": true
-			},
-			"button_two": {
-				"__TYPE__": "LinkContent",
-				"key": "05eb5de1-f6f9-4a88-b67b-a543ab1ecb38",
-				"value": {
-					"__TYPE__": "ExternalLink",
-					"url": "http://twitter.com",
-					"text": "forth",
-					"variant": "Secondary"
-				}
-			}
-		},
-		"items": []
-	}
+  {
+    "__TYPE__": "SharedSliceContent",
+    "variation": "default",
+    "primary": {
+      "text": {
+        "__TYPE__": "StructuredTextContent",
+        "value": [
+          {
+            "type": "paragraph",
+            "content": {
+              "text": "Proident deserunt voluptate adipisicing veniam sunt Lorem. Minim qui officia nostrud magna magna non id sit aliquip anim duis mollit."
+            }
+          }
+        ]
+      },
+      "button": {
+        "key": "a2d81dd1-8e35-436b-ba15-4cfe64ee161b",
+        "__TYPE__": "LinkContent",
+        "value": {
+          "__TYPE__": "ExternalLink",
+          "url": "https://slicemachine.dev",
+          "text": "mouth",
+          "variant": "Primary"
+        }
+      },
+      "show_scroll_arrow": {
+        "__TYPE__": "BooleanContent",
+        "value": true
+      },
+      "vertical_padding": {
+        "__TYPE__": "FieldContent",
+        "value": "0",
+        "type": "Select"
+      },
+      "max_width": {
+        "__TYPE__": "FieldContent",
+        "value": "full",
+        "type": "Select"
+      },
+      "floatCenter": {
+        "__TYPE__": "BooleanContent",
+        "value": true
+      },
+      "button_two": {
+        "__TYPE__": "LinkContent",
+        "key": "05eb5de1-f6f9-4a88-b67b-a543ab1ecb38",
+        "value": {
+          "__TYPE__": "ExternalLink",
+          "url": "http://twitter.com",
+          "text": "forth",
+          "variant": "Secondary"
+        }
+      }
+    },
+    "items": []
+  }
 ]

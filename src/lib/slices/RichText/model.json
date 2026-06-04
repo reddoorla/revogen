@@ -30,10 +30,7 @@
             "allowTargetBlank": true,
             "allowText": true,
             "repeat": false,
-            "variants": [
-              "Primary",
-              "Secondary"
-            ]
+            "variants": ["Primary", "Secondary"]
           }
         },
         "show_scroll_arrow": {
@@ -50,13 +47,7 @@
           "config": {
             "label": "vertical padding",
             "placeholder": "",
-            "options": [
-              "0",
-              "5",
-              "10",
-              "20",
-              "40"
-            ],
+            "options": ["0", "5", "10", "20", "40"],
             "default_value": "0"
           }
         },
@@ -65,10 +56,7 @@
           "config": {
             "label": "max width",
             "placeholder": "",
-            "options": [
-              "full",
-              "limited"
-            ],
+            "options": ["full", "limited"],
             "default_value": "full"
           }
         },
@@ -90,10 +78,7 @@
             "allowTargetBlank": true,
             "allowText": true,
             "repeat": false,
-            "variants": [
-              "Primary",
-              "Secondary"
-            ]
+            "variants": ["Primary", "Secondary"]
           }
         }
       },
