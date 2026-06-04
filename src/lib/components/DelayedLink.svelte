@@ -1,82 +1,78 @@
 <script lang="ts">
-import { goto } from '$app/navigation';
-import { isTransitioning } from '$lib/stores/isTransitioning';
-  import { isFilled, type LinkField } from '@prismicio/client';
-import { onMount, type Snippet } from 'svelte';
-import type { HTMLAnchorAttributes, MouseEventHandler } from 'svelte/elements';
+  import { goto } from "$app/navigation";
+  import { isTransitioning } from "$lib/stores/isTransitioning";
+  import { isFilled, type LinkField } from "@prismicio/client";
+  import { onMount, type Snippet } from "svelte";
+  import type { HTMLAnchorAttributes, MouseEventHandler } from "svelte/elements";
 
-interface DelayedLinkProps extends Omit<HTMLAnchorAttributes, 'onclick'> {
-	href: string;
-	delay?: number;
-	children: Snippet;
-	beforeNavigate?: (event: MouseEvent) => void | Promise<void>;
-	onclick?: MouseEventHandler<HTMLAnchorElement>;
-	field?:LinkField;
-}
+  interface DelayedLinkProps extends Omit<HTMLAnchorAttributes, "onclick"> {
+    href: string;
+    delay?: number;
+    children: Snippet;
+    beforeNavigate?: (event: MouseEvent) => void | Promise<void>;
+    onclick?: MouseEventHandler<HTMLAnchorElement>;
+    field?: LinkField;
+  }
 
-let {
-	href,
-	field,
-	delay = 400,
-	children,
-	beforeNavigate,
-	onclick,
-	...props
-}: DelayedLinkProps = $props();
+  let {
+    href,
+    field,
+    delay = 400,
+    children,
+    beforeNavigate,
+    onclick,
+    ...props
+  }: DelayedLinkProps = $props();
 
-const isInternalLink = (url: string): boolean => {
+  const isInternalLink = (url: string): boolean => {
+    if (url.startsWith("/") || url.startsWith("./") || url.startsWith("../")) {
+      return true;
+    }
 
-	if (url.startsWith('/') || url.startsWith('./') || url.startsWith('../')) {
-		return true;
-	}
-	
+    if (url.startsWith("#")) {
+      return true;
+    }
 
-	if (url.startsWith('#')) {
-		return true;
-	}
+    try {
+      const linkUrl = new URL(url, window.location.origin);
+      return linkUrl.origin === window.location.origin;
+    } catch {
+      return true;
+    }
+  };
 
-	try {
-		const linkUrl = new URL(url, window.location.origin);
-		return linkUrl.origin === window.location.origin;
-	} catch {
-		return true;
-	}
-};
+  const handleClick: MouseEventHandler<HTMLAnchorElement> = async (event) => {
+    // Only apply delayed navigation to internal links (excluding PDFs)
+    if (isInternalLink(href) && !href.includes(".pdf")) {
+      isTransitioning.set(true);
 
-const handleClick: MouseEventHandler<HTMLAnchorElement> = async (event) => {
-	// Only apply delayed navigation to internal links (excluding PDFs)
-	if (isInternalLink(href) && !href.includes('.pdf')) {
-		isTransitioning.set(true);
-		
-		if (onclick) {
-			await onclick(event);
-			if (event.defaultPrevented) {
-				return;
-			}
-		}
-		
-		if (beforeNavigate) {
-			await beforeNavigate(event);
-		}
-		
-		event.preventDefault();
-		setTimeout(() => {
-			goto(href);
-		}, delay);
-	} else {
+      if (onclick) {
+        await onclick(event);
+        if (event.defaultPrevented) {
+          return;
+        }
+      }
 
-		if (onclick) {
-			await onclick(event);
-		}
-	}
-};
+      if (beforeNavigate) {
+        await beforeNavigate(event);
+      }
 
-onMount(()=>{
-	if(isFilled.link(field)&&field.url)
-		href=field.url
-})
+      event.preventDefault();
+      setTimeout(() => {
+        goto(href);
+      }, delay);
+    } else {
+      if (onclick) {
+        await onclick(event);
+      }
+    }
+  };
+
+  onMount(() => {
+    if (isFilled.link(field) && field.url) href = field.url;
+  });
 </script>
 
 <a {href} onclick={handleClick} {...props}>
-	{@render children()}
+  {@render children()}
 </a>

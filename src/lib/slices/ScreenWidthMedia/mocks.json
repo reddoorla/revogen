@@ -1,91 +1,91 @@
 [
-	{
-		"__TYPE__": "SharedSliceContent",
-		"variation": "default",
-		"primary": {
-			"placeholder_image": {
-				"origin": {
-					"id": "main",
-					"url": "https://images.unsplash.com/photo-1600861194802-a2b11076bc51",
-					"width": 2545,
-					"height": 2545
-				},
-				"url": "https://images.unsplash.com/photo-1600861194802-a2b11076bc51",
-				"width": 2545,
-				"height": 2545,
-				"edit": {
-					"zoom": 1,
-					"crop": {
-						"x": 0,
-						"y": 0
-					},
-					"background": "transparent"
-				},
-				"alt": "her",
-				"credits": null,
-				"__TYPE__": "ImageContent",
-				"thumbnails": {}
-			},
-			"vimeo_id": {
-				"__TYPE__": "FieldContent",
-				"value": "load",
-				"type": "Text"
-			},
-			"text_float": {
-				"__TYPE__": "FieldContent",
-				"value": "center",
-				"type": "Select"
-			},
-			"height": {
-				"__TYPE__": "FieldContent",
-				"value": "half screen",
-				"type": "Select"
-			},
-			"darken": {
-				"__TYPE__": "BooleanContent",
-				"value": false
-			},
-			"max_width": {
-				"__TYPE__": "FieldContent",
-				"value": "limited",
-				"type": "Select"
-			},
-			"text": {
-				"__TYPE__": "StructuredTextContent",
-				"value": [
-					{
-						"type": "paragraph",
-						"content": {
-							"text": "Amet quis quis consectetur cillum ad amet id ullamco veniam ipsum deserunt est duis cupidatat. Non aliquip non quis laboris aliqua est ad exercitation ex aliqua nisi. Tempor proident velit anim sint aute sit eiusmod tempor et."
-						}
-					}
-				]
-			},
-			"button": {
-				"key": "a2d8eba1-29a8-480a-94cb-76bf491ccbca",
-				"__TYPE__": "LinkContent",
-				"value": {
-					"__TYPE__": "ExternalLink",
-					"url": "http://twitter.com",
-					"text": "dog",
-					"variant": "Secondary"
-				}
-			},
-			"show_scroll_arrow": {
-				"__TYPE__": "BooleanContent",
-				"value": false
-			},
-			"button_two": {
-				"__TYPE__": "LinkContent",
-				"key": "d15b438d-de85-435e-97e6-da524d94e264",
-				"value": {
-					"__TYPE__": "ExternalLink",
-					"url": "http://google.com",
-					"text": "moving",
-					"variant": "Secondary"
-				}
-			}
-		},
-		"items": []
-	}
+  {
+    "__TYPE__": "SharedSliceContent",
+    "variation": "default",
+    "primary": {
+      "placeholder_image": {
+        "origin": {
+          "id": "main",
+          "url": "https://images.unsplash.com/photo-1600861194802-a2b11076bc51",
+          "width": 2545,
+          "height": 2545
+        },
+        "url": "https://images.unsplash.com/photo-1600861194802-a2b11076bc51",
+        "width": 2545,
+        "height": 2545,
+        "edit": {
+          "zoom": 1,
+          "crop": {
+            "x": 0,
+            "y": 0
+          },
+          "background": "transparent"
+        },
+        "alt": "her",
+        "credits": null,
+        "__TYPE__": "ImageContent",
+        "thumbnails": {}
+      },
+      "vimeo_id": {
+        "__TYPE__": "FieldContent",
+        "value": "load",
+        "type": "Text"
+      },
+      "text_float": {
+        "__TYPE__": "FieldContent",
+        "value": "center",
+        "type": "Select"
+      },
+      "height": {
+        "__TYPE__": "FieldContent",
+        "value": "half screen",
+        "type": "Select"
+      },
+      "darken": {
+        "__TYPE__": "BooleanContent",
+        "value": false
+      },
+      "max_width": {
+        "__TYPE__": "FieldContent",
+        "value": "limited",
+        "type": "Select"
+      },
+      "text": {
+        "__TYPE__": "StructuredTextContent",
+        "value": [
+          {
+            "type": "paragraph",
+            "content": {
+              "text": "Amet quis quis consectetur cillum ad amet id ullamco veniam ipsum deserunt est duis cupidatat. Non aliquip non quis laboris aliqua est ad exercitation ex aliqua nisi. Tempor proident velit anim sint aute sit eiusmod tempor et."
+            }
+          }
+        ]
+      },
+      "button": {
+        "key": "a2d8eba1-29a8-480a-94cb-76bf491ccbca",
+        "__TYPE__": "LinkContent",
+        "value": {
+          "__TYPE__": "ExternalLink",
+          "url": "http://twitter.com",
+          "text": "dog",
+          "variant": "Secondary"
+        }
+      },
+      "show_scroll_arrow": {
+        "__TYPE__": "BooleanContent",
+        "value": false
+      },
+      "button_two": {
+        "__TYPE__": "LinkContent",
+        "key": "d15b438d-de85-435e-97e6-da524d94e264",
+        "value": {
+          "__TYPE__": "ExternalLink",
+          "url": "http://google.com",
+          "text": "moving",
+          "variant": "Secondary"
+        }
+      }
+    },
+    "items": []
+  }
 ]

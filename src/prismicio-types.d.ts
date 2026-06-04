@@ -12,10 +12,7 @@ type PickContentRelationshipFieldData<
     | prismic.CustomTypeModelFetchGroupLevel2,
   TData extends Record<
     string,
-    | prismic.AnyRegularField
-    | prismic.GroupField
-    | prismic.NestedGroupField
-    | prismic.SliceZone
+    prismic.AnyRegularField | prismic.GroupField | prismic.NestedGroupField | prismic.SliceZone
   >,
   TLang extends string,
 > =
@@ -28,25 +25,19 @@ type PickContentRelationshipFieldData<
       TSubRelationship["customtypes"],
       TLang
     >;
-  } & // Group
-  {
+  } & {
+    // Group
     [TGroup in Extract<
       TRelationship["fields"][number],
-      | prismic.CustomTypeModelFetchGroupLevel1
-      | prismic.CustomTypeModelFetchGroupLevel2
-    > as TGroup["id"]]: TData[TGroup["id"]] extends prismic.GroupField<
-      infer TGroupData
-    >
-      ? prismic.GroupField<
-          PickContentRelationshipFieldData<TGroup, TGroupData, TLang>
-        >
+      prismic.CustomTypeModelFetchGroupLevel1 | prismic.CustomTypeModelFetchGroupLevel2
+    > as TGroup["id"]]: TData[TGroup["id"]] extends prismic.GroupField<infer TGroupData>
+      ? prismic.GroupField<PickContentRelationshipFieldData<TGroup, TGroupData, TLang>>
       : never;
-  } & // Other fields
-  {
-    [TFieldKey in Extract<
-      TRelationship["fields"][number],
-      string
-    >]: TFieldKey extends keyof TData ? TData[TFieldKey] : never;
+  } & {
+    // Other fields
+    [TFieldKey in Extract<TRelationship["fields"][number], string>]: TFieldKey extends keyof TData
+      ? TData[TFieldKey]
+      : never;
   };
 
 type ContentRelationshipFieldWithData<
@@ -55,10 +46,7 @@ type ContentRelationshipFieldWithData<
     | readonly (prismic.CustomTypeModelFetchCustomTypeLevel2 | string)[],
   TLang extends string = string,
 > = {
-  [ID in Exclude<
-    TCustomType[number],
-    string
-  >["id"]]: prismic.ContentRelationshipField<
+  [ID in Exclude<TCustomType[number], string>["id"]]: prismic.ContentRelationshipField<
     ID,
     TLang,
     PickContentRelationshipFieldData<
@@ -92,10 +80,7 @@ interface PageDocumentData {
    * - **Tab**: Main
    * - **Documentation**: https://prismic.io/docs/fields/select
    */
-  default_background: prismic.SelectField<
-    "light_blue" | "pink" | "dark_blue" | "teal",
-    "filled"
-  >;
+  default_background: prismic.SelectField<"light_blue" | "pink" | "dark_blue" | "teal", "filled">;
 
   /**
    * Slice Zone field in *Page*
@@ -149,8 +134,11 @@ interface PageDocumentData {
  *
  * @typeParam Lang - Language API ID of the document.
  */
-export type PageDocument<Lang extends string = string> =
-  prismic.PrismicDocumentWithUID<Simplify<PageDocumentData>, "page", Lang>;
+export type PageDocument<Lang extends string = string> = prismic.PrismicDocumentWithUID<
+  Simplify<PageDocumentData>,
+  "page",
+  Lang
+>;
 
 /**
  * Item in *resourceHubCategory → headers*
@@ -210,9 +198,7 @@ export interface ResourceHubCategoryDocumentDataHeadersItem {
    * - **API ID Path**: resource_hub_category.headers[].videos
    * - **Documentation**: https://prismic.io/docs/fields/link
    */
-  videos: prismic.Repeatable<
-    prismic.LinkField<string, string, unknown, prismic.FieldState, never>
-  >;
+  videos: prismic.Repeatable<prismic.LinkField<string, string, unknown, prismic.FieldState, never>>;
 }
 
 /**
@@ -250,9 +236,7 @@ interface ResourceHubCategoryDocumentData {
    * - **Tab**: Main
    * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
    */
-  headers: prismic.GroupField<
-    Simplify<ResourceHubCategoryDocumentDataHeadersItem>
-  >;
+  headers: prismic.GroupField<Simplify<ResourceHubCategoryDocumentDataHeadersItem>>;
 }
 
 /**
@@ -292,10 +276,7 @@ interface SurgicalGraftsDocumentData {
    * - **Tab**: Main
    * - **Documentation**: https://prismic.io/docs/fields/select
    */
-  default_background: prismic.SelectField<
-    "light_blue" | "pink" | "dark_blue" | "teal",
-    "filled"
-  >;
+  default_background: prismic.SelectField<"light_blue" | "pink" | "dark_blue" | "teal", "filled">;
 
   /**
    * Slice Zone field in *surgical grafts*
@@ -349,17 +330,13 @@ interface SurgicalGraftsDocumentData {
  *
  * @typeParam Lang - Language API ID of the document.
  */
-export type SurgicalGraftsDocument<Lang extends string = string> =
-  prismic.PrismicDocumentWithUID<
-    Simplify<SurgicalGraftsDocumentData>,
-    "surgical_grafts",
-    Lang
-  >;
+export type SurgicalGraftsDocument<Lang extends string = string> = prismic.PrismicDocumentWithUID<
+  Simplify<SurgicalGraftsDocumentData>,
+  "surgical_grafts",
+  Lang
+>;
 
-export type AllDocumentTypes =
-  | PageDocument
-  | ResourceHubCategoryDocument
-  | SurgicalGraftsDocument;
+export type AllDocumentTypes = PageDocument | ResourceHubCategoryDocument | SurgicalGraftsDocument;
 
 /**
  * Primary content in *DistributorLogin → Default → Primary*
@@ -488,10 +465,7 @@ type HomeHeroSliceVariation = HomeHeroSliceDefault;
  * - **Description**: HomeHero
  * - **Documentation**: https://prismic.io/docs/slices
  */
-export type HomeHeroSlice = prismic.SharedSlice<
-  "home_hero",
-  HomeHeroSliceVariation
->;
+export type HomeHeroSlice = prismic.SharedSlice<"home_hero", HomeHeroSliceVariation>;
 
 /**
  * Default variation for HomePageAnim Slice
@@ -518,10 +492,7 @@ type HomePageAnimSliceVariation = HomePageAnimSliceDefault;
  * - **Description**: HomePageAnim
  * - **Documentation**: https://prismic.io/docs/slices
  */
-export type HomePageAnimSlice = prismic.SharedSlice<
-  "home_page_anim",
-  HomePageAnimSliceVariation
->;
+export type HomePageAnimSlice = prismic.SharedSlice<"home_page_anim", HomePageAnimSliceVariation>;
 
 /**
  * Item in *ImageRow → Default → Primary → images*
@@ -599,10 +570,7 @@ type ImageRowSliceVariation = ImageRowSliceDefault;
  * - **Description**: ImageRow
  * - **Documentation**: https://prismic.io/docs/slices
  */
-export type ImageRowSlice = prismic.SharedSlice<
-  "image_row",
-  ImageRowSliceVariation
->;
+export type ImageRowSlice = prismic.SharedSlice<"image_row", ImageRowSliceVariation>;
 
 /**
  * Primary content in *RichText → Default → Primary*
@@ -626,13 +594,7 @@ export interface RichTextSliceDefaultPrimary {
    * - **API ID Path**: rich_text.default.primary.button
    * - **Documentation**: https://prismic.io/docs/fields/link
    */
-  button: prismic.LinkField<
-    string,
-    string,
-    unknown,
-    prismic.FieldState,
-    "Primary" | "Secondary"
-  >;
+  button: prismic.LinkField<string, string, unknown, prismic.FieldState, "Primary" | "Secondary">;
 
   /**
    * show scroll arrow field in *RichText → Default → Primary*
@@ -654,10 +616,7 @@ export interface RichTextSliceDefaultPrimary {
    * - **API ID Path**: rich_text.default.primary.vertical_padding
    * - **Documentation**: https://prismic.io/docs/fields/select
    */
-  vertical_padding: prismic.SelectField<
-    "0" | "5" | "10" | "20" | "40",
-    "filled"
-  >;
+  vertical_padding: prismic.SelectField<"0" | "5" | "10" | "20" | "40", "filled">;
 
   /**
    * max width field in *RichText → Default → Primary*
@@ -723,10 +682,7 @@ type RichTextSliceVariation = RichTextSliceDefault;
  * - **Description**: RichText
  * - **Documentation**: https://prismic.io/docs/slices
  */
-export type RichTextSlice = prismic.SharedSlice<
-  "rich_text",
-  RichTextSliceVariation
->;
+export type RichTextSlice = prismic.SharedSlice<"rich_text", RichTextSliceVariation>;
 
 /**
  * Primary content in *ScreenWidthMedia → Default → Primary*
@@ -770,13 +726,7 @@ export interface ScreenWidthVideoSliceDefaultPrimary {
    * - **API ID Path**: screen_width_video.default.primary.button
    * - **Documentation**: https://prismic.io/docs/fields/link
    */
-  button: prismic.LinkField<
-    string,
-    string,
-    unknown,
-    prismic.FieldState,
-    "Primary" | "Secondary"
-  >;
+  button: prismic.LinkField<string, string, unknown, prismic.FieldState, "Primary" | "Secondary">;
 
   /**
    * text float field in *ScreenWidthMedia → Default → Primary*
@@ -1143,10 +1093,7 @@ export interface TwoColSliceDefaultPrimary {
    * - **API ID Path**: two_col.default.primary.image_aspect
    * - **Documentation**: https://prismic.io/docs/fields/select
    */
-  image_aspect: prismic.SelectField<
-    "square" | "4:3" | "16:9" | "3:4" | "9:16",
-    "filled"
-  >;
+  image_aspect: prismic.SelectField<"square" | "4:3" | "16:9" | "3:4" | "9:16", "filled">;
 
   /**
    * text field in *TwoCol → media text → Primary*
@@ -1166,13 +1113,7 @@ export interface TwoColSliceDefaultPrimary {
    * - **API ID Path**: two_col.default.primary.button
    * - **Documentation**: https://prismic.io/docs/fields/link
    */
-  button: prismic.LinkField<
-    string,
-    string,
-    unknown,
-    prismic.FieldState,
-    "Primary" | "Secondary"
-  >;
+  button: prismic.LinkField<string, string, unknown, prismic.FieldState, "Primary" | "Secondary">;
 
   /**
    * button two field in *TwoCol → media text → Primary*
@@ -1251,9 +1192,7 @@ export interface TwoColSliceDefaultPrimary {
    * - **API ID Path**: two_col.default.primary.rive_overrides[]
    * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
    */
-  rive_overrides: prismic.GroupField<
-    Simplify<TwoColSliceDefaultPrimaryRiveOverridesItem>
-  >;
+  rive_overrides: prismic.GroupField<Simplify<TwoColSliceDefaultPrimaryRiveOverridesItem>>;
 }
 
 /**
@@ -1331,10 +1270,7 @@ export interface TwoColSliceImageTableTextPrimary {
    * - **API ID Path**: two_col.imageTableText.primary.image_aspect
    * - **Documentation**: https://prismic.io/docs/fields/select
    */
-  image_aspect: prismic.SelectField<
-    "square" | "4:3" | "16:9" | "3:4" | "9:16",
-    "filled"
-  >;
+  image_aspect: prismic.SelectField<"square" | "4:3" | "16:9" | "3:4" | "9:16", "filled">;
 
   /**
    * text field in *TwoCol → imageTableText → Primary*
@@ -1354,13 +1290,7 @@ export interface TwoColSliceImageTableTextPrimary {
    * - **API ID Path**: two_col.imageTableText.primary.button
    * - **Documentation**: https://prismic.io/docs/fields/link
    */
-  button: prismic.LinkField<
-    string,
-    string,
-    unknown,
-    prismic.FieldState,
-    "Primary" | "Secondary"
-  >;
+  button: prismic.LinkField<string, string, unknown, prismic.FieldState, "Primary" | "Secondary">;
 
   /**
    * button two field in *TwoCol → imageTableText → Primary*
@@ -1471,9 +1401,7 @@ export interface TwoColSliceImageTableTextPrimary {
    * - **Documentation**: https://prismic.io/docs/fields/select
    */
   table_column: prismic.SelectField<
-    | "desc & #, no sizes"
-    | "desc and one size and #"
-    | "desc and two sizes and #",
+    "desc & #, no sizes" | "desc and one size and #" | "desc and two sizes and #",
     "filled"
   >;
 
@@ -1485,9 +1413,7 @@ export interface TwoColSliceImageTableTextPrimary {
    * - **API ID Path**: two_col.imageTableText.primary.products[]
    * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
    */
-  products: prismic.GroupField<
-    Simplify<TwoColSliceImageTableTextPrimaryProductsItem>
-  >;
+  products: prismic.GroupField<Simplify<TwoColSliceImageTableTextPrimaryProductsItem>>;
 
   /**
    * rive field in *TwoCol → imageTableText → Primary*
@@ -1507,9 +1433,7 @@ export interface TwoColSliceImageTableTextPrimary {
    * - **API ID Path**: two_col.imageTableText.primary.rive_overrides[]
    * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
    */
-  rive_overrides: prismic.GroupField<
-    Simplify<TwoColSliceImageTableTextPrimaryRiveOverridesItem>
-  >;
+  rive_overrides: prismic.GroupField<Simplify<TwoColSliceImageTableTextPrimaryRiveOverridesItem>>;
 }
 
 /**
@@ -1547,13 +1471,7 @@ export interface TwoColSliceTableTextPrimary {
    * - **API ID Path**: two_col.tableText.primary.button
    * - **Documentation**: https://prismic.io/docs/fields/link
    */
-  button: prismic.LinkField<
-    string,
-    string,
-    unknown,
-    prismic.FieldState,
-    "Primary" | "Secondary"
-  >;
+  button: prismic.LinkField<string, string, unknown, prismic.FieldState, "Primary" | "Secondary">;
 
   /**
    * button two field in *TwoCol → tableText → Primary*
@@ -1614,9 +1532,7 @@ export interface TwoColSliceTableTextPrimary {
    * - **Documentation**: https://prismic.io/docs/fields/select
    */
   table_column: prismic.SelectField<
-    | "desc & #, no sizes"
-    | "desc and one size and #"
-    | "desc and two sizes and #",
+    "desc & #, no sizes" | "desc and one size and #" | "desc and two sizes and #",
     "filled"
   >;
 
@@ -1668,9 +1584,7 @@ export interface TwoColSliceTableTextPrimary {
    * - **API ID Path**: two_col.tableText.primary.products[]
    * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
    */
-  products: prismic.GroupField<
-    Simplify<TwoColSliceTableTextPrimaryProductsItem>
-  >;
+  products: prismic.GroupField<Simplify<TwoColSliceTableTextPrimaryProductsItem>>;
 }
 
 /**

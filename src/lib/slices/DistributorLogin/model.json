@@ -17,12 +17,7 @@
           "config": {
             "label": "vertical padding",
             "placeholder": "",
-            "options": [
-              "0",
-              "5",
-              "10",
-              "20"
-            ],
+            "options": ["0", "5", "10", "20"],
             "default_value": "0"
           }
         }

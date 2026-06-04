@@ -8,7 +8,6 @@
   import gridlines from "$lib/assets/icons/linework.svg";
 
   import { onMount } from "svelte";
-  import AnimateIn from "$lib/components/Animation/AnimateIn.svelte";
 
   type Props = SliceComponentProps<Content.HomeHeroSlice>;
 
@@ -17,13 +16,11 @@
   let showSecondSection = $state(false);
 
   const scrollToNext = () => {
-    document
-      .getElementsByTagName("main")[0]
-      .scrollTo({
-        left: 0,
-        top: section.getBoundingClientRect().height / 2,
-        behavior: "smooth",
-      });
+    document.getElementsByTagName("main")[0].scrollTo({
+      left: 0,
+      top: section.getBoundingClientRect().height / 2,
+      behavior: "smooth",
+    });
     setTimeout(handleScroll, 500);
   };
 
@@ -32,20 +29,18 @@
   const handleScroll = () => {
     if (!section) return;
     const rect = section.getBoundingClientRect();
-    if (rect.bottom < (rect.height * 3) / 4){ 
-		showSecondSection = true;
-	} else{
-		showSecondSection=false;
-	}
+    if (rect.bottom < (rect.height * 3) / 4) {
+      showSecondSection = true;
+    } else {
+      showSecondSection = false;
+    }
     console.log(showSecondSection);
   };
 
   onMount(() => {
     if (!window || !document) return;
 
-    document
-      .getElementsByTagName("main")[0]
-      .addEventListener("scroll", handleScroll);
+    document.getElementsByTagName("main")[0].addEventListener("scroll", handleScroll);
   });
 </script>
 
@@ -64,9 +59,7 @@
     <img src={downArrow} alt="down" class="h-16 negative-bump" />
   </button>
   <ScreenWidthMedia
-    field={isFilled.image(slice.primary.placeholder_image)
-      ? slice.primary.placeholder_image
-      : null}
+    field={isFilled.image(slice.primary.placeholder_image) ? slice.primary.placeholder_image : null}
     vimeoId={(slice.primary.vimeo_id as string) || ""}
     darken
     backdrop
@@ -85,29 +78,32 @@
       </div>
 
       {#if isFilled.link(slice.primary.button)}
-        <div class="transition ease-fast-slow duration-700 delay-200 {showSecondSection?"":"opacity-0 translate-y-8"}">
+        <div
+          class="transition ease-fast-slow duration-700 delay-200 {showSecondSection
+            ? ''
+            : 'opacity-0 translate-y-8'}"
+        >
           <DefaultButton
             transitionDelayMax={0}
             transitionDuration={1200}
-            href={slice.primary.button.url}
-            >{slice.primary.button.text}</DefaultButton
+            href={slice.primary.button.url}>{slice.primary.button.text}</DefaultButton
           >
         </div>
       {/if}
     </ContentWidth>
   </div>
-  <div class="absolute top-5/6 -left-8 w-screen origin-top-left transition-transform duration-2000 delay-100 {showSecondSection?"":"rotate-90"}">
-    <img
-      src={gridlines}
-      class="rotate-270 w-full"
-      alt="decorative gridlines"
-    />
+  <div
+    class="absolute top-5/6 -left-8 w-screen origin-top-left transition-transform duration-2000 delay-100 {showSecondSection
+      ? ''
+      : 'rotate-90'}"
+  >
+    <img src={gridlines} class="rotate-270 w-full" alt="decorative gridlines" />
   </div>
-  <div class="absolute top-5/6 -right-8 w-screen origin-top-right transition-transform duration-2000 delay-100 {showSecondSection?"":"-rotate-90"}">
-    <img
-      src={gridlines}
-      class="w-full"
-      alt="decorative gridlines"
-    />
+  <div
+    class="absolute top-5/6 -right-8 w-screen origin-top-right transition-transform duration-2000 delay-100 {showSecondSection
+      ? ''
+      : '-rotate-90'}"
+  >
+    <img src={gridlines} class="w-full" alt="decorative gridlines" />
   </div>
 </section>

@@ -25,13 +25,7 @@
           "config": {
             "label": "image aspect",
             "placeholder": "",
-            "options": [
-              "square",
-              "4:3",
-              "16:9",
-              "3:4",
-              "9:16"
-            ],
+            "options": ["square", "4:3", "16:9", "3:4", "9:16"],
             "default_value": "square"
           }
         },
@@ -53,10 +47,7 @@
             "allowTargetBlank": true,
             "allowText": true,
             "repeat": false,
-            "variants": [
-              "Primary",
-              "Secondary"
-            ]
+            "variants": ["Primary", "Secondary"]
           }
         },
         "button_two": {
@@ -68,10 +59,7 @@
             "allowTargetBlank": true,
             "allowText": true,
             "repeat": false,
-            "variants": [
-              "Primary",
-              "Secondary"
-            ]
+            "variants": ["Primary", "Secondary"]
           }
         },
         "isMediaFirst": {
@@ -104,12 +92,7 @@
           "config": {
             "label": "vertical padding",
             "placeholder": "",
-            "options": [
-              "0",
-              "5",
-              "10",
-              "20"
-            ],
+            "options": ["0", "5", "10", "20"],
             "default_value": "0"
           }
         },
@@ -205,12 +188,7 @@
           "config": {
             "label": "vertical padding",
             "placeholder": "",
-            "options": [
-              "0",
-              "5",
-              "10",
-              "20"
-            ],
+            "options": ["0", "5", "10", "20"],
             "default_value": "0"
           }
         }
@@ -238,13 +216,7 @@
           "config": {
             "label": "image aspect",
             "placeholder": "",
-            "options": [
-              "square",
-              "4:3",
-              "16:9",
-              "3:4",
-              "9:16"
-            ],
+            "options": ["square", "4:3", "16:9", "3:4", "9:16"],
             "default_value": "square"
           }
         },
@@ -266,10 +238,7 @@
             "allowTargetBlank": true,
             "allowText": true,
             "repeat": false,
-            "variants": [
-              "Primary",
-              "Secondary"
-            ]
+            "variants": ["Primary", "Secondary"]
           }
         },
         "button_two": {
@@ -281,10 +250,7 @@
             "allowTargetBlank": true,
             "allowText": true,
             "repeat": false,
-            "variants": [
-              "Primary",
-              "Secondary"
-            ]
+            "variants": ["Primary", "Secondary"]
           }
         },
         "isMediaFirst": {
@@ -317,12 +283,7 @@
           "config": {
             "label": "vertical padding",
             "placeholder": "",
-            "options": [
-              "0",
-              "5",
-              "10",
-              "20"
-            ],
+            "options": ["0", "5", "10", "20"],
             "default_value": "0"
           }
         },
@@ -500,10 +461,7 @@
             "allowTargetBlank": true,
             "allowText": true,
             "repeat": false,
-            "variants": [
-              "Primary",
-              "Secondary"
-            ]
+            "variants": ["Primary", "Secondary"]
           }
         },
         "button_two": {
@@ -515,10 +473,7 @@
             "allowTargetBlank": true,
             "allowText": true,
             "repeat": false,
-            "variants": [
-              "Primary",
-              "Secondary"
-            ]
+            "variants": ["Primary", "Secondary"]
           }
         },
         "isTableFirst": {
@@ -544,12 +499,7 @@
           "config": {
             "label": "vertical padding",
             "placeholder": "",
-            "options": [
-              "0",
-              "5",
-              "10",
-              "20"
-            ],
+            "options": ["0", "5", "10", "20"],
             "default_value": "0"
           }
         },

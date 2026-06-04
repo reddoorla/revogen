@@ -1,14 +1,14 @@
 [
-	{
-		"__TYPE__": "SharedSliceContent",
-		"variation": "default",
-		"primary": {
-			"vertical_padding": {
-				"__TYPE__": "FieldContent",
-				"value": "20",
-				"type": "Select"
-			}
-		},
-		"items": []
-	}
+  {
+    "__TYPE__": "SharedSliceContent",
+    "variation": "default",
+    "primary": {
+      "vertical_padding": {
+        "__TYPE__": "FieldContent",
+        "value": "20",
+        "type": "Select"
+      }
+    },
+    "items": []
+  }
 ]

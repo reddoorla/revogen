@@ -1,35 +1,33 @@
 <script lang="ts">
-import ContentWidth from "./ContentWidth/ContentWidth.svelte";
-import DelayedLink from "./DelayedLink.svelte";
-import { fly } from "svelte/transition";
-import { onMount } from "svelte";
-import script from "$lib/assets/icons/logos/Revogen Script-w.svg";
+  import ContentWidth from "./ContentWidth/ContentWidth.svelte";
+  import DelayedLink from "./DelayedLink.svelte";
+  import { fly } from "svelte/transition";
+  import { onMount } from "svelte";
+  import script from "$lib/assets/icons/logos/Revogen Script-w.svg";
   import { quadOut } from "svelte/easing";
 
-let showScript = $state(false);
-let footerElement: HTMLElement;
+  let showScript = $state(false);
+  let footerElement: HTMLElement;
 
- const handleScroll = () => {
-    if (!footerElement){
-      console.log("no footer")
-       return;}
-    
+  const handleScroll = () => {
+    if (!footerElement) {
+      console.log("no footer");
+      return;
+    }
+
     const rect = footerElement.getBoundingClientRect();
 
-    
-    showScript = rect.bottom < window.innerHeight*1.2;
+    showScript = rect.bottom < window.innerHeight * 1.2;
   };
 
-onMount(() => {
- 
-  
-  document.getElementsByTagName('main')[0].addEventListener("scroll", handleScroll);
-  handleScroll(); // Check initial position
-  
-  return () => {
-     document.getElementsByTagName('main')[0].removeEventListener("scroll", handleScroll);
-  };
-});
+  onMount(() => {
+    document.getElementsByTagName("main")[0].addEventListener("scroll", handleScroll);
+    handleScroll(); // Check initial position
+
+    return () => {
+      document.getElementsByTagName("main")[0].removeEventListener("scroll", handleScroll);
+    };
+  });
 </script>
 
 <section class="relative overflow-hidden" bind:this={footerElement}>
@@ -39,15 +37,11 @@ onMount(() => {
     <div class="flex flex-col justify-stretch mt-4 pb-4">
       <h4 class="">Revolutionizing Bioregeneration</h4>
       <div class="hidden md:block copywright mt-auto">
-        {"© " +
-          new Date().getFullYear() +
-          " RevoGen Biologics®. All Rights Reserved."}
+        {"© " + new Date().getFullYear() + " RevoGen Biologics®. All Rights Reserved."}
       </div>
     </div>
     <div class="flex flex-col gap-6 my-6 footer">
-      <DelayedLink
-        href="/about"
-        class="hover:opacity-85 transition-opacity duration-300 uppercase "
+      <DelayedLink href="/about" class="hover:opacity-85 transition-opacity duration-300 uppercase "
         >About</DelayedLink
       >
       <DelayedLink
@@ -96,30 +90,29 @@ onMount(() => {
         >synthetics</DelayedLink
       >
       <div class="h-0.5 w-full bg-white rounded-full"></div>
-      <div class="leading-normal ">
+      <div class="leading-normal">
         4903 Golden Quail,<br />
         Suite 120<br />
         San Antonio, TX 78240 <br />
-         <a
+        <a
           href="mailto:sales@revogen.com"
-          class="underline hover:opacity-85 transition-opacity duration-300"
+          class="underline hover:opacity-85 transition-opacity duration-300 inline-block py-1"
           >sales@revogen.com</a
         ><br />
-         <a
+        <a
           href="tel:210.607.4037"
-          class="underline hover:opacity-85 transition-opacity duration-300"
+          class="underline hover:opacity-85 transition-opacity duration-300 inline-block py-1"
           >210.607.4037</a
         ><br />
         <a
           href="https://www.linkedin.com/company/revogen-biologics"
-          class="underline hover:opacity-85 transition-opacity duration-300"
+          class="underline hover:opacity-85 transition-opacity duration-300 inline-block py-1"
           >LinkedIn</a
         >
       </div>
     </div>
     <div class="md:hidden block copywright mt-6">
-      {"© " + new Date().getFullYear() + " RevoGen Biologics®"}<br />All Rights
-      Reserved
+      {"© " + new Date().getFullYear() + " RevoGen Biologics®"}<br />All Rights Reserved
     </div>
   </ContentWidth>
   {#if showScript}

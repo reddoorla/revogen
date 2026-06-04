@@ -1,60 +1,60 @@
 [
-	{
-		"__TYPE__": "SharedSliceContent",
-		"variation": "default",
-		"primary": {
-			"vimeo_id": {
-				"__TYPE__": "FieldContent",
-				"value": "lift",
-				"type": "Text"
-			},
-			"show_scroll_arrow": {
-				"__TYPE__": "BooleanContent",
-				"value": false
-			},
-			"placeholder_image": {
-				"__TYPE__": "ImageContent",
-				"origin": {
-					"id": "main",
-					"url": "https://images.unsplash.com/photo-1547394765-185e1e68f34e",
-					"width": 6000,
-					"height": 4000
-				},
-				"url": "https://images.unsplash.com/photo-1547394765-185e1e68f34e",
-				"width": 6000,
-				"height": 4000,
-				"edit": {
-					"zoom": 1,
-					"crop": {
-						"x": 0,
-						"y": 0
-					},
-					"background": "transparent"
-				},
-				"alt": "lay",
-				"thumbnails": {}
-			},
-			"text": {
-				"__TYPE__": "StructuredTextContent",
-				"value": [
-					{
-						"type": "paragraph",
-						"content": {
-							"text": "Tempor ea labore eiusmod eiusmod. Deserunt in excepteur qui minim pariatur laboris laborum."
-						}
-					}
-				]
-			},
-			"button": {
-				"key": "a43dfc7f-1ceb-476a-aae1-72b15e06da4a",
-				"__TYPE__": "LinkContent",
-				"value": {
-					"__TYPE__": "ExternalLink",
-					"url": "http://twitter.com",
-					"text": "grade"
-				}
-			}
-		},
-		"items": []
-	}
+  {
+    "__TYPE__": "SharedSliceContent",
+    "variation": "default",
+    "primary": {
+      "vimeo_id": {
+        "__TYPE__": "FieldContent",
+        "value": "lift",
+        "type": "Text"
+      },
+      "show_scroll_arrow": {
+        "__TYPE__": "BooleanContent",
+        "value": false
+      },
+      "placeholder_image": {
+        "__TYPE__": "ImageContent",
+        "origin": {
+          "id": "main",
+          "url": "https://images.unsplash.com/photo-1547394765-185e1e68f34e",
+          "width": 6000,
+          "height": 4000
+        },
+        "url": "https://images.unsplash.com/photo-1547394765-185e1e68f34e",
+        "width": 6000,
+        "height": 4000,
+        "edit": {
+          "zoom": 1,
+          "crop": {
+            "x": 0,
+            "y": 0
+          },
+          "background": "transparent"
+        },
+        "alt": "lay",
+        "thumbnails": {}
+      },
+      "text": {
+        "__TYPE__": "StructuredTextContent",
+        "value": [
+          {
+            "type": "paragraph",
+            "content": {
+              "text": "Tempor ea labore eiusmod eiusmod. Deserunt in excepteur qui minim pariatur laboris laborum."
+            }
+          }
+        ]
+      },
+      "button": {
+        "key": "a43dfc7f-1ceb-476a-aae1-72b15e06da4a",
+        "__TYPE__": "LinkContent",
+        "value": {
+          "__TYPE__": "ExternalLink",
+          "url": "http://twitter.com",
+          "text": "grade"
+        }
+      }
+    },
+    "items": []
+  }
 ]
