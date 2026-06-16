@@ -111,31 +111,5 @@
 <TransitionOverlay />
 <PrismicPreview {repositoryName} />
 
-<form
-  class="hidden"
-  name="contact"
-  method="post"
-  data-netlify="true"
-  data-netlify-honeypot="bot-field"
-  id="netlifyContactForm"
->
-  <input type="hidden" name="form-name" value="contact" />
-  <input type="text" name="first-name" required placeholder="first and last name" />
-  <input type="text" name="last-name" required placeholder="last name" />
-  <input type="text" name="city" placeholder="city" />
-  <input type="text" name="state" />
-  <input type="phone" name="phone" placeholder="000-000-0000" />
-  <input type="email" name="email" required placeholder="you@domain.com" />
-  <input type="text" name="distributorship" required placeholder="last name" />
-  <p class="hidden">
-    <label>
-      Don't fill this out if you're human: <input name="bot-field" />
-    </label>
-  </p>
-  <p>Message</p>
-  <textarea name="message" required placeholder="how can we help?"></textarea>
-  <button id="hiddenSubmitButton" type="submit">Connect</button>
-</form>
-
 <style>
 </style>
