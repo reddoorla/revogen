@@ -17,36 +17,52 @@
   let formEmail = $state("");
   let formDistributorship = $state("");
   let formMessage = $state("");
+  let formBotField = $state("");
+
+  // Submission UI state for the contact / distributor form.
+  let submitting = $state(false);
+  let submitted = $state(false);
+  let submitError = $state(false);
 
   // State for Rive
   let riveCanvas: HTMLCanvasElement | undefined = $state();
   let riveInstance: rive.Rive | null = null;
 
-  const triggerSubmitButton = () => {
-    const hiddenForm = document.getElementById("netlifyContactForm") as HTMLFormElement;
+  const triggerSubmitButton = async () => {
+    // The central ingest is not idempotent — guard against double submits.
+    if (submitting) return;
+    submitting = true;
+    submitError = false;
 
-    if (hiddenForm) {
-      const hiddenFirstName = hiddenForm.querySelector('[name="first-name"]') as HTMLInputElement;
-      const hiddenLastName = hiddenForm.querySelector('[name="last-name"]') as HTMLInputElement;
-      const hiddenCity = hiddenForm.querySelector('[name="city"]') as HTMLInputElement;
-      const hiddenState = hiddenForm.querySelector('[name="state"]') as HTMLInputElement;
-      const hiddenPhone = hiddenForm.querySelector('[name="phone"]') as HTMLInputElement;
-      const hiddenEmail = hiddenForm.querySelector('[name="email"]') as HTMLInputElement;
-      const hiddenDistributorship = hiddenForm.querySelector(
-        '[name="distributorship"]',
-      ) as HTMLInputElement;
-      const hiddenMessage = hiddenForm.querySelector('[name="message"]') as HTMLTextAreaElement;
+    try {
+      const response = await fetch("/api/forms", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          formType: "contact",
+          firstName: formFirstName,
+          lastName: formLastName,
+          email: formEmail,
+          phone: formPhone,
+          message: formMessage,
+          city: formCity,
+          state: formState,
+          distributorship: formDistributorship,
+          "bot-field": formBotField,
+          sourceUrl: window.location.href,
+        }),
+      });
+      const result: { ok?: boolean } = await response.json().catch(() => ({}));
 
-      if (hiddenFirstName) hiddenFirstName.value = formFirstName;
-      if (hiddenLastName) hiddenLastName.value = formLastName;
-      if (hiddenCity) hiddenCity.value = formCity;
-      if (hiddenState) hiddenState.value = formState;
-      if (hiddenPhone) hiddenPhone.value = formPhone;
-      if (hiddenEmail) hiddenEmail.value = formEmail;
-      if (hiddenDistributorship) hiddenDistributorship.value = formDistributorship;
-      if (hiddenMessage) hiddenMessage.value = formMessage;
-
-      hiddenForm.submit();
+      if (response.ok && result.ok) {
+        submitted = true;
+      } else {
+        submitError = true;
+      }
+    } catch {
+      submitError = true;
+    } finally {
+      submitting = false;
     }
   };
 
@@ -422,12 +438,28 @@
           <!-- Hidden honeypot field -->
           <p class="hidden">
             <label>
-              Don't fill this out if you're human: <input name="bot-field" />
+              Don't fill this out if you're human: <input
+                name="bot-field"
+                bind:value={formBotField}
+                tabindex="-1"
+                autocomplete="off"
+              />
             </label>
           </p>
 
           <!-- Submit button -->
-          <DefaultButton onclick={triggerSubmitButton}>SUBMIT</DefaultButton>
+          {#if submitted}
+            <p class="text-white">Thanks — your message has been sent.</p>
+          {:else}
+            <DefaultButton onclick={triggerSubmitButton} disabled={submitting}>
+              {submitting ? "SENDING..." : "SUBMIT"}
+            </DefaultButton>
+            {#if submitError}
+              <p class="text-white" role="alert">
+                Something went wrong sending your message. Please try again.
+              </p>
+            {/if}
+          {/if}
         </div>
       </div>
     </ContentWidth>
