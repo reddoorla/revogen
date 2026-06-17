@@ -12,7 +12,7 @@
   import { onNavigate } from "$app/navigation";
   import { onMount } from "svelte";
 
-  let { children } = $props();
+  let { children, data } = $props();
   const scrollAllToTop = () => {
     // Reset window scroll
     window.scrollTo(0, 0);
@@ -109,7 +109,9 @@
 </main>
 <LandscapeModal />
 <TransitionOverlay />
-<PrismicPreview {repositoryName} />
+{#if data.isPreviewSession}
+  <PrismicPreview {repositoryName} />
+{/if}
 
 <style>
 </style>

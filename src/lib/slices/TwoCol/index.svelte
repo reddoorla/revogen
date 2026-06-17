@@ -174,7 +174,7 @@
             {/if}
             <iframe
               title="video"
-              src={`https://player.vimeo.com/video/${slice.primary.vimeo_id}?background=1&muted=1&loop=1&autoplay=1`}
+              src={`https://player.vimeo.com/video/${slice.primary.vimeo_id}?background=1&muted=1&loop=1&autoplay=1&dnt=1`}
               class="absolute w-full h-full contrast-[1.15]"
               frameborder="0"
               allowfullscreen
