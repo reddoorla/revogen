@@ -140,19 +140,11 @@
         class="w-8 h-8 border-[1.5px] border-white rounded-full relative mt-4 hover:opacity-80 bump"
       >
         {#if viewportWidth < 768 || $gradientTheme === 1}
-          <span
-            in:fade={{ delay: 400 }}
-            out:fade
-            class="absolute left-1/2 top-1/2 -translate-1/2"
-          >
+          <span in:fade={{ delay: 400 }} out:fade class="absolute left-1/2 top-1/2 -translate-1/2">
             <ChevronRight class="size-[1.25em]" strokeWidth={1.5} />
           </span>
         {:else}
-          <span
-            in:fade={{ delay: 400 }}
-            out:fade
-            class="absolute left-1/2 top-1/2 -translate-1/2"
-          >
+          <span in:fade={{ delay: 400 }} out:fade class="absolute left-1/2 top-1/2 -translate-1/2">
             <Plus class="size-[1.25em]" strokeWidth={1.5} />
           </span>
         {/if}
@@ -192,19 +184,11 @@
         class="w-8 h-8 border-[1.5px] border-white rounded-full relative mt-4 hover:opacity-80 bump"
       >
         {#if viewportWidth < 768 || $gradientTheme === 2}
-          <span
-            in:fade={{ delay: 400 }}
-            out:fade
-            class="absolute left-1/2 top-1/2 -translate-1/2"
-          >
+          <span in:fade={{ delay: 400 }} out:fade class="absolute left-1/2 top-1/2 -translate-1/2">
             <ChevronRight class="size-[1.25em]" strokeWidth={1.5} />
           </span>
         {:else}
-          <span
-            in:fade={{ delay: 400 }}
-            out:fade
-            class="absolute left-1/2 top-1/2 -translate-1/2"
-          >
+          <span in:fade={{ delay: 400 }} out:fade class="absolute left-1/2 top-1/2 -translate-1/2">
             <Plus class="size-[1.25em]" strokeWidth={1.5} />
           </span>
         {/if}
@@ -237,19 +221,11 @@
         class="w-8 h-8 border-[1.5px] border-white rounded-full relative mt-4 hover:opacity-80 bump"
       >
         {#if viewportWidth < 768 || $gradientTheme === 3}
-          <span
-            in:fade={{ delay: 400 }}
-            out:fade
-            class="absolute left-1/2 top-1/2 -translate-1/2"
-          >
+          <span in:fade={{ delay: 400 }} out:fade class="absolute left-1/2 top-1/2 -translate-1/2">
             <ChevronRight class="size-[1.25em]" strokeWidth={1.5} />
           </span>
         {:else}
-          <span
-            in:fade={{ delay: 400 }}
-            out:fade
-            class="absolute left-1/2 top-1/2 -translate-1/2"
-          >
+          <span in:fade={{ delay: 400 }} out:fade class="absolute left-1/2 top-1/2 -translate-1/2">
             <Plus class="size-[1.25em]" strokeWidth={1.5} />
           </span>
         {/if}
