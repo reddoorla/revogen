@@ -14,6 +14,7 @@
   import { onMount } from "svelte";
   import * as rive from "@rive-app/canvas";
   import puttyRive from "$lib/assets/rive/RevgroPutty.riv";
+  import { ChevronRight, Plus } from "@lucide/svelte";
 
   type Props = SliceComponentProps<Content.HomePageAnimSlice>;
 
@@ -139,17 +140,21 @@
         class="w-8 h-8 border-[1.5px] border-white rounded-full relative mt-4 hover:opacity-80 bump"
       >
         {#if viewportWidth < 768 || $gradientTheme === 1}
-          <i
+          <span
             in:fade={{ delay: 400 }}
             out:fade
-            class=" absolute left-1/2 top-1/2 -translate-1/2 fa-sharp fa-light fa-chevron-right fa-lg"
-          ></i>
+            class="absolute left-1/2 top-1/2 -translate-1/2"
+          >
+            <ChevronRight class="size-[1.25em]" strokeWidth={1.5} />
+          </span>
         {:else}
-          <i
+          <span
             in:fade={{ delay: 400 }}
             out:fade
-            class=" absolute left-1/2 top-1/2 -translate-1/2 fa-sharp fa-light fa-plus fa-lg"
-          ></i>
+            class="absolute left-1/2 top-1/2 -translate-1/2"
+          >
+            <Plus class="size-[1.25em]" strokeWidth={1.5} />
+          </span>
         {/if}
       </div>
     </DelayedLink>
@@ -187,17 +192,21 @@
         class="w-8 h-8 border-[1.5px] border-white rounded-full relative mt-4 hover:opacity-80 bump"
       >
         {#if viewportWidth < 768 || $gradientTheme === 2}
-          <i
+          <span
             in:fade={{ delay: 400 }}
             out:fade
-            class=" absolute left-1/2 top-1/2 -translate-1/2 fa-sharp fa-light fa-chevron-right fa-lg"
-          ></i>
+            class="absolute left-1/2 top-1/2 -translate-1/2"
+          >
+            <ChevronRight class="size-[1.25em]" strokeWidth={1.5} />
+          </span>
         {:else}
-          <i
+          <span
             in:fade={{ delay: 400 }}
             out:fade
-            class=" absolute left-1/2 top-1/2 -translate-1/2 fa-sharp fa-light fa-plus fa-lg"
-          ></i>
+            class="absolute left-1/2 top-1/2 -translate-1/2"
+          >
+            <Plus class="size-[1.25em]" strokeWidth={1.5} />
+          </span>
         {/if}
       </div>
     </DelayedLink>
@@ -228,17 +237,21 @@
         class="w-8 h-8 border-[1.5px] border-white rounded-full relative mt-4 hover:opacity-80 bump"
       >
         {#if viewportWidth < 768 || $gradientTheme === 3}
-          <i
+          <span
             in:fade={{ delay: 400 }}
             out:fade
-            class=" absolute left-1/2 top-1/2 -translate-1/2 fa-sharp fa-light fa-chevron-right fa-lg"
-          ></i>
+            class="absolute left-1/2 top-1/2 -translate-1/2"
+          >
+            <ChevronRight class="size-[1.25em]" strokeWidth={1.5} />
+          </span>
         {:else}
-          <i
+          <span
             in:fade={{ delay: 400 }}
             out:fade
-            class=" absolute left-1/2 top-1/2 -translate-1/2 fa-sharp fa-light fa-plus fa-lg"
-          ></i>
+            class="absolute left-1/2 top-1/2 -translate-1/2"
+          >
+            <Plus class="size-[1.25em]" strokeWidth={1.5} />
+          </span>
         {/if}
       </div>
     </DelayedLink>

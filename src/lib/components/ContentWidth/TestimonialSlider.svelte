@@ -4,6 +4,7 @@
   import profilePlaceholder from "$lib/assets/images/profile_placeholder.png";
   import featuredPlaceholder from "$lib/assets/images/background_placeholder.svg";
   import ContentWidth from "./ContentWidth.svelte";
+  import { ArrowLeft, ArrowRight } from "@lucide/svelte";
 
   type Testimonial = {
     title: string;
@@ -145,24 +146,24 @@
     onclick={slideRight}
     aria-label="slide right"
   >
-    <i class="bump fa-sharp fa-regular fa-arrow-left text-dark fa-2xl shadow-sm"></i>
+    <ArrowLeft class="size-[2em] bump text-dark shadow-sm" strokeWidth={1.75} />
   </button>
   <button
     class="hidden lg:block absolute top-1/2 -translate-y-1/2 -right-6 translate-x-full"
     onclick={slideLeft}
     aria-label="slide left"
   >
-    <i class="bump fa-sharp fa-regular fa-arrow-right text-dark fa-2xl shadow-sm"></i>
+    <ArrowRight class="size-[2em] bump text-dark shadow-sm" strokeWidth={1.75} />
   </button>
 
   <div
     class="lg:hidden flex flex-row justify-between items-center absolute -bottom-8 left-6 gap-12"
   >
     <button class="bump" onclick={slideRight} aria-label="slide right">
-      <i class="fa-sharp fa-regular fa-arrow-left text-dark fa-2xl shadow-sm"></i>
+      <ArrowLeft class="size-[2em] text-dark shadow-sm" strokeWidth={1.75} />
     </button>
     <button class="bump" onclick={slideLeft} aria-label="slide left">
-      <i class="fa-sharp fa-regular fa-arrow-right text-dark fa-2xl shadow-sm"></i>
+      <ArrowRight class="size-[2em] text-dark shadow-sm" strokeWidth={1.75} />
     </button>
   </div>
 </ContentWidth>

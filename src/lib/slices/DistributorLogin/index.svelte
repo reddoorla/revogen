@@ -11,6 +11,7 @@
   import { fade, fly, slide } from "svelte/transition";
   import { PrismicImage } from "@prismicio/svelte";
   import { onMount } from "svelte";
+  import { ChevronRight } from "@lucide/svelte";
 
   import { distributorData } from "$lib/stores/distributorData";
 
@@ -190,7 +191,7 @@
             : ''}"
           onclick={handleSubmit}
         >
-          <i class="fa-regular fa-chevron-right fa-xl bump"></i>
+          <ChevronRight class="size-[1.5em] bump" strokeWidth={1.75} />
         </button>
       </div>
     {:else}

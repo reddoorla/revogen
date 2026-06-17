@@ -4,6 +4,7 @@
   import ContentWidth from "./ContentWidth/ContentWidth.svelte";
   import { browser } from "$app/environment";
   import DelayedLink from "./DelayedLink.svelte";
+  import { Menu, X } from "@lucide/svelte";
 
   let isNavModalOpen = $state(false);
 
@@ -114,16 +115,18 @@
       aria-label="toggle menu"
       class="bump h-10 w-10"
     >
-      <i
-        class="absolute fa-sharp fa-bars drop-shadow text-white hover:text-white/85 fa-2xl transition duration-200 {!isNavModalOpen
+      <Menu
+        class="absolute size-[2em] drop-shadow text-white hover:text-white/85 transition duration-200 {!isNavModalOpen
           ? ''
           : 'opacity-0'}"
-      ></i>
-      <i
-        class="absolute scale-125 fa-sharp fa-regular fa-close drop-shadow text-white hover:text-white/85 fa-2xl transition duration-200 {isNavModalOpen
+        strokeWidth={2}
+      />
+      <X
+        class="absolute size-[2em] scale-125 drop-shadow text-white hover:text-white/85 transition duration-200 {isNavModalOpen
           ? ''
           : 'opacity-0'}"
-      ></i>
+        strokeWidth={1.75}
+      />
     </button>
   </ContentWidth>
 </div>
