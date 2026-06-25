@@ -29,6 +29,7 @@
     "postcss": "^8.5.12",
     "prettier": "^3.8.3",
     "prettier-plugin-svelte": "^3.5.1",
+    "sharp": "^0.33.5",
     "slice-machine-ui": "^2.21.2",
     "svelte": "^5.55.5",
     "svelte-check": "^4.4.6",
