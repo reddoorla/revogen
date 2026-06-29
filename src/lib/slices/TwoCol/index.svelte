@@ -245,10 +245,10 @@
                 {slice.primary.col_one_label || "description"}
               </p>
               {#if slice.primary.table_column !== "desc & #, no sizes"}
-                <p class="uppercase w-1/6">{slice.primary.col_three_label || "size"}</p>
+                <p class="uppercase w-1/5">{slice.primary.col_three_label || "size"}</p>
               {/if}
               {#if slice.primary.table_column === "desc and two sizes and #"}
-                <p class="uppercase w-1/6">{slice.primary.col_three_label || "size"}</p>
+                <p class="uppercase w-1/5">{slice.primary.col_three_label || "size"}</p>
               {/if}
               <p class="uppercase w-1/3 ml-auto">{slice.primary.last_col_label || "part number"}</p>
             </div>
@@ -263,10 +263,10 @@
                   {product.description}
                 </p>
                 {#if slice.primary.table_column !== "desc & #, no sizes"}
-                  <p class="w-1/6 pr-4">{product.size_one}</p>
+                  <p class="w-1/5 pr-2 md:pr-4 whitespace-nowrap">{product.size_one}</p>
                 {/if}
                 {#if slice.primary.table_column === "desc and two sizes and #"}
-                  <p class="w-1/6 pr-4">{product.size_two}</p>
+                  <p class="w-1/5 pr-2 md:pr-4 whitespace-nowrap">{product.size_two}</p>
                 {/if}
                 <p class="w-1/3 ml-auto">{product.product_number}</p>
               </div>
@@ -500,10 +500,10 @@
               {slice.primary.col_one_label || "description"}
             </p>
             {#if slice.primary.table_column !== "desc & #, no sizes"}
-              <p class="uppercase w-1/6">{slice.primary.col_two_label || "size"}</p>
+              <p class="uppercase w-1/5">{slice.primary.col_two_label || "size"}</p>
             {/if}
             {#if slice.primary.table_column === "desc and two sizes and #"}
-              <p class="uppercase w-1/6">{slice.primary.col_three_label || "size"}</p>
+              <p class="uppercase w-1/5">{slice.primary.col_three_label || "size"}</p>
             {/if}
             <p class="uppercase w-1/3 ml-auto">{slice.primary.last_col_label || "part number"}</p>
           </div>
@@ -518,10 +518,10 @@
                 {product.description}
               </p>
               {#if slice.primary.table_column !== "desc & #, no sizes"}
-                <p class="w-1/6 pr-4">{product.size_one}</p>
+                <p class="w-1/5 pr-2 md:pr-4 whitespace-nowrap">{product.size_one}</p>
               {/if}
               {#if slice.primary.table_column === "desc and two sizes and #"}
-                <p class="w-1/6 pr-4">{product.size_two}</p>
+                <p class="w-1/5 pr-2 md:pr-4 whitespace-nowrap">{product.size_two}</p>
               {/if}
               <p class="w-1/3 ml-auto">{product.product_number}</p>
             </div>
