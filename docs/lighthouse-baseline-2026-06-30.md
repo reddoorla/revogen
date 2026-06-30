@@ -46,11 +46,12 @@ aggregate across pages (home 63 + product/content pages in the 90s) or an older/
 
 ## What actually drives the numbers
 
-- **Home mobile perf (63) is a paint-timing problem, not main-thread.** FCP ≈ 4.9s,
-  LCP ≈ 7.2s, but **TBT only ~20ms and CLS 0**. The ~7s LCP tracks the **IntroAnimation
-  overlay** (its `setTimeout` reveal is ~6.5–7s, wall-clock, so it's machine-independent and
-  reproducible). This means the "pause Rive off-screen" idea from the code review would _not_
-  move this score — TBT is already tiny. The lever is the intro reveal / LCP element, not JS.
+- **Home mobile perf (63) was a bandwidth problem: the autoplay Vimeo background hero.**
+  FCP ≈ 4.9s, LCP ≈ 7.2s, but **TBT only ~20ms and CLS 0**. A deeper trace (not the first
+  hypothesis of the intro animation) showed the hero `<iframe>` in `ScreenWidthMedia.svelte`
+  loads the Vimeo player + **~8.2 MB of video stream — 93% of the page's bytes** — eagerly,
+  starving the critical path under throttled mobile. The "pause Rive off-screen" idea from the
+  code review would not have moved this (TBT was already tiny). **Fixed** (see Update below).
 - **Product pages are healthy (mobile 96).** Image optimization (#22) and the a11y work (#23)
   show — a11y is 98–100.
 - **best-practices = 77 on every page** is two structural items: `third-party-cookies`
@@ -64,23 +65,42 @@ cross-runner variance — not aspirational targets. Defined in `lighthouserc.rea
 
 | Route                         | perf     | a11y | best-practices | seo  |
 | ----------------------------- | -------- | ---- | -------------- | ---- |
-| `/` (home)                    | **0.55** | 0.95 | 0.70           | 0.90 |
+| `/` (home)                    | **0.80** | 0.95 | 0.70           | 0.90 |
 | `/surgical-grafts/allografts` | **0.85** | 0.95 | 0.70           | 0.90 |
 
 Validated locally with `lhci autorun` (median of 3) — all assertions pass against the
-current build.
+current build. The home `performance` floor was raised from 0.55 → **0.80** after the Vimeo
+deferral below took the real score to ~90.
 
-## The two real improvement targets
+## Update 2026-06-30 (later) — home perf 63 → ~90 via Vimeo deferral
 
-The gate protects the floor; these are the things to actually _raise_:
+**Done, design-preserving.** `ScreenWidthMedia.svelte` now defers the autoplay Vimeo
+background `<iframe>`: its `src` is set client-side on `requestIdleCallback` (≤2s fallback)
+in `onMount`, so it's absent from the prerendered HTML and never competes with first paint.
+The hero's `placeholder_image` paints immediately (becoming a fast LCP) and the video
+autoplays in after the page is interactive — visually identical. Measured home mobile:
 
-1. **Home mobile perf (63 → ~85).** Attack the intro-animation-driven LCP: shorten or skip
-   the intro on repeat visits (cookie/localStorage), render the LCP hero _before/behind_ the
-   overlay so it paints early, and add `fetchpriority="high"` to the LCP image. Then ratchet
-   the home `performance` floor up toward 0.80–0.85.
-2. **best-practices (77 → 90).** Address `third-party-cookies` (lazy-load / facade the Vimeo
-   embed so it only loads on interaction) and resolve the logged `inspector-issues`. Then
-   raise the `best-practices` floor to 0.90.
+| metric      | before  | after     |
+| ----------- | ------- | --------- |
+| performance | 63      | **88–92** |
+| FCP         | 4.9s    | **2.1s**  |
+| LCP         | 7.2s    | **3.1s**  |
+| Speed Index | 4.7–5.5 | **2.1s**  |
+
+Home `performance` floor ratcheted 0.55 → **0.80** to lock it in.
+
+## Still open: best-practices (77)
+
+The gate floor for best-practices stays at 0.70 because it's gated by **third-party cookies**
+that can't be removed without changing behavior:
+
+1. **Vimeo** (`__cf_bm`, `_cfuvid`) — the video still loads (deferred), so its cookies remain.
+   Only a facade (poster + click-to-play, no autoplay) removes them — a design change that was
+   explicitly declined.
+2. **Prismic preview toolbar** (`io.prismic.previewSession`) — `<PrismicPreview>` in
+   `+layout.svelte` loads on production for all visitors. Gating it to preview sessions only
+   would drop those cookies (no visual change, but it's a functional change to editor preview —
+   worth a separate, deliberate PR).
 
 ## How to change the gate
 
