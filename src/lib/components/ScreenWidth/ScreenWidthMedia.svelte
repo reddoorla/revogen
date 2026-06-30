@@ -3,6 +3,7 @@
   import placeholder from "../../assets/images/background_placeholder.svg";
   import { PrismicImage } from "@prismicio/svelte";
   import Img from "@zerodevx/svelte-img";
+  import { onMount } from "svelte";
   let {
     src = placeholder,
     field = undefined,
@@ -17,6 +18,24 @@
   } = $props();
   let viewportHeight: number = $state(1024);
   let viewportWidth: number = $state(768);
+
+  // Defer the heavy Vimeo background video until the browser is idle, so the
+  // hero image + page content paint first instead of competing with ~8MB of
+  // video stream for bandwidth. The video still autoplays as a background — it
+  // just starts a beat later (imperceptible on fast connections). Not rendered
+  // during prerender/SSR, so it never blocks first paint.
+  let videoSrc = $state("");
+  onMount(() => {
+    if (!vimeoId) return;
+    const load = () => {
+      videoSrc = `https://player.vimeo.com/video/${vimeoId}?background=1&muted=1&loop=1&autoplay=1&dnt=1`;
+    };
+    if ("requestIdleCallback" in window) {
+      window.requestIdleCallback(load, { timeout: 2000 });
+    } else {
+      setTimeout(load, 1200);
+    }
+  });
 </script>
 
 <svelte:window bind:innerHeight={viewportHeight} bind:innerWidth={viewportWidth} />
@@ -48,10 +67,10 @@
 {src === placeholder ? 'lg:w-[45%] md:h-auto' : ''}"
       />
     {/if}
-    {#if vimeoId}
+    {#if vimeoId && videoSrc}
       <iframe
         title="background video"
-        src={`https://player.vimeo.com/video/${vimeoId}?background=1&muted=1&loop=1&autoplay=1&dnt=1`}
+        src={videoSrc}
         class="aspect-video absolute contrast-[1.15] -z-10"
         style={((viewportHeight * percentHeight) / 100) * 16 > viewportWidth * 9
           ? `height: ${percentHeight}lvh; min-width: 100%`
