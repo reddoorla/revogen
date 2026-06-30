@@ -9,13 +9,24 @@ workflow does lint → `svelte-check` → `pnpm build` → `reddoor-maint audit 
 no job executed it. Any performance number on the Netlify dashboard came from Netlify's
 own UI-enabled Lighthouse plugin, not from anything version-controlled or gating.
 
-This change adds a **real, codified Lighthouse gate in two places**:
+This change adds a **real, codified Lighthouse gate** in CI:
 
-- **`netlify.toml`** — `@netlify/plugin-lighthouse` audits the production build on every
-  deploy (mobile, matching the dashboard) and **fails the deploy** on a per-route regression.
 - **`.github/workflows/ci.yml`** (`lighthouse` job) — builds the site and runs LHCI
-  (`lighthouserc.real.json`) against the same routes on the exact PR build, deterministically,
-  and **fails the PR check** on a regression. No wait on the Netlify deploy.
+  (`lighthouserc.real.json`, Lighthouse 12, mobile, median of 3) against the home + a
+  representative product page on the exact PR build, deterministically, and **fails the PR
+  check** on a per-route regression. No wait on the Netlify deploy. Confirmed passing in real
+  CI on the PR that introduced it.
+
+### Why not a Netlify-side gate too
+
+We evaluated `@netlify/plugin-lighthouse` in `netlify.toml` and **dropped it**. On this deploy
+it did not run (the deploy finished in ~build time and wrote no report), and even working it
+was the wrong tool: it pins **Lighthouse 9** (2022-era scoring — different metric weights from
+the LH12 gate above, so the two would disagree), pulls in `puppeteer`/Chromium (heavy per
+deploy), and doesn't reliably auto-install under pnpm. It would be a heavier, inconsistent,
+**redundant** second gate. To block regressions from reaching production, make the GitHub
+`lighthouse (real pages)` check a **required status check** on `main` (branch protection) —
+then a regression can't merge, so it never deploys.
 
 ## Measured baseline
 
@@ -49,8 +60,7 @@ aggregate across pages (home 63 + product/content pages in the 90s) or an older/
 ## Gate thresholds (per route, mobile)
 
 Calibrated as **regression floors that pass today**, with headroom for run-to-run /
-cross-runner variance — not aspirational targets. Same values in `netlify.toml` and
-`lighthouserc.real.json`.
+cross-runner variance — not aspirational targets. Defined in `lighthouserc.real.json`.
 
 | Route                         | perf     | a11y | best-practices | seo  |
 | ----------------------------- | -------- | ---- | -------------- | ---- |
@@ -75,8 +85,8 @@ The gate protects the floor; these are the things to actually _raise_:
 ## How to change the gate
 
 - **Add a route:** add its prerendered path to `lighthouserc.real.json` `collect.url` **and**
-  a matching `assertMatrix` entry, and a `[[plugins.inputs.audits]]` block in `netlify.toml`.
-- **Ratchet a floor up:** bump the `minScore` in `lighthouserc.real.json` and the matching
-  `thresholds` value in `netlify.toml` together (keep the two in sync).
+  a matching `assertMatrix` entry.
+- **Ratchet a floor up:** bump the `minScore` in the route's `assertMatrix` entry in
+  `lighthouserc.real.json`.
 - The sync-managed `lighthouserc.json` (fleet a11y-fixtures config) is left untouched on
   purpose; `reddoor-maint sync-configs` owns it.
