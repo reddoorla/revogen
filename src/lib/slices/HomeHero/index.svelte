@@ -34,7 +34,6 @@
     } else {
       showSecondSection = false;
     }
-    console.log(showSecondSection);
   };
 
   onMount(() => {
@@ -55,8 +54,9 @@
   <button
     class="absolute top-1/2 -translate-y-[150%] left-1/2 -translate-x-1/2"
     onclick={scrollToNext}
+    aria-label="Scroll to next section"
   >
-    <img src={downArrow} alt="down" class="h-16 negative-bump" />
+    <img src={downArrow} alt="" class="h-16 negative-bump" />
   </button>
   <ScreenWidthMedia
     field={isFilled.image(slice.primary.placeholder_image) ? slice.primary.placeholder_image : null}
@@ -97,13 +97,13 @@
       ? ''
       : 'rotate-90'}"
   >
-    <img src={gridlines} class="rotate-270 w-full" alt="decorative gridlines" />
+    <img src={gridlines} class="rotate-270 w-full" alt="" aria-hidden="true" />
   </div>
   <div
     class="absolute top-5/6 -right-8 w-screen origin-top-right transition-transform duration-2000 delay-100 {showSecondSection
       ? ''
       : '-rotate-90'}"
   >
-    <img src={gridlines} class="w-full" alt="decorative gridlines" />
+    <img src={gridlines} class="w-full" alt="" aria-hidden="true" />
   </div>
 </section>

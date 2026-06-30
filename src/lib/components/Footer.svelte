@@ -11,7 +11,6 @@
 
   const handleScroll = () => {
     if (!footerElement) {
-      console.log("no footer");
       return;
     }
 
@@ -118,7 +117,8 @@
   {#if showScript}
     <img
       src={script}
-      alt="revogen script"
+      alt=""
+      aria-hidden="true"
       class="w-2/3 absolute bottom-0 left-4 opacity-10 translate-y-1/6 -translate-x-[6%]"
       transition:fly={{ y: 100, duration: 1200, opacity: 0, easing: quadOut }}
     />

@@ -14,8 +14,6 @@
     document
       .getElementsByTagName("main")[0]
       .scrollBy({ left: 0, top: section.getBoundingClientRect().bottom, behavior: "smooth" });
-
-    console.log(section.getBoundingClientRect().bottom);
   };
 
   const { slice }: Props = $props();

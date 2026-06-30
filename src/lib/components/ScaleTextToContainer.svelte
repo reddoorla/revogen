@@ -60,7 +60,6 @@
     void windowWidth;
     if (parent) {
       nodes = [...parent.children] as HTMLElement[];
-      console.log(nodes);
       const parentWidth = parent.offsetWidth;
       let largestChildWidth = 1;
       nodes.forEach((node) => {

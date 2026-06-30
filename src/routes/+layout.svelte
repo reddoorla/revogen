@@ -44,7 +44,6 @@
     <meta name="og:image" content={page.data.meta_image.url} />
     <meta name="twitter:card" content="summary_large_image" />
   {/if}
-  <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no" />
   <script async defer src="https://static.cdn.prismic.io/prismic.js?new=true&repo=revogen"></script>
 </svelte:head>
 

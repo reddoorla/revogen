@@ -18,9 +18,6 @@ export async function entries() {
   const client = createClient();
 
   const pages = await client.getAllByType("surgical_grafts");
-
-  console.log(pages);
-
   return pages.map((page) => {
     return { uid: page.uid };
   });
