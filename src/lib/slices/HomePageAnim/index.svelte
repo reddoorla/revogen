@@ -218,3 +218,14 @@
     </DelayedLink>
   </ContentWidth>
 </section>
+
+<style>
+  /* svelte-img bakes a blurred low-quality placeholder into each <img>'s inline
+     `background`. These graft PNGs are transparent (subject cut out), so that
+     placeholder bleeds through the cut-out as fuzzy "pixelation" around each
+     graft. The images are small, optimized and sit on the gradient, so no
+     placeholder is needed — suppress it for every image in this section. */
+  section :global(img) {
+    background: none !important;
+  }
+</style>
