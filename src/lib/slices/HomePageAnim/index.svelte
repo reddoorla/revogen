@@ -3,12 +3,13 @@
   import type { Content } from "@prismicio/client";
   import type { SliceComponentProps } from "@prismicio/svelte";
   import { gradientTheme, defaultGradientTheme } from "$lib/stores/gradientTheme";
-  import surgical from "$lib/assets/images/surgical.png";
-  import ocular from "$lib/assets/images/ocular.png";
-  import woundCare from "$lib/assets/images/woundCare.png";
-  import surgicalBefore from "$lib/assets/images/surgical-before.png";
-  import ocularBefore from "$lib/assets/images/ocular-before.png";
-  import woundCareBefore from "$lib/assets/images/wound-before.png";
+  import surgical from "$lib/assets/images/surgical.png?as=run";
+  import ocular from "$lib/assets/images/ocular.png?as=run";
+  import woundCare from "$lib/assets/images/woundCare.png?as=run";
+  import surgicalBefore from "$lib/assets/images/surgical-before.png?as=run";
+  import ocularBefore from "$lib/assets/images/ocular-before.png?as=run";
+  import woundCareBefore from "$lib/assets/images/wound-before.png?as=run";
+  import Img from "@zerodevx/svelte-img";
   import { fade, slide } from "svelte/transition";
   import DelayedLink from "$lib/components/DelayedLink.svelte";
   import { onMount } from "svelte";
@@ -65,20 +66,6 @@
       observer.observe(puttyCanvas);
     }
 
-    const imagesToPreload = [
-      surgical,
-      ocular,
-      woundCare,
-      surgicalBefore,
-      ocularBefore,
-      woundCareBefore,
-    ];
-
-    imagesToPreload.forEach((src) => {
-      const img = new Image();
-      img.src = src;
-    });
-
     return () => {
       window.removeEventListener("resize", handleResize);
       observer.disconnect();
@@ -88,16 +75,6 @@
 </script>
 
 <svelte:window bind:innerWidth={viewportWidth} />
-
-<!-- Hidden preload images -->
-<div style="display: none;">
-  <img src={surgical} alt="preload" />
-  <img src={ocular} alt="preload" />
-  <img src={woundCare} alt="preload" />
-  <img src={surgicalBefore} alt="preload" />
-  <img src={ocularBefore} alt="preload" />
-  <img src={woundCareBefore} alt="preload" />
-</div>
 
 <section
   data-slice-type={slice.slice_type}
@@ -114,17 +91,19 @@
       href="/surgical-grafts"
     >
       <div class="relative w-full aspect-square">
-        <img
+        <Img
           src={surgical}
-          alt="surgical"
+          alt="surgical grafts"
+          sizes="(min-width: 768px) 25vw, 70vw"
           class="{viewportWidth < 768 || $gradientTheme === 1
             ? ''
             : 'opacity-10 brightness-0 invert'} transition duration-700 ease-out absolute top-1/2 left-1/2 -translate-1/2"
         />
 
-        <img
+        <Img
           src={surgicalBefore}
-          alt="surgical"
+          alt=""
+          sizes="(min-width: 768px) 25vw, 70vw"
           class=" transition duration-700 ease-out absolute top-1/2 left-1/2 -translate-1/2"
         />
       </div>
@@ -157,19 +136,19 @@
       href="/wound-care"
     >
       <div class="relative w-full aspect-square">
-        <img
-          transition:fade
+        <Img
           src={woundCare}
-          alt="wound care"
+          alt="wound care grafts"
+          sizes="(min-width: 768px) 25vw, 70vw"
           class="{viewportWidth < 768 || $gradientTheme === 2
             ? ''
             : 'brightness-0 invert opacity-10'} transition duration-700 ease-fast-slow absolute top-1/2 left-1/2 -translate-1/2"
         />
 
-        <img
-          transition:fade
+        <Img
           src={woundCareBefore}
-          alt="wound care"
+          alt=""
+          sizes="(min-width: 768px) 25vw, 70vw"
           class="absolute top-1/2 left-1/2 -translate-1/2"
         />
       </div>
@@ -201,14 +180,20 @@
       href="/ocular"
     >
       <div class="relative w-full aspect-square">
-        <img
+        <Img
           src={ocular}
-          alt="ocular"
+          alt="ocular grafts"
+          sizes="(min-width: 768px) 25vw, 70vw"
           class="{viewportWidth < 768 || $gradientTheme === 3
             ? ''
             : 'brightness-0 invert opacity-10'} transition duration-700 ease-fast-slow absolute top-1/2 left-1/2 -translate-1/2"
         />
-        <img src={ocularBefore} alt="ocular" class="absolute top-1/2 left-1/2 -translate-1/2" />
+        <Img
+          src={ocularBefore}
+          alt=""
+          sizes="(min-width: 768px) 25vw, 70vw"
+          class="absolute top-1/2 left-1/2 -translate-1/2"
+        />
       </div>
       <h4>Ocular Grafts</h4>
       {#if viewportWidth < 768 || $gradientTheme === 3}
