@@ -5,3 +5,30 @@
 [build.environment]
     NODE_VERSION = "24"
     COREPACK_INTEGRITY_KEYS = "0"
+
+# Real-page Lighthouse on every deploy. Audits the production build (mobile
+# emulation, matching the Netlify dashboard) and FAILS THE DEPLOY when a route
+# drops below its per-route threshold. Floors calibrated 2026-06-30 against the
+# live build — see docs/lighthouse-baseline-2026-06-30.md. Netlify auto-installs
+# the plugin from this declaration (no package.json entry needed).
+[[plugins]]
+package = "@netlify/plugin-lighthouse"
+
+    # Home — the intro-animation reveal makes mobile LCP ~7s (perf ~63). This
+    # floor guards against regression; lifting the home score is separate work.
+    [[plugins.inputs.audits]]
+    path = "index.html"
+        [plugins.inputs.audits.thresholds]
+        performance = 0.55
+        accessibility = 0.95
+        best-practices = 0.7
+        seo = 0.9
+
+    # Representative product page (spec tables + Rive) — mobile perf ~96.
+    [[plugins.inputs.audits]]
+    path = "surgical-grafts/allografts.html"
+        [plugins.inputs.audits.thresholds]
+        performance = 0.85
+        accessibility = 0.95
+        best-practices = 0.7
+        seo = 0.9
