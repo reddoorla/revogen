@@ -45,6 +45,7 @@
       onclick={handleClick}
       {disabled}
       class="{baseClasses} {disabledClasses} {passedClasses}"
+      {..._others}
     >
       {@render children?.()}
     </button>

@@ -4,6 +4,7 @@
   import { PrismicImage, PrismicRichText, type SliceComponentProps } from "@prismicio/svelte";
   import { isFilled } from "@prismicio/client";
   import DefaultButton from "$lib/components/Buttons/DefaultButton.svelte";
+  import ProductSpecTable from "$lib/components/ProductSpecTable.svelte";
   import * as rive from "@rive-app/canvas";
   import { onMount } from "svelte";
 
@@ -64,6 +65,13 @@
     } finally {
       submitting = false;
     }
+  };
+
+  // Native form submit: the browser runs `required`/type validation first, so
+  // this handler only fires once the form is valid.
+  const handleSubmit = (event: SubmitEvent) => {
+    event.preventDefault();
+    triggerSubmitButton();
   };
 
   const { slice }: Props = $props();
@@ -235,43 +243,16 @@
         </div>
 
         {#if slice.variation === "imageTableText"}
-          <div class="w-full mt-16 flex flex-col gap-2">
-            <div class="w-full flex flex-row">
-              <p
-                class="uppercase {slice.primary.table_column === 'desc & #, no sizes'
-                  ? 'w-2/3'
-                  : 'w-1/3'}"
-              >
-                {slice.primary.col_one_label || "description"}
-              </p>
-              {#if slice.primary.table_column !== "desc & #, no sizes"}
-                <p class="uppercase w-1/5">{slice.primary.col_three_label || "size"}</p>
-              {/if}
-              {#if slice.primary.table_column === "desc and two sizes and #"}
-                <p class="uppercase w-1/5">{slice.primary.col_three_label || "size"}</p>
-              {/if}
-              <p class="uppercase w-1/3 ml-auto">{slice.primary.last_col_label || "part number"}</p>
-            </div>
-            <div class="h-[1px] w-full bg-white"></div>
-            {#each slice.primary.products as product, productIndex (productIndex)}
-              <div class="w-full flex flex-row">
-                <p
-                  class="{slice.primary.table_column === 'desc & #, no sizes'
-                    ? 'w-2/3'
-                    : 'w-1/3'} pr-4"
-                >
-                  {product.description}
-                </p>
-                {#if slice.primary.table_column !== "desc & #, no sizes"}
-                  <p class="w-1/5 pr-2 md:pr-4 whitespace-nowrap">{product.size_one}</p>
-                {/if}
-                {#if slice.primary.table_column === "desc and two sizes and #"}
-                  <p class="w-1/5 pr-2 md:pr-4 whitespace-nowrap">{product.size_two}</p>
-                {/if}
-                <p class="w-1/3 ml-auto">{product.product_number}</p>
-              </div>
-            {/each}
-          </div>
+          <ProductSpecTable
+            class="mt-16"
+            products={slice.primary.products}
+            tableColumn={slice.primary.table_column}
+            colOneLabel={slice.primary.col_one_label}
+            colTwoLabel={slice.primary.col_two_label}
+            colThreeLabel={slice.primary.col_three_label}
+            lastColLabel={slice.primary.last_col_label}
+            ariaLabel={slice.primary.col_one_label || "Product specifications"}
+          />
         {/if}
       </div>
     </ContentWidth>
@@ -282,12 +263,16 @@
       <div class="w-full my-6">
         <PrismicRichText field={slice.primary.text} />
 
-        <div class="mt-12 flex flex-col gap-6">
+        <form class="mt-12 flex flex-col gap-6" onsubmit={handleSubmit}>
           <!-- First row - First Name and Last Name -->
           <div class="w-full flex flex-col md:flex-row gap-4">
             <div class="w-full md:w-1/2">
-              <p class="text-white mb-2 text-sm uppercase tracking-wide">FIRST NAME*</p>
+              <label
+                for="cf-first-name"
+                class="block text-white mb-2 text-sm uppercase tracking-wide">FIRST NAME*</label
+              >
               <input
+                id="cf-first-name"
                 type="text"
                 name="first-name"
                 bind:value={formFirstName}
@@ -297,8 +282,12 @@
               />
             </div>
             <div class="w-full md:w-1/2">
-              <p class="text-white mb-2 text-sm uppercase tracking-wide">LAST NAME*</p>
+              <label
+                for="cf-last-name"
+                class="block text-white mb-2 text-sm uppercase tracking-wide">LAST NAME*</label
+              >
               <input
+                id="cf-last-name"
                 type="text"
                 name="last-name"
                 bind:value={formLastName}
@@ -312,8 +301,11 @@
           <!-- Second row - City and State -->
           <div class="w-full flex flex-col md:flex-row gap-4">
             <div class="w-full md:w-1/2">
-              <p class="text-white mb-2 text-sm uppercase tracking-wide">CITY*</p>
+              <label for="cf-city" class="block text-white mb-2 text-sm uppercase tracking-wide"
+                >CITY*</label
+              >
               <input
+                id="cf-city"
                 type="text"
                 name="city"
                 bind:value={formCity}
@@ -323,8 +315,11 @@
               />
             </div>
             <div class="w-full md:w-1/2">
-              <p class="text-white mb-2 text-sm uppercase tracking-wide">STATE*</p>
+              <label for="cf-state" class="block text-white mb-2 text-sm uppercase tracking-wide"
+                >STATE*</label
+              >
               <select
+                id="cf-state"
                 name="state"
                 bind:value={formState}
                 required
@@ -388,8 +383,11 @@
           <!-- Third row - Email and Phone -->
           <div class="w-full flex flex-col md:flex-row gap-4">
             <div class="w-full md:w-1/2">
-              <p class="text-white mb-2 text-sm uppercase tracking-wide">EMAIL*</p>
+              <label for="cf-email" class="block text-white mb-2 text-sm uppercase tracking-wide"
+                >EMAIL*</label
+              >
               <input
+                id="cf-email"
                 type="email"
                 name="email"
                 bind:value={formEmail}
@@ -399,8 +397,11 @@
               />
             </div>
             <div class="w-full md:w-1/2">
-              <p class="text-white mb-2 text-sm uppercase tracking-wide">PHONE</p>
+              <label for="cf-phone" class="block text-white mb-2 text-sm uppercase tracking-wide"
+                >PHONE</label
+              >
               <input
+                id="cf-phone"
                 type="tel"
                 name="phone"
                 bind:value={formPhone}
@@ -412,8 +413,13 @@
 
           <!-- Fourth row - Current Distributorship (full width) -->
           <div class="w-full">
-            <p class="text-white mb-2 text-sm uppercase tracking-wide">CURRENT DISTRIBUTORSHIP</p>
+            <label
+              for="cf-distributorship"
+              class="block text-white mb-2 text-sm uppercase tracking-wide"
+              >CURRENT DISTRIBUTORSHIP</label
+            >
             <input
+              id="cf-distributorship"
               type="text"
               name="distributorship"
               bind:value={formDistributorship}
@@ -425,8 +431,11 @@
 
           <!-- Message field (full width) -->
           <div class="w-full">
-            <p class="text-white mb-2 text-sm uppercase tracking-wide">MESSAGE</p>
+            <label for="cf-message" class="block text-white mb-2 text-sm uppercase tracking-wide"
+              >MESSAGE</label
+            >
             <textarea
+              id="cf-message"
               name="message"
               bind:value={formMessage}
               required
@@ -449,9 +458,11 @@
 
           <!-- Submit button -->
           {#if submitted}
-            <p class="text-white">Thanks — your message has been sent.</p>
+            <p class="text-white" role="status" aria-live="polite">
+              Thanks — your message has been sent.
+            </p>
           {:else}
-            <DefaultButton onclick={triggerSubmitButton} disabled={submitting}>
+            <DefaultButton type="submit" disabled={submitting}>
               {submitting ? "SENDING..." : "SUBMIT"}
             </DefaultButton>
             {#if submitError}
@@ -460,7 +471,7 @@
               </p>
             {/if}
           {/if}
-        </div>
+        </form>
       </div>
     </ContentWidth>
   {/if}
@@ -490,43 +501,15 @@
         </div>
       </div>
       <div class="w-full md:w-1/2 flex flex-col gap-6 mt-6 md:mt-0">
-        <div class="w-full flex flex-col gap-2">
-          <div class="w-full flex flex-row">
-            <p
-              class="uppercase {slice.primary.table_column === 'desc & #, no sizes'
-                ? 'w-2/3'
-                : 'w-1/3'}"
-            >
-              {slice.primary.col_one_label || "description"}
-            </p>
-            {#if slice.primary.table_column !== "desc & #, no sizes"}
-              <p class="uppercase w-1/5">{slice.primary.col_two_label || "size"}</p>
-            {/if}
-            {#if slice.primary.table_column === "desc and two sizes and #"}
-              <p class="uppercase w-1/5">{slice.primary.col_three_label || "size"}</p>
-            {/if}
-            <p class="uppercase w-1/3 ml-auto">{slice.primary.last_col_label || "part number"}</p>
-          </div>
-          <div class="h-[1px] w-full bg-white"></div>
-          {#each slice.primary.products as product, productIndex (productIndex)}
-            <div class="w-full flex flex-row">
-              <p
-                class=" {slice.primary.table_column === 'desc & #, no sizes'
-                  ? 'w-2/3'
-                  : 'w-1/3'} pr-4"
-              >
-                {product.description}
-              </p>
-              {#if slice.primary.table_column !== "desc & #, no sizes"}
-                <p class="w-1/5 pr-2 md:pr-4 whitespace-nowrap">{product.size_one}</p>
-              {/if}
-              {#if slice.primary.table_column === "desc and two sizes and #"}
-                <p class="w-1/5 pr-2 md:pr-4 whitespace-nowrap">{product.size_two}</p>
-              {/if}
-              <p class="w-1/3 ml-auto">{product.product_number}</p>
-            </div>
-          {/each}
-        </div>
+        <ProductSpecTable
+          products={slice.primary.products}
+          tableColumn={slice.primary.table_column}
+          colOneLabel={slice.primary.col_one_label}
+          colTwoLabel={slice.primary.col_two_label}
+          colThreeLabel={slice.primary.col_three_label}
+          lastColLabel={slice.primary.last_col_label}
+          ariaLabel={slice.primary.col_one_label || "Product specifications"}
+        />
       </div>
     </ContentWidth>
   {/if}
