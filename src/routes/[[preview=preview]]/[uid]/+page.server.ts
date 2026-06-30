@@ -12,11 +12,12 @@ export async function load({ params, fetch, cookies }) {
     throw error(404, `Page "${params.uid}" not found`);
   }
 
-  const distributorCategories = await client.getAllByType("resource_hub_category");
-
+  // The Distributor Resource Hub documents are intentionally NOT fetched here:
+  // this route is prerendered, so anything returned would be baked into the
+  // static HTML and readable without auth. They are served from the
+  // authenticated /api/distributor endpoint instead.
   return {
     page,
-    distributorCategories,
     title: page.data.meta_title || "Revogen Biologics",
     meta_description: page.data.meta_description,
     meta_title: page.data.meta_title,

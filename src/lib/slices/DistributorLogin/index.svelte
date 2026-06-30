@@ -34,26 +34,54 @@
   let categoryRefs: HTMLElement[] = $state([]);
   let containerHeight = $state(0);
 
-  // Set your desired password here
-  const CORRECT_PASSWORD = "Revogenreps";
-
-  function handleSubmit() {
-    if (password === CORRECT_PASSWORD) {
-      isAuthenticated = true;
-      showError = false;
-    } else {
-      showError = true;
-      shakeButton = true;
-
-      setTimeout(() => {
-        shakeButton = false;
-      }, 600);
-
-      setTimeout(() => {
+  // Auth + the resource hub documents are handled by /api/distributor. The
+  // documents are never included in the page payload — they are fetched here
+  // only after the password is validated server-side (or a valid auth cookie
+  // is presented), so they never appear in the prerendered HTML.
+  async function handleSubmit() {
+    try {
+      const res = await fetch("/api/distributor", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ password }),
+      });
+      if (res.ok) {
+        const result: { docs?: Content.ResourceHubCategoryDocument[] } = await res
+          .json()
+          .catch(() => ({}));
+        distributorData.set(result.docs ?? []);
+        isAuthenticated = true;
         showError = false;
-      }, 3000);
+        return;
+      }
+    } catch {
+      // fall through to the error state below
     }
+    showError = true;
+    shakeButton = true;
+    setTimeout(() => {
+      shakeButton = false;
+    }, 600);
+    setTimeout(() => {
+      showError = false;
+    }, 3000);
   }
+
+  // Restore an existing distributor session (valid auth cookie) on load, so a
+  // returning visitor doesn't have to re-enter the password.
+  onMount(async () => {
+    try {
+      const res = await fetch("/api/distributor");
+      if (!res.ok) return;
+      const result: { docs?: Content.ResourceHubCategoryDocument[] } = await res
+        .json()
+        .catch(() => ({}));
+      distributorData.set(result.docs ?? []);
+      isAuthenticated = true;
+    } catch {
+      // not authenticated yet — the password form stays visible
+    }
+  });
 
   function handleKeyPress(event: KeyboardEvent) {
     if (event.key === "Enter") {

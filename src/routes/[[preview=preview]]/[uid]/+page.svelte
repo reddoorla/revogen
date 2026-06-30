@@ -2,8 +2,6 @@
   import { SliceZone } from "@prismicio/svelte";
   import { components } from "$lib/slices/index.js";
   import { defaultGradientColor } from "$lib/stores/gradientTheme.js";
-  import { onMount } from "svelte";
-  import { distributorData } from "$lib/stores/distributorData.js";
 
   let { data } = $props();
   let viewportWidth = $state(1024);
@@ -15,8 +13,6 @@
       defaultGradientColor(content.default_background);
     }
   });
-
-  onMount(() => distributorData.set(data.distributorCategories));
 </script>
 
 <svelte:window bind:innerWidth={viewportWidth} />
