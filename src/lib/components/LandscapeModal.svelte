@@ -13,7 +13,6 @@
       const isNotPortrait = screen.orientation.type !== "portrait-primary";
 
       if (isMobile && isLandscape && isNotPortrait) {
-        console.log("Please switch to portrait mode");
         showLandscapeModal = true;
       } else {
         showLandscapeModal = false;

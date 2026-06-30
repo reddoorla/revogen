@@ -71,8 +71,8 @@
           {/if}
         </div>
         {#if slice.primary.show_scroll_arrow}
-          <button onclick={scrollToNext} class="mt-10 h-20">
-            <img src={downArrow} alt="down" />
+          <button onclick={scrollToNext} aria-label="Scroll to next section" class="mt-10 h-20">
+            <img src={downArrow} alt="" />
           </button>
         {/if}
       </div>

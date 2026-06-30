@@ -28,13 +28,11 @@
   const slideRight = () => {
     sliderIndex--;
     if (sliderIndex < 0) resetSliderToEnd();
-    console.log("Current slide index:", sliderIndex);
   };
 
   const slideLeft = () => {
     sliderIndex++;
     if (sliderIndex >= imageArray.length) resetSliderToStart();
-    console.log("Current slide index:", sliderIndex);
   };
 
   const handleSwipe = (e: SwipeCustomEvent) => {

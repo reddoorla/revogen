@@ -401,7 +401,7 @@
             <div class="w-full md:w-1/2">
               <p class="text-white mb-2 text-sm uppercase tracking-wide">PHONE</p>
               <input
-                type="phone"
+                type="tel"
                 name="phone"
                 bind:value={formPhone}
                 placeholder=""

@@ -113,6 +113,7 @@
         isNavModalOpen = !isNavModalOpen;
       }}
       aria-label="toggle menu"
+      aria-expanded={isNavModalOpen}
       class="bump h-10 w-10"
     >
       <Menu
