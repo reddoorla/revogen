@@ -18,6 +18,7 @@ package = "@netlify/plugin-lighthouse"
     # floor guards against regression; lifting the home score is separate work.
     [[plugins.inputs.audits]]
     path = "index.html"
+    output_path = "lighthouse-home.html"
         [plugins.inputs.audits.thresholds]
         performance = 0.55
         accessibility = 0.95
@@ -27,6 +28,7 @@ package = "@netlify/plugin-lighthouse"
     # Representative product page (spec tables + Rive) — mobile perf ~96.
     [[plugins.inputs.audits]]
     path = "surgical-grafts/allografts.html"
+    output_path = "lighthouse-allografts.html"
         [plugins.inputs.audits.thresholds]
         performance = 0.85
         accessibility = 0.95
