@@ -5,6 +5,7 @@
   import { isFilled } from "@prismicio/client";
   import DefaultButton from "$lib/components/Buttons/DefaultButton.svelte";
   import ProductSpecTable from "$lib/components/ProductSpecTable.svelte";
+  import TurnstileWidget from "$lib/components/TurnstileWidget.svelte";
   import * as rive from "@rive-app/canvas";
   import { onMount } from "svelte";
 
@@ -19,6 +20,10 @@
   let formDistributorship = $state("");
   let formMessage = $state("");
   let formBotField = $state("");
+  // Optional Cloudflare Turnstile token from the visible widget; forwarded to
+  // central verify as `cf-turnstile-response`. Empty until an operator sets
+  // PUBLIC_TURNSTILE_SITE_KEY (widget stays dark) — ingest is fail-open.
+  let turnstileToken = $state("");
 
   // Submission UI state for the contact / distributor form.
   let submitting = $state(false);
@@ -50,6 +55,7 @@
           state: formState,
           distributorship: formDistributorship,
           "bot-field": formBotField,
+          "cf-turnstile-response": turnstileToken,
           sourceUrl: window.location.href,
         }),
       });
@@ -455,6 +461,10 @@
               />
             </label>
           </p>
+
+          <!-- Cloudflare Turnstile (visible so a challenge can run); dark until
+               PUBLIC_TURNSTILE_SITE_KEY is set. Token forwarded to central verify. -->
+          <TurnstileWidget onToken={(t) => (turnstileToken = t)} />
 
           <!-- Submit button -->
           {#if submitted}
