@@ -38,10 +38,10 @@
     <meta name="description" content={page.data.meta_description} />
   {/if}
   {#if page.data.meta_title}
-    <meta name="og:title" content={page.data.meta_title} />
+    <meta property="og:title" content={page.data.meta_title} />
   {/if}
   {#if page.data.meta_image}
-    <meta name="og:image" content={page.data.meta_image.url} />
+    <meta property="og:image" content={page.data.meta_image} />
     <meta name="twitter:card" content="summary_large_image" />
   {/if}
 </svelte:head>
