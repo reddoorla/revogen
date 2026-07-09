@@ -29,7 +29,7 @@
   });
 </script>
 
-<section class="relative overflow-hidden" bind:this={footerElement}>
+<footer class="relative overflow-hidden" bind:this={footerElement}>
   <ContentWidth
     class="flex flex-col md:flex-row justify-between text-white footer relative border-t-[2px] border-white mt-20 mb-5"
   >
@@ -123,4 +123,4 @@
       transition:fly={{ y: 100, duration: 1200, opacity: 0, easing: quadOut }}
     />
   {/if}
-</section>
+</footer>
