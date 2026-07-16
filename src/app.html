@@ -4,6 +4,34 @@
     <meta charset="utf-8" />
     <meta name="google-site-verification" content="jDn1K5lmdFfhkKX339-6vgYUhbxYqXcspPnBEU4h9BU" />
 
+    <!-- Google tag (gtag.js) — GA4. The config commands queue synchronously so
+         the pageview keeps a correct load-time timestamp, but the ~90KB gtag.js
+         itself is deferred to browser idle so it stays off the critical path and
+         doesn't cost the home page its Lighthouse perf floor. Same defer-to-idle
+         tradeoff as the Vimeo hero (ScreenWidthMedia.svelte). -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-Y0VSL1KFNT");
+
+      (function () {
+        var load = function () {
+          var s = document.createElement("script");
+          s.async = true;
+          s.src = "https://www.googletagmanager.com/gtag/js?id=G-Y0VSL1KFNT";
+          document.head.appendChild(s);
+        };
+        if ("requestIdleCallback" in window) {
+          window.requestIdleCallback(load, { timeout: 2000 });
+        } else {
+          window.setTimeout(load, 1200);
+        }
+      })();
+    </script>
+
     <link rel="icon" type="image/png" href="%sveltekit.assets%/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="%sveltekit.assets%/favicon.svg" />
     <link rel="shortcut icon" href="%sveltekit.assets%/favicon.ico" />
