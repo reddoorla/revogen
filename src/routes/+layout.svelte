@@ -11,8 +11,19 @@
   import TransitionOverlay from "$lib/components/TransitionOverlay.svelte";
   import { onNavigate } from "$app/navigation";
   import { onMount } from "svelte";
+  import { SITE_NAME } from "$lib/site";
 
   let { children, data } = $props();
+
+  // Last-resort <meta name="description"> fallback, derived from the site's own
+  // homepage hero copy (its real words). Every route can therefore emit a
+  // non-empty, honest description even when its Prismic doc has no
+  // meta_description set. A per-doc meta_description always wins over this.
+  const DEFAULT_DESCRIPTION =
+    "Revogen Biologics is committed to making lives better through cutting-edge biologics, delivering quality products and services to our clients.";
+
+  const metaDescription = $derived(page.data.meta_description || DEFAULT_DESCRIPTION);
+
   const scrollAllToTop = () => {
     // Reset window scroll
     window.scrollTo(0, 0);
@@ -33,13 +44,12 @@
 </script>
 
 <svelte:head>
-  <title>{page.data.title ?? "Revogen"}</title>
-  {#if page.data.meta_description}
-    <meta name="description" content={page.data.meta_description} />
+  <title>{page.data.title ?? SITE_NAME}</title>
+  <meta name="description" content={metaDescription} />
+  {#if page.data.title}
+    <meta property="og:title" content={page.data.title} />
   {/if}
-  {#if page.data.meta_title}
-    <meta property="og:title" content={page.data.meta_title} />
-  {/if}
+  <meta property="og:description" content={metaDescription} />
   {#if page.data.meta_image}
     <meta property="og:image" content={page.data.meta_image} />
     <meta name="twitter:card" content="summary_large_image" />
