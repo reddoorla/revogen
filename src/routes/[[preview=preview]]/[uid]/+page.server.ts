@@ -1,6 +1,7 @@
 import { error } from "@sveltejs/kit";
 
 import { createClient } from "$lib/prismicio";
+import { titleFromUid } from "$lib/site";
 
 export async function load({ params, fetch, cookies }) {
   const client = createClient({ fetch, cookies });
@@ -17,7 +18,7 @@ export async function load({ params, fetch, cookies }) {
   return {
     page,
     distributorCategories,
-    title: page.data.meta_title || "Revogen Biologics",
+    title: page.data.meta_title || titleFromUid(page.uid),
     meta_description: page.data.meta_description,
     meta_title: page.data.meta_title,
     meta_image: page.data.meta_image.url,
