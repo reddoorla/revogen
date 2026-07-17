@@ -21,7 +21,7 @@
   "devDependencies": {
     "@axe-core/playwright": "^4.11.3",
     "@playwright/test": "^1.60.0",
-    "@reddoorla/maintenance": "^0.67.0",
+    "@reddoorla/maintenance": "^0.74.0",
     "@slicemachine/adapter-sveltekit": "^0.3.95",
     "@sveltejs/adapter-netlify": "^6.0.4",
     "@sveltejs/kit": "^2.68.0",
@@ -32,7 +32,7 @@
     "postcss": "^8.5.12",
     "prettier": "^3.8.3",
     "prettier-plugin-svelte": "^3.5.1",
-    "sharp": "^0.33.5",
+    "sharp": "^0.35.0",
     "slice-machine-ui": "^2.21.2",
     "svelte": "^5.55.5",
     "svelte-check": "^4.4.6",
