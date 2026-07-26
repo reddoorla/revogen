@@ -6,3 +6,11 @@ allowBuilds:
   protobufjs: true
   sharp: true
 minimumReleaseAge: 0
+# Transitive-dependency security pins (range-scoped so patched major lines are untouched):
+#   - sharp <0.35.0: heap overflow in metadata parsing (GHSA-f88m-g3jw-g9cj);
+#     pinned ^0.33.1 by imagetools-core@6 under @zerodevx/svelte-img.
+#   - cookie <0.7.0: out-of-bounds chars in name/path/domain (GHSA-pxg6-pf52-xh8x);
+#     pinned ^0.6.0 by @sveltejs/kit even at latest.
+overrides:
+  "sharp@<0.35.0": "^0.35.3"
+  "cookie@<0.7.0": "^0.7.2"
