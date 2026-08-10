@@ -4,6 +4,7 @@
   import { onMount, onDestroy } from "svelte";
 
   import ContentWidth from "./ContentWidth/ContentWidth.svelte";
+  import logo from "$lib/assets/icons/logos/revogen_white.svg";
 
   let isIntroRunning = $state(false);
 
@@ -87,7 +88,6 @@
     if ($hasIntroRun || isIntroRunning) {
       if ($hasIntroRun) {
         showIH = true;
-        showIPO = true;
         showLogo = true; // Add this
         fillLogo = true;
         pulseLogo = false;
@@ -105,7 +105,6 @@
     timeouts.push(setTimeout(() => (fillLogo = true), 500)); // Then fills in after a pause
     timeouts.push(setTimeout(() => (pulseLogo = true), 1000));
     timeouts.push(setTimeout(() => (showIH = true), 6500));
-    timeouts.push(setTimeout(() => (showIPO = true), 7000));
     timeouts.push(setTimeout(() => (showLogo = false), 5500));
     timeouts.push(setTimeout(() => (showBackground = false), 6000));
 
@@ -129,7 +128,6 @@
 
   let showBackground = $state(true);
   let showIH = $state(false);
-  let showIPO = $state(false);
   let fillLogo = $state(false);
   let pulseLogo = $state(false);
   let showLogo = $state(false);
@@ -229,12 +227,15 @@
     class="h-full flex flex-col gap-4 py-12 justify-center text-center items-center text-white relative"
   >
     <h2><br /></h2>
-    <h3 class="transition-opacity duration-700 ease-out {showIH ? 'opacity-100' : 'opacity-0'}">
-      Innovative Healing
-    </h3>
-    <h2 class="transition-opacity duration-700 ease-out {showIPO ? 'opacity-100' : 'opacity-0'}">
-      Improving Patient Outcomes via Cutting-Edge Biologics
-    </h2>
+    <!-- Hero copy is down at the client's request (Aug 2026 language rewrite);
+         the wordmark holds the hero until approved copy comes back. -->
+    <img
+      src={logo}
+      alt="Revogen Biologics"
+      class="w-4/5 max-w-[560px] transition-opacity duration-700 ease-out {showIH
+        ? 'opacity-100'
+        : 'opacity-0'}"
+    />
   </ContentWidth>
 </div>
 

@@ -10,7 +10,7 @@
   import ocularBefore from "$lib/assets/images/ocular-before.png?as=run";
   import woundCareBefore from "$lib/assets/images/wound-before.png?as=run";
   import Img from "@zerodevx/svelte-img";
-  import { fade, slide } from "svelte/transition";
+  import { fade } from "svelte/transition";
   import DelayedLink from "$lib/components/DelayedLink.svelte";
   import { onMount } from "svelte";
   import * as rive from "@rive-app/canvas";
@@ -108,13 +108,6 @@
         />
       </div>
       <h4>Surgical Grafts</h4>
-      {#if viewportWidth < 768 || $gradientTheme === 1}
-        <p transition:slide class="text-center mt-4">
-          Surgical allografts, derived from human donor tissue or synthetic sources, are used to
-          repair, replace, or protect damaged tissues and organs such as bone, skin, tendons,
-          ligaments, and cartilage.
-        </p>
-      {/if}
       <div
         class="w-8 h-8 border-[1.5px] border-white rounded-full relative mt-4 hover:opacity-80 bump"
       >
@@ -153,12 +146,6 @@
         />
       </div>
       <h4>Wound Care Grafts</h4>
-      {#if viewportWidth < 768 || $gradientTheme === 2}
-        <p transition:slide class="text-center mt-4">
-          RevoGen Biologics provides high-quality allograft grafts for chronic or acute wound care,
-          serving as protective barriers and scaffolds for tissue reconstruction.
-        </p>
-      {/if}
       <div
         class="w-8 h-8 border-[1.5px] border-white rounded-full relative mt-4 hover:opacity-80 bump"
       >
@@ -196,12 +183,6 @@
         />
       </div>
       <h4>Ocular Grafts</h4>
-      {#if viewportWidth < 768 || $gradientTheme === 3}
-        <p transition:slide class="text-center mt-4">
-          RevoGen Biologics offers customizable ocular amnion grafts in a variety of cuts and sizes
-          to support diverse ocular applications.
-        </p>
-      {/if}
       <div
         class="w-8 h-8 border-[1.5px] border-white rounded-full relative mt-4 hover:opacity-80 bump"
       >
