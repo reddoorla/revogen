@@ -4,6 +4,7 @@
   import { PrismicImage } from "@prismicio/svelte";
   import Img from "@zerodevx/svelte-img";
   import { onMount } from "svelte";
+  import { cappedWidths } from "$lib/utils/imageWidths";
   let {
     src = placeholder,
     field = undefined,
@@ -51,7 +52,16 @@
       : `width: 100vw; min-height: ${percentHeight}lvh`}
   >
     {#if isFilled.image(field)}
-      <PrismicImage {field} class="absolute h-full w-full object-cover -z-10 {passedClasses}" />
+      <!-- Full-bleed backdrop: genuinely 100vw, and usually the LCP element, so
+           it stays eager and gets fetch priority. Widths are capped to the
+           source so a 1920px hero never asks Prismic to upscale to 3840. -->
+      <PrismicImage
+        {field}
+        sizes="100vw"
+        widths={cappedWidths(field)}
+        fetchpriority="high"
+        class="absolute h-full w-full object-cover -z-10 {passedClasses}"
+      />
     {:else if typeof src === "string"}
       <img
         {src}

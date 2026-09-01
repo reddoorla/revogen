@@ -2,6 +2,7 @@
   import ContentWidth from "$lib/components/ContentWidth/ContentWidth.svelte";
   import type { Content } from "@prismicio/client";
   import { PrismicImage, type SliceComponentProps } from "@prismicio/svelte";
+  import { cappedWidths } from "$lib/utils/imageWidths";
 
   type Props = SliceComponentProps<Content.ImageRowSlice>;
 
@@ -22,6 +23,9 @@
         <div class="w-44 h-44 border-[1px] rounded-full border-white drop-shadow-sm">
           <PrismicImage
             field={item.image}
+            sizes="176px"
+            widths={cappedWidths(item.image)}
+            loading="lazy"
             class="w-full h-full rounded-full scale-[92%] object-cover"
           />
         </div>

@@ -10,6 +10,7 @@
   import type { SliceComponentProps } from "@prismicio/svelte";
   import { fade, fly, slide } from "svelte/transition";
   import { PrismicImage } from "@prismicio/svelte";
+  import { cappedWidths } from "$lib/utils/imageWidths";
   import { onMount } from "svelte";
   import { ChevronRight } from "@lucide/svelte";
 
@@ -220,6 +221,9 @@
                 >
                   <PrismicImage
                     field={category.data.image}
+                    sizes="176px"
+                    widths={cappedWidths(category.data.image)}
+                    loading="lazy"
                     class="w-full h-full rounded-full scale-[92%] object-cover"
                   />
                 </button>
@@ -274,6 +278,9 @@
                   >
                     <PrismicImage
                       field={category.data.image}
+                      sizes="128px"
+                      widths={cappedWidths(category.data.image)}
+                      loading="lazy"
                       class="w-full h-full rounded-full scale-[92%] object-cover"
                     />
                   </button>
