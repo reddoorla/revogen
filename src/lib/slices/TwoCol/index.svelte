@@ -8,8 +8,14 @@
   import TurnstileWidget from "$lib/components/TurnstileWidget.svelte";
   import * as rive from "@rive-app/canvas";
   import { onMount } from "svelte";
+  import { cappedWidths } from "$lib/utils/imageWidths";
 
   type Props = SliceComponentProps<Content.TwoColSlice>;
+
+  // The media column is half the content width from `md` up, full width below.
+  // Without this the browser assumes 100vw and picks a far wider srcset
+  // candidate than the slot needs.
+  const MEDIA_COLUMN_SIZES = "(min-width: 768px) 50vw, 100vw";
 
   let formFirstName = $state("");
   let formLastName = $state("");
@@ -183,6 +189,9 @@
             {#if isFilled.image(slice.primary.image)}
               <PrismicImage
                 field={slice.primary.image}
+                sizes={MEDIA_COLUMN_SIZES}
+                widths={cappedWidths(slice.primary.image)}
+                loading="lazy"
                 class="absolute w-full h-full object-cover"
               />
             {/if}
@@ -208,12 +217,30 @@
                       ? 'aspect-square'
                       : ''}"
           >
+            <!-- The product still image sits *behind* the Rive canvas as a
+                 fallback. Editors set both an image and a .riv on these slices,
+                 but only the canvas used to render — so any Rive failure (blocked
+                 WASM, a slow or failed .riv fetch, a corrupt file) left an empty
+                 box where a product photo should be, with nothing but a
+                 console.error. The canvas paints over this once Rive loads. -->
+            {#if isFilled.image(slice.primary.image)}
+              <PrismicImage
+                field={slice.primary.image}
+                sizes={MEDIA_COLUMN_SIZES}
+                widths={cappedWidths(slice.primary.image)}
+                loading="lazy"
+                class="absolute top-0 left-0 w-full h-full object-contain"
+              />
+            {/if}
             <canvas bind:this={riveCanvas} class="absolute top-0 left-0 w-full h-[calc(100%+12px)]"
             ></canvas>
           </div>
         {:else}
           <PrismicImage
             field={slice.primary.image}
+            sizes={MEDIA_COLUMN_SIZES}
+            widths={cappedWidths(slice.primary.image)}
+            loading="lazy"
             class="w-full object-cover {slice.primary.image_aspect === '4:3'
               ? 'aspect-4/3'
               : slice.primary.image_aspect === '3:4'
@@ -466,21 +493,25 @@
                PUBLIC_TURNSTILE_SITE_KEY is set. Token forwarded to central verify. -->
           <TurnstileWidget onToken={(t) => (turnstileToken = t)} />
 
-          <!-- Submit button -->
-          {#if submitted}
-            <p class="text-white" role="status" aria-live="polite">
-              Thanks — your message has been sent.
-            </p>
-          {:else}
-            <DefaultButton type="submit" disabled={submitting}>
-              {submitting ? "SENDING..." : "SUBMIT"}
-            </DefaultButton>
-            {#if submitError}
-              <p class="text-white" role="alert">
-                Something went wrong sending your message. Please try again.
+          <!-- Submit button. DefaultButton wraps itself in a `w-fit` div, which
+               as a flex-column child would sit hard left under the full-width
+               fields — so centre the submit block explicitly. -->
+          <div class="flex flex-col items-center text-center">
+            {#if submitted}
+              <p class="text-white" role="status" aria-live="polite">
+                Thanks — your message has been sent.
               </p>
+            {:else}
+              <DefaultButton type="submit" disabled={submitting}>
+                {submitting ? "SENDING..." : "SUBMIT"}
+              </DefaultButton>
+              {#if submitError}
+                <p class="text-white" role="alert">
+                  Something went wrong sending your message. Please try again.
+                </p>
+              {/if}
             {/if}
-          {/if}
+          </div>
         </form>
       </div>
     </ContentWidth>
