@@ -4,7 +4,7 @@
   import { PrismicImage } from "@prismicio/svelte";
   import Img from "@zerodevx/svelte-img";
   import { onMount } from "svelte";
-  import { cappedWidths } from "$lib/utils/imageWidths";
+  import { cappedWidths } from "@reddoorla/maintenance/images";
   let {
     src = placeholder,
     field = undefined,

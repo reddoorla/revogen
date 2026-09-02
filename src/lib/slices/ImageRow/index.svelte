@@ -2,9 +2,15 @@
   import ContentWidth from "$lib/components/ContentWidth/ContentWidth.svelte";
   import type { Content } from "@prismicio/client";
   import { PrismicImage, type SliceComponentProps } from "@prismicio/svelte";
-  import { cappedWidths } from "$lib/utils/imageWidths";
+  import { cappedWidths } from "@reddoorla/maintenance/images";
 
   type Props = SliceComponentProps<Content.ImageRowSlice>;
+
+  // These avatars render in a fixed 176px circle (w-44), but Prismic's smallest
+  // default candidate is 640w — so even a 1x display downloaded an image 3.6x
+  // wider than the box. Offer 1x/2x/3x of the real slot instead; cappedWidths
+  // still trims anything wider than the source.
+  const AVATAR_WIDTHS = [176, 352, 528];
 
   const { slice }: Props = $props();
 </script>
@@ -24,7 +30,7 @@
           <PrismicImage
             field={item.image}
             sizes="176px"
-            widths={cappedWidths(item.image)}
+            widths={cappedWidths(item.image, AVATAR_WIDTHS)}
             loading="lazy"
             class="w-full h-full rounded-full scale-[92%] object-cover"
           />
