@@ -8,7 +8,7 @@
   import TurnstileWidget from "$lib/components/TurnstileWidget.svelte";
   import * as rive from "@rive-app/canvas";
   import { onMount } from "svelte";
-  import { cappedWidths } from "$lib/utils/imageWidths";
+  import { cappedWidths } from "@reddoorla/maintenance/images";
 
   type Props = SliceComponentProps<Content.TwoColSlice>;
 

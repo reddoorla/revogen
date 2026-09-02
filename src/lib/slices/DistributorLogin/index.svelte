@@ -10,7 +10,7 @@
   import type { SliceComponentProps } from "@prismicio/svelte";
   import { fade, fly, slide } from "svelte/transition";
   import { PrismicImage } from "@prismicio/svelte";
-  import { cappedWidths } from "$lib/utils/imageWidths";
+  import { cappedWidths } from "@reddoorla/maintenance/images";
   import { onMount } from "svelte";
   import { ChevronRight } from "@lucide/svelte";
 
@@ -18,6 +18,13 @@
 
   type Props = SliceComponentProps<Content.DistributorLoginSlice>;
   const { slice }: Props = $props();
+
+  // Category thumbnails are fixed circles — 176px on desktop, 128px in the
+  // mobile slider — but Prismic's smallest default candidate is 640w, so every
+  // display pulled an image several times wider than the box. Offer 1x/2x/3x of
+  // the real slot; cappedWidths still trims anything wider than the source.
+  const CATEGORY_WIDTHS_DESKTOP = [176, 352, 528];
+  const CATEGORY_WIDTHS_MOBILE = [128, 256, 384];
 
   let isAuthenticated = $state(false);
   let password = $state("");
@@ -157,14 +164,25 @@
       <div out:fade class="flex flex-col items-center">
         <p class="max-w-lg text-center">Enter password to access the Distributor Resource Hub:</p>
         <div class="flex flex-col mt-16 items-center gap-2">
-          <p>PASSWORD</p>
+          <!-- A <p> is not a label: it left the input with no accessible name,
+               so screen readers announced only "password, edit text". As a flex
+               child the <label> blockifies exactly as the <p> did, so this is a
+               semantic change with no visual one. -->
+          <label for="distributor-password">PASSWORD</label>
           <input
+            id="distributor-password"
             type="password"
             class="h-10 md:w-128 max-w-sm rounded-sm bg-white/30 text-black px-2 placeholder-black/40 text-center"
             bind:value={password}
             onkeypress={handleKeyPress}
+            aria-invalid={showError}
+            aria-describedby="distributor-password-help"
           />
-          <div class="h-16 w-full">
+          <!-- The help text and the error swap in and out of this slot, so the
+               describedby target is the stable wrapper rather than either <p>.
+               aria-live announces the swap — the error was previously a purely
+               visual signal. -->
+          <div id="distributor-password-help" class="h-16 w-full" aria-live="polite">
             {#if showError}
               <p
                 class="text-red-300 text-sm text-center mt-2 absolute left-1/2 -translate-x-1/2 w-full"
@@ -222,7 +240,7 @@
                   <PrismicImage
                     field={category.data.image}
                     sizes="176px"
-                    widths={cappedWidths(category.data.image)}
+                    widths={cappedWidths(category.data.image, CATEGORY_WIDTHS_DESKTOP)}
                     loading="lazy"
                     class="w-full h-full rounded-full scale-[92%] object-cover"
                   />
@@ -279,7 +297,7 @@
                     <PrismicImage
                       field={category.data.image}
                       sizes="128px"
-                      widths={cappedWidths(category.data.image)}
+                      widths={cappedWidths(category.data.image, CATEGORY_WIDTHS_MOBILE)}
                       loading="lazy"
                       class="w-full h-full rounded-full scale-[92%] object-cover"
                     />
