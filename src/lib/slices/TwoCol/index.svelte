@@ -39,6 +39,12 @@
   // State for Rive
   let riveCanvas: HTMLCanvasElement | undefined = $state();
   let riveInstance: rive.Rive | null = null;
+  // Flipped by Rive's onLoadError (blocked WASM, a failed .riv fetch, a corrupt
+  // file). Only then does the product still render, in the canvas's place. It
+  // must never sit *behind* a live canvas: the artboard is transparent outside
+  // its artwork, so the still — with its own baked-in labels — shows straight
+  // through. Guarded by tests/smoke/rive-fallback.spec.ts.
+  let riveFailed = $state(false);
 
   const triggerSubmitButton = async () => {
     // The central ingest is not idempotent — guard against double submits.
@@ -136,6 +142,7 @@
         },
         onLoadError: (error) => {
           console.error("Failed to load Rive file:", error);
+          riveFailed = true;
         },
       });
 
@@ -217,13 +224,11 @@
                       ? 'aspect-square'
                       : ''}"
           >
-            <!-- The product still image sits *behind* the Rive canvas as a
-                 fallback. Editors set both an image and a .riv on these slices,
-                 but only the canvas used to render — so any Rive failure (blocked
-                 WASM, a slow or failed .riv fetch, a corrupt file) left an empty
-                 box where a product photo should be, with nothing but a
-                 console.error. The canvas paints over this once Rive loads. -->
-            {#if isFilled.image(slice.primary.image)}
+            <!-- Fallback: the product still, rendered only once Rive has reported
+                 a load error. Editors set both an image and a .riv on these
+                 slices; without this, any Rive failure left an empty box. While
+                 Rive is live the still is NOT rendered — see `riveFailed`. -->
+            {#if riveFailed && isFilled.image(slice.primary.image)}
               <PrismicImage
                 field={slice.primary.image}
                 sizes={MEDIA_COLUMN_SIZES}
