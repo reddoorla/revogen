@@ -59,18 +59,28 @@ paths from other sessions — `docs/code-review-2026-06-29.md`,
 `docs/morning-reports/`, `src/lib/utils/reducedMotion.ts` — were left exactly
 as found.
 
-**June's critical finding is still open.** The distributor gate is theater, in
-two independent ways. `DistributorLogin/index.svelte:46` compares the entry
-against a password literal that is compiled into the CLIENT bundle, so it ships
-to every visitor and is readable in page source — and this repository is public,
-so it is in the source tree too. Separately, `[uid]/+page.server.ts` fetches
-every `resource_hub_category` document unconditionally into the SSR payload, so
-the gated links are readable without entering anything at all: even a strong
-password, checked server-side, would not have hidden them. Both halves verified
-still present today.
+**The distributor gate is a soft gate, and that is the design.** Recording it
+here because it reads like a security defect to anyone auditing the code cold,
+and it is not one — Tucker, 2026-09-05: _"the revogen password is a fake lock,
+there's nothing actually sensitive behind it."_
 
-Fixing it means gating that fetch behind server-side auth and rotating the
-credential — and the rotation has to be to somewhere that is not the client
-bundle, or it is the same defect with a new string. (The literal is deliberately
-not repeated here. It is at the file and line above; a document that restates a
-credential just adds another place to remember on rotation day.)
+Mechanically it offers no protection at all, in two independent ways.
+`DistributorLogin/index.svelte:46` compares the entry against a literal compiled
+into the CLIENT bundle, so it ships to every visitor; and `[uid]/+page.server.ts`
+fetches every `resource_hub_category` document unconditionally into the SSR
+payload, so the gated links are in page source whether or not anyone types
+anything. Even a strong password checked server-side would not have hidden them,
+given that second half.
+
+Neither is worth fixing on its own terms. The gate signals "this is for
+distributors" and filters the incurious; it was never asked to withstand
+anybody. What would change that is the content behind it changing — pricing,
+contracts, anything a competitor would want — and at that point BOTH halves need
+doing together, because fixing the password alone buys nothing while the SSR
+payload still carries the links.
+
+An earlier version of this entry called this "June's critical finding is still
+open" and prescribed rotating the credential. That was wrong about the intent,
+and is left recorded rather than deleted: an auditor who finds a hardcoded
+password in a public repo will reach the same conclusion, so the reason it is
+not a defect belongs in writing.
