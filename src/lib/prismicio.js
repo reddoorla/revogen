@@ -29,6 +29,12 @@ const routes = [
     type: "surgical_grafts",
     path: "/surgical-grafts/:uid",
   },
+  // Categories have no page of their own; they render inside the Distributor
+  // Resource Hub, so a category preview lands there with its draft applied.
+  {
+    type: "resource_hub_category",
+    path: "/distributor-resource-hub",
+  },
 ];
 
 /**

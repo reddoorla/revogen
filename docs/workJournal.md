@@ -84,3 +84,52 @@ open" and prescribed rotating the credential. That was wrong about the intent,
 and is left recorded rather than deleted: an auditor who finds a hardcoded
 password in a public repo will reach the same conclusion, so the reason it is
 not a defect belongs in writing.
+
+## 2026-09-15 — AmnioArmor staged for removal in a Prismic release (content only, nothing merged)
+
+Erik relayed Meaghan's request in `#revogen` to pull AmnioArmor from "the main
+page and the distributor hub". It was never on the home page: it lived as the
+second `two_col` (imageTableText) slice on the Wound Care page, as the
+"AmnioArmor" header (four PDFs) in the Wound Care resource-hub category, and as
+one video row in the Training category. All three are removed in the Prismic
+release "Remove AmnioArmor" (`aqlqGxEAAIYcfVCh`), left unpublished for review.
+No code changed; the nav and footer "Amnion Patches" links point at the
+SurgiShield surgical page, not AmnioArmor, so they stay.
+
+Two things found on the way. The Prismic MCP was not activated for this repo
+until today, so content was inventoried through the public API with
+`dangerouslyGetAll` (15 documents) and grepped as JSON — faster than the MCP
+for "where does this string appear". And the defect behind Erik's screenshot:
+on the Amnion Patches page, the Single Layer section's third row (4x8 cm,
+RBA2012FD-S) is described as "Dual Layer". It is a one-field edit, held until
+Meaghan confirms. The training video row removed had its own title in the URL
+field, so it was already a dead link.
+
+Later the same day: Meaghan confirmed single layer by email, so the RBA2012FD-S
+row is fixed in its own release, "Amnion Patches single layer fix"
+(`aqlsEBEAABgefVR1`), kept separate from the AmnioArmor release so either can
+publish on its own. Neither is published from here.
+
+## 2026-09-16 — Previewing a resource-hub category lands on the hub page (uncommitted)
+
+Asked whether Prismic preview works. The site side was probed live rather than
+assumed: `/api/preview` with no token 307s to `/preview/`; a bogus token 500s
+(Prismic rejects it inside `resolvePreviewURL`, expected); `/preview/about`
+renders dynamically. With a fake `io.prismic.preview` cookie the layout mounts
+the toolbar (`static.cdn.prismic.io/prismic.js?repo=revogen`) and the page 404s,
+because the `[uid]` loader turns the invalid ref into a 404 — an expired preview
+will look the same. Not verified: a real token end to end, and whether the
+repository's preview setting points at `https://revogen.com/api/preview`; both
+need a logged-in editor.
+
+The gap was `resource_hub_category`. It had no route, so its documents had
+`url: null` and a category preview fell back to `/`, where the categories do
+not render. They only appear through the `distributor_login` slice on the
+`distributor-resource-hub` page, whose loader already fetches them with the
+preview cookie. A static route `resource_hub_category → /distributor-resource-hub`
+was added to the resolver; the live API accepted it and all four categories
+(wound-care, training, ocular-grafts, surgical) now resolve there. The sitemap
+is unaffected — it builds paths from its own `TYPE_PATHS`, not `doc.url` — and
+the slice's `doc.url` links are file links inside a category, not links to
+categories. The hub is still behind the cosmetic password, so the previewer
+types it before seeing the draft.
