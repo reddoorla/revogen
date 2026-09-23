@@ -149,7 +149,7 @@ is" is the white-type block.
 **The static render lies about the background.** `get_screenshot` shows the
 block on flat grey. The block lives in a 1552px container (`5608:429`) whose
 blue-green gradient is a `position: sticky` 860px layer, so in the prototype the
-block scrolls up *over* the gradient; the grey is the canvas showing once the
+block scrolls up _over_ the gradient; the grey is the canvas showing once the
 sticky layer has scrolled off in a static render. The live site already paints
 a fixed animated gradient behind every slice (`+layout.svelte`), so the slice is
 transparent. The operator confirmed this over a dark band.
