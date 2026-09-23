@@ -1,0 +1,67 @@
+{
+  "id": "featured_product",
+  "type": "SharedSlice",
+  "name": "FeaturedProduct",
+  "description": "Product feature band: product shot beside an eyebrow, wordmark, tagline and button",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "eyebrow": {
+          "type": "Text",
+          "config": {
+            "label": "eyebrow",
+            "placeholder": "Featuring"
+          }
+        },
+        "product_name": {
+          "type": "Text",
+          "config": {
+            "label": "product name",
+            "placeholder": "RevoGro™ — shown as text when there is no wordmark, and read aloud as the wordmark's name"
+          }
+        },
+        "wordmark": {
+          "type": "Image",
+          "config": {
+            "label": "wordmark",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "tagline": {
+          "type": "Text",
+          "config": {
+            "label": "tagline",
+            "placeholder": "Bone Substitute Bioactive Moldable"
+          }
+        },
+        "button": {
+          "type": "Link",
+          "config": {
+            "label": "button",
+            "placeholder": "",
+            "select": null,
+            "allowTargetBlank": true,
+            "allowText": true,
+            "repeat": false
+          }
+        },
+        "image": {
+          "type": "Image",
+          "config": {
+            "label": "product image",
+            "constraint": {},
+            "thumbnails": []
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

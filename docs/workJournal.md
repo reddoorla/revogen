@@ -133,3 +133,57 @@ is unaffected — it builds paths from its own `TYPE_PATHS`, not `doc.url` — a
 the slice's `doc.url` links are file links inside a category, not links to
 categories. The hub is still behind the cosmetic password, so the previewer
 types it before seeing the draft.
+
+## 2026-09-23 — FeaturedProduct slice for the homepage RevoGro block; RevoGro brochure back on Synthetics (branch `feat/featured-product-slice`)
+
+Erik approved the RevoGro block in a Figma comment on the Refinement page
+(2026-09-23 16:51 UTC): "approved to incorporate into the live site as is.
+Should link to https://revogen.com/surgical-grafts/synthetics", plus a request
+to reactivate the RevoGro brochure on Synthetics. That comment exists only in
+Figma — the Discord thread stops at Nicole's 09-16 prototype link. On 09-16 Erik
+had asked Nicole for a second version (packaging gradient, blue type); **no such
+frame exists anywhere in the file.** The only RevoGro-named frame is
+`5608:295` "Homepage - revogro", and the block is `5608:493` inside it, so "as
+is" is the white-type block.
+
+**The static render lies about the background.** `get_screenshot` shows the
+block on flat grey. The block lives in a 1552px container (`5608:429`) whose
+blue-green gradient is a `position: sticky` 860px layer, so in the prototype the
+block scrolls up _over_ the gradient; the grey is the canvas showing once the
+sticky layer has scrolled off in a static render. The live site already paints
+a fixed animated gradient behind every slice (`+layout.svelte`), so the slice is
+transparent. The operator confirmed this over a dark band.
+
+The slice is generic (`featured_product`: eyebrow, product name, wordmark
+image, tagline, button, product image) because Erik called it a "rotating
+feature section": the next product is content, not code. The wordmark is an
+image of a serif the site does not load, so it sits in the `<h2>` with
+`alt=""` and the name as `sr-only` text. The comp crops the product shot from
+the left (a 592px image right-aligned in a 558px box), hence `object-right`.
+Measured on a production build with the mock spliced into the homepage locally
+(never committed): image box x=148, 558×310; wordmark x=836, 308×79; band
+690px against the comp's 692. Mobile stacks with centered text. White text on the
+gradient's light top-right corner is low-contrast, the same as the product-row
+labels above it. Not fixed here.
+
+Assets came from Figma image fills at 4096px (transparent PNGs) and were
+uploaded to Prismic media straight from Figma's signed S3 URLs:
+`lIJV9i8VGvkq4vbf` (product) and `vAWxz-T1dfdMnaez` (wordmark). They were not
+routed through a temp file host. `prismicio-types.d.ts` was extended by hand
+in Slice Machine's shape because no codegen is installed. The model reaches
+Prismic through `prismic-models` on merge, so **the homepage content (slice
+between `home_page_anim` and `screen_width_video`) can only be added after
+merge.**
+
+Brochure: the Synthetics `two_col` had both buttons empty and a single
+published version, so there was no history to restore from. There were two
+RevoGro PDFs: `RevoGrow_Brochure_081424D.pdf` (2024, 4pp, which the distributor
+hub links) and `Surgical-Synthetics-RevoGro_Brochure.pdf` (2026, 2pp). The
+second belongs to a 2026 set of per-page website brochures
+(`Surgical-Allograft_CancellX_Brochure.pdf`, and others), so that is the one
+that went up, as a "Download Brochure" file link. It was published by release
+`arQHAREAAMmKI4PW` and verified live at 17:17 UTC.
+
+`tests/smoke/rive-fallback.spec.ts` "show the product still when the .riv fails
+to load" is flaky **on main**: it failed 2 of 5 on a clean main worktree and 2
+of 3 on this branch. It is not caused by this change.
