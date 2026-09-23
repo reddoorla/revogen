@@ -1,0 +1,72 @@
+[
+  {
+    "__TYPE__": "SharedSliceContent",
+    "variation": "default",
+    "primary": {
+      "eyebrow": {
+        "__TYPE__": "FieldContent",
+        "value": "Featuring",
+        "type": "Text"
+      },
+      "product_name": {
+        "__TYPE__": "FieldContent",
+        "value": "RevoGro™",
+        "type": "Text"
+      },
+      "wordmark": {
+        "origin": {
+          "id": "vAWxz-T1dfdMnaez",
+          "url": "https://images.prismic.io/revogen/vAWxz-T1dfdMnaez_RevoGro-wordmark-white.png?auto=format,compress",
+          "width": 4096,
+          "height": 1046
+        },
+        "url": "https://images.prismic.io/revogen/vAWxz-T1dfdMnaez_RevoGro-wordmark-white.png?auto=format,compress",
+        "width": 4096,
+        "height": 1046,
+        "edit": {
+          "zoom": 1,
+          "crop": { "x": 0, "y": 0 },
+          "background": "transparent"
+        },
+        "alt": "RevoGro™",
+        "credits": null,
+        "__TYPE__": "ImageContent",
+        "thumbnails": {}
+      },
+      "tagline": {
+        "__TYPE__": "FieldContent",
+        "value": "Bone Substitute Bioactive Moldable",
+        "type": "Text"
+      },
+      "button": {
+        "__TYPE__": "LinkContent",
+        "value": {
+          "__TYPE__": "ExternalLink",
+          "url": "https://revogen.com/surgical-grafts/synthetics",
+          "text": "Learn More"
+        }
+      },
+      "image": {
+        "origin": {
+          "id": "lIJV9i8VGvkq4vbf",
+          "url": "https://images.prismic.io/revogen/lIJV9i8VGvkq4vbf_RevoGro-Putty-kit-feature.png?auto=format,compress",
+          "width": 4096,
+          "height": 2144
+        },
+        "url": "https://images.prismic.io/revogen/lIJV9i8VGvkq4vbf_RevoGro-Putty-kit-feature.png?auto=format,compress",
+        "width": 4096,
+        "height": 2144,
+        "edit": {
+          "zoom": 1,
+          "crop": { "x": 0, "y": 0 },
+          "background": "transparent"
+        },
+        "alt": "RevoGro Putty syringe on a black display stand beside a vial of ultrapure water and a 2.0 mL measuring syringe",
+        "credits": null,
+        "__TYPE__": "ImageContent",
+        "thumbnails": {}
+      }
+    },
+    "items": []
+  }
+]

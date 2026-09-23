@@ -64,7 +64,8 @@ type PageDocumentDataSlicesSlice =
   | TwoColSlice
   | ImageRowSlice
   | HomePageAnimSlice
-  | RichTextSlice;
+  | RichTextSlice
+  | FeaturedProductSlice;
 
 /**
  * Content for Page documents
@@ -382,6 +383,101 @@ type DistributorLoginSliceVariation = DistributorLoginSliceDefault;
 export type DistributorLoginSlice = prismic.SharedSlice<
   "distributor_login",
   DistributorLoginSliceVariation
+>;
+
+/**
+ * Primary content in *FeaturedProduct → Default → Primary*
+ */
+export interface FeaturedProductSliceDefaultPrimary {
+  /**
+   * eyebrow field in *FeaturedProduct → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Featuring
+   * - **API ID Path**: featured_product.default.primary.eyebrow
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  eyebrow: prismic.KeyTextField;
+
+  /**
+   * product name field in *FeaturedProduct → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: RevoGro™ — shown as text when there is no wordmark, and read aloud as the wordmark's name
+   * - **API ID Path**: featured_product.default.primary.product_name
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  product_name: prismic.KeyTextField;
+
+  /**
+   * wordmark field in *FeaturedProduct → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: featured_product.default.primary.wordmark
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  wordmark: prismic.ImageField<never>;
+
+  /**
+   * tagline field in *FeaturedProduct → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Bone Substitute Bioactive Moldable
+   * - **API ID Path**: featured_product.default.primary.tagline
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  tagline: prismic.KeyTextField;
+
+  /**
+   * button field in *FeaturedProduct → Default → Primary*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: featured_product.default.primary.button
+   * - **Documentation**: https://prismic.io/docs/fields/link
+   */
+  button: prismic.LinkField<string, string, unknown, prismic.FieldState, never>;
+
+  /**
+   * product image field in *FeaturedProduct → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: featured_product.default.primary.image
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image: prismic.ImageField<never>;
+}
+
+/**
+ * Default variation for FeaturedProduct Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type FeaturedProductSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<FeaturedProductSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *FeaturedProduct*
+ */
+type FeaturedProductSliceVariation = FeaturedProductSliceDefault;
+
+/**
+ * FeaturedProduct Shared Slice
+ *
+ * - **API ID**: `featured_product`
+ * - **Description**: Product feature band: product shot beside an eyebrow, wordmark, tagline and button
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type FeaturedProductSlice = prismic.SharedSlice<
+  "featured_product",
+  FeaturedProductSliceVariation
 >;
 
 /**
@@ -1653,6 +1749,10 @@ declare module "@prismicio/client" {
       DistributorLoginSliceDefaultPrimary,
       DistributorLoginSliceVariation,
       DistributorLoginSliceDefault,
+      FeaturedProductSlice,
+      FeaturedProductSliceDefaultPrimary,
+      FeaturedProductSliceVariation,
+      FeaturedProductSliceDefault,
       HomeHeroSlice,
       HomeHeroSliceDefaultPrimary,
       HomeHeroSliceVariation,

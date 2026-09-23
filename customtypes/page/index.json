@@ -47,6 +47,9 @@
             },
             "rich_text": {
               "type": "SharedSlice"
+            },
+            "featured_product": {
+              "type": "SharedSlice"
             }
           }
         }
