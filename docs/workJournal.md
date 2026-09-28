@@ -187,3 +187,44 @@ that went up, as a "Download Brochure" file link. It was published by release
 `tests/smoke/rive-fallback.spec.ts` "show the product still when the .riv fails
 to load" is flaky **on main**: it failed 2 of 5 on a clean main worktree and 2
 of 3 on this branch. It is not caused by this change.
+
+## 2026-09-28 — RevoGro block: larger shot, image and text centred as one group (branch `claude/erik-featured-changes-o97v91`)
+
+Erik, in the #revogen "Website" thread on 2026-09-24, marked up a screenshot of
+the live block: "increase the size of the image a little bit and then make the
+two things together be in the middle of the page", with "even on both sides"
+written against the outer margins and a centre line drawn between image and
+text. Nothing in the main #revogen channel after 09-16 mentions the block; the
+request exists only in that thread.
+
+**Why it looked off-centre.** The 09-23 slice was a 1144px row with
+`justify-between` and a fixed 456px text column, and the row itself was centred.
+But the text inside that column is only as wide as the 308px wordmark, so 148px
+of the column was empty on the right. Measured on a production build at a
+1792px viewport: image box 324–882, text 1012–1320, so the margins were 324 on
+the left and 472 on the right. The product shot added to it: the PNG is
+4096×2144 and fully transparent for its first 550px (13.4%), so the visible
+syringe tip sat about 45px inside the box's left edge.
+
+The text column now hugs its content (`w-fit`, still capped at 39.9%), and the
+row centres the pair (`justify-center`, 96px gap from `lg`). The box went from
+558×310 to 600×357. Under `object-cover` pinned right, that aspect crops about
+12% from the left instead of 5.7%, so the transparent strip is almost entirely
+cropped and the syringe tip is ~10px from the box edge. The visible product
+grew from ~506px to ~582px wide (+15%), which is the "little bit". The pair is
+now vertically centred against the taller image rather than top-aligned; Erik's
+sketch draws the text box sitting within the image's height. After the change:
+margins of 394/394 at 1792, 218/218 at 1440, 138/138 at 1280; at 1024 the image
+shrinks to 538×320 and the pair fills the content width; below `md` it still
+stacks.
+
+The crop is tuned to this particular PNG. A future product in this "rotating"
+slot whose shot has no transparent left margin would lose ~12% of its left side;
+if that happens, the aspect should become a model field rather than a constant.
+
+`pnpm check` and `pnpm lint` pass. The Playwright smoke/axe suite could not run
+in the cloud container: the pinned Playwright wants chromium-1243, the image
+ships 1194, and the environment forbids `playwright install`. So that suite is
+unproven here and left to CI. Measurements came from a hand-driven Chromium
+against `vite preview`, with Prismic images fetched through Node, because the
+container's Chromium does not trust the egress proxy's CA.
