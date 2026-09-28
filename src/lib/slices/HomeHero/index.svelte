@@ -52,7 +52,7 @@
   bind:this={section}
 >
   <button
-    class="absolute top-1/2 -translate-y-[150%] left-1/2 -translate-x-1/2"
+    class="absolute top-[100dvh] -translate-y-[150%] left-1/2 -translate-x-1/2"
     onclick={scrollToNext}
     aria-label="Scroll to next section"
   >
@@ -65,7 +65,7 @@
     backdrop
     percentHeight={100}
   ></ScreenWidthMedia>
-  <div class="w-screen h-screen">
+  <div class="w-screen h-dvh">
     <ContentWidth
       class="flex flex-col gap-2 md:gap-6 py-6 md:py-12 justify-center text-center items-center h-full"
     >

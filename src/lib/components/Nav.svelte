@@ -101,7 +101,11 @@
 {/if}
 <div class="absolute top-0 left-0 w-screen z-50">
   <ContentWidth class="h-24 flex flex-row justify-between items-center">
-    <DelayedLink href="/" class="bump" onclick={() => (isNavModalOpen = false)}>
+    <DelayedLink
+      href="/"
+      class="bump nav-logo {isNavModalOpen ? 'menu-open' : ''}"
+      onclick={() => (isNavModalOpen = false)}
+    >
       <img
         src={logo}
         class="h-10 drop-shadow hover:opacity-90 transition duration-300"
@@ -114,16 +118,16 @@
       }}
       aria-label="toggle menu"
       aria-expanded={isNavModalOpen}
-      class="bump h-10 w-10"
+      class="bump relative h-10 w-10"
     >
       <Menu
-        class="absolute size-[2em] drop-shadow text-white hover:text-white/85 transition duration-200 {!isNavModalOpen
+        class="absolute inset-0 m-auto size-[2em] drop-shadow text-white hover:text-white/85 transition duration-200 {!isNavModalOpen
           ? ''
           : 'opacity-0'}"
         strokeWidth={2}
       />
       <X
-        class="absolute size-[2em] scale-125 drop-shadow text-white hover:text-white/85 transition duration-200 {isNavModalOpen
+        class="absolute inset-0 m-auto size-[2em] scale-125 drop-shadow text-white hover:text-white/85 transition duration-200 {isNavModalOpen
           ? ''
           : 'opacity-0'}"
         strokeWidth={1.75}
@@ -133,6 +137,20 @@
 </div>
 
 <style>
+  :global(a.nav-logo) {
+    transition:
+      transform 200ms ease-out,
+      opacity 300ms ease-out,
+      visibility 300ms;
+  }
+
+  @media (max-width: 767.98px) {
+    :global(main:has([data-hero-wordmark]) a.nav-logo:not(.menu-open)) {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+
   .menu-background {
     background: radial-gradient(
       290.67% 131.61% at 97.4% 4.48%,
