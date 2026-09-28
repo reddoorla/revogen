@@ -249,7 +249,7 @@ been flagging it as an empty heading the whole time.
 
 The hero's scroll arrow had the same cause with a worse result. It sits at 50%
 of a section that is `100lvh` (sticky backdrop) plus `100vh` (text block), i.e.
-96px above the bottom of the *large* viewport, so on an iPhone with the toolbar
+96px above the bottom of the _large_ viewport, so on an iPhone with the toolbar
 showing it was drawn at 649–713px on a 659px screen and was almost entirely
 behind the toolbar. On Android it was half hidden.
 
@@ -269,14 +269,14 @@ Measured (wordmark vs visible centre, arrow, icon vs logo), main vs this branch,
 each built clean. **The before side is only valid from a separate worktree
 build.** A first attempt re-used a `vite preview` process whose `build/` had
 been overwritten underneath it, and produced nonsense (the logo and icon 57px
-apart, the wordmark 168px *high*).
+apart, the wordmark 168px _high_).
 
-| | before | after |
-|---|---|---|
+|                                  | before                               | after            |
+| -------------------------------- | ------------------------------------ | ---------------- |
 | iPhone 15, 659 visible / 745 lvh | +68.5px, arrow 54px hidden, icon +12 | −0.5, visible, 0 |
-| Pixel 7, 839 / 895 | +53.5, arrow 24px hidden, icon +12 | −0.5, visible, 0 |
-| 360px Android, 684 / 740 | +54, arrow 24px hidden, icon +12 | 0, visible, 0 |
-| desktop 1440×900 | +36, arrow visible, icon +12 | −1, visible, 0 |
+| Pixel 7, 839 / 895               | +53.5, arrow 24px hidden, icon +12   | −0.5, visible, 0 |
+| 360px Android, 684 / 740         | +54, arrow 24px hidden, icon +12     | 0, visible, 0    |
+| desktop 1440×900                 | +36, arrow visible, icon +12         | −1, visible, 0   |
 
 Chromium device emulation cannot show a toolbar (`vh`, `lvh` and `dvh` are all
 equal there), so "before" was rendered at the `lvh` height and measured against
@@ -287,6 +287,7 @@ device. Page `scrollHeight` was identical between the two builds on all 11
 routes at 393 and 360px.
 
 Seen on the pass and **not** changed here:
+
 - The labels drawn inside the Rive product graphics (e.g. "Single Layer Amniotic
   Disc", "Clinical application: …") render at ~6–7px on phones. They are text in
   the `.riv` artboard, scaled by `Fit.Contain`, so fixing them means a mobile
@@ -297,3 +298,34 @@ Seen on the pass and **not** changed here:
 - The homepage has an empty `rich_text` slice (no text, `max_width: full`) between
   the testimonial video and "Distribution Opportunities", which leaves a ~170px
   gap on phones. Also content.
+
+## 2026-09-28 — Nav logo hidden on phones while the hero wordmark is showing (branch `claude/erik-featured-changes-o97v91`)
+
+The operator asked for the nav logo to be hidden on mobile while the hero
+"Revogen" is visible: on a phone the two wordmarks stacked on the first screen
+read as a duplicate.
+
+This is plain CSS, with no scroll or intersection listener:
+`main:has([data-hero-wordmark]) a.nav-logo` goes to `opacity: 0;
+visibility: hidden` below 768px (Tailwind's `md`), with a 300ms fade.
+`visibility` rather than opacity alone means the hidden link also leaves the tab
+order and the accessibility tree, instead of being an invisible focusable link.
+The CSS rule is exact because of the geometry. The nav is `absolute` inside the
+scrolling `main`, not fixed, so it scrolls away with the page. It is only on
+screen for the first ~68px of scroll, and the wordmark sits near the middle of
+the first screen, so whenever the nav logo could be seen, the wordmark is in
+view too. A JS observer would have added a flash on hydration (the server
+cannot know what is in view) and bought nothing. If the nav ever becomes
+fixed or sticky, this has to become an observer.
+
+The logo comes back while the menu is open (`menu-open` on the link), since the
+menu overlay covers the hero. On other pages there is no `[data-hero-wordmark]`,
+so it never hides there. Checked in a built preview: hidden at 393px and 767px
+on the homepage, at top and scrolled 60px; visible at 768px and 1440px, with
+the menu open, on `/about` and `/ocular`, and after navigating home → About
+through the menu. `:has()` needs Safari 15.4 / Chrome 105; older browsers
+just keep the logo.
+
+The previous entry's table and emphasis were reformatted by Prettier (no
+wording changed). `pnpm lint` had been run before that entry was written, so
+it went up failing the format check.

@@ -231,6 +231,7 @@
     <img
       src={logo}
       alt="Revogen Biologics"
+      data-hero-wordmark
       class="w-4/5 max-w-[560px] transition-opacity duration-700 ease-out {showIH
         ? 'opacity-100'
         : 'opacity-0'}"
