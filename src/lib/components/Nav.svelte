@@ -114,16 +114,16 @@
       }}
       aria-label="toggle menu"
       aria-expanded={isNavModalOpen}
-      class="bump h-10 w-10"
+      class="bump relative h-10 w-10"
     >
       <Menu
-        class="absolute size-[2em] drop-shadow text-white hover:text-white/85 transition duration-200 {!isNavModalOpen
+        class="absolute inset-0 m-auto size-[2em] drop-shadow text-white hover:text-white/85 transition duration-200 {!isNavModalOpen
           ? ''
           : 'opacity-0'}"
         strokeWidth={2}
       />
       <X
-        class="absolute size-[2em] scale-125 drop-shadow text-white hover:text-white/85 transition duration-200 {isNavModalOpen
+        class="absolute inset-0 m-auto size-[2em] scale-125 drop-shadow text-white hover:text-white/85 transition duration-200 {isNavModalOpen
           ? ''
           : 'opacity-0'}"
         strokeWidth={1.75}

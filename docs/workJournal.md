@@ -228,3 +228,72 @@ ships 1194, and the environment forbids `playwright install`. So that suite is
 unproven here and left to CI. Measurements came from a hand-driven Chromium
 against `vite preview`, with Prismic images fetched through Node, because the
 container's Chromium does not trust the egress proxy's CA.
+
+## 2026-09-28 — Mobile pass: hero wordmark centred on the visible screen, scroll arrow out from under the toolbar, menu icon aligned (branch `claude/erik-featured-changes-o97v91`)
+
+The operator reported that on iOS the homepage logo "appears too low". The
+logo in question is the hero wordmark, not the nav logo. It was low for two
+stacked reasons.
+
+**`100vh` is the toolbar-collapsed height, and this site's toolbar never
+collapses.** `body` and `main` were `height: 100vh`, and `main` is the scroller,
+so the document itself does not scroll and neither iOS Safari nor Android
+Chrome ever hides its toolbar. Everything sized in `vh` was laid out for a taller
+screen than the one on show. The wordmark is centred in an `h-screen` overlay,
+so it sat half the toolbar height below the visible centre: about 43px on an
+iPhone 15 (Safari with the bottom bar: 659px visible, 745px `lvh`) and 28px on
+Android Chrome (56px URL bar). On top of that, an empty `<h2><br /></h2>` was
+left above the wordmark when the hero copy came down in August. It pushed the
+wordmark a further ~25px down on phones and 36px on desktop. svelte-check had
+been flagging it as an empty heading the whole time.
+
+The hero's scroll arrow had the same cause with a worse result. It sits at 50%
+of a section that is `100lvh` (sticky backdrop) plus `100vh` (text block), i.e.
+96px above the bottom of the *large* viewport, so on an iPhone with the toolbar
+showing it was drawn at 649–713px on a 659px screen and was almost entirely
+behind the toolbar. On Android it was half hidden.
+
+Fix: `body`/`main` get `height: 100dvh` (with `100vh` kept as the fallback), the
+intro overlay and the hero's text block use `h-dvh`, the arrow is anchored at
+`top-[100dvh]` (identical to the old position on desktop, where the section is
+200vh tall), and the empty `<h2>` is gone. The sticky backdrops stay on `lvh`
+on purpose: a background that overshoots the screen is harmless and does not
+resize as the toolbar moves.
+
+Separately, the menu icon was 12px lower than the nav logo at every width,
+desktop included. The lucide icons are `absolute` with no offsets inside a
+`h-10` button, so their static position hangs from the button's vertical centre.
+They are now `inset-0 m-auto` in a `relative` button.
+
+Measured (wordmark vs visible centre, arrow, icon vs logo), main vs this branch,
+each built clean. **The before side is only valid from a separate worktree
+build.** A first attempt re-used a `vite preview` process whose `build/` had
+been overwritten underneath it, and produced nonsense (the logo and icon 57px
+apart, the wordmark 168px *high*).
+
+| | before | after |
+|---|---|---|
+| iPhone 15, 659 visible / 745 lvh | +68.5px, arrow 54px hidden, icon +12 | −0.5, visible, 0 |
+| Pixel 7, 839 / 895 | +53.5, arrow 24px hidden, icon +12 | −0.5, visible, 0 |
+| 360px Android, 684 / 740 | +54, arrow 24px hidden, icon +12 | 0, visible, 0 |
+| desktop 1440×900 | +36, arrow visible, icon +12 | −1, visible, 0 |
+
+Chromium device emulation cannot show a toolbar (`vh`, `lvh` and `dvh` are all
+equal there), so "before" was rendered at the `lvh` height and measured against
+the `svh` region, while "after" was rendered at `svh`, since every element the
+fix touches now sizes itself from `dvh`. This is still emulation, not a real
+Safari or Chrome. The viewport pairs are published figures, not measured on a
+device. Page `scrollHeight` was identical between the two builds on all 11
+routes at 393 and 360px.
+
+Seen on the pass and **not** changed here:
+- The labels drawn inside the Rive product graphics (e.g. "Single Layer Amniotic
+  Disc", "Clinical application: …") render at ~6–7px on phones. They are text in
+  the `.riv` artboard, scaled by `Fit.Contain`, so fixing them means a mobile
+  artboard or larger type in the Rive file, not CSS.
+- The Sports Medicine Grafts block on `/surgical-grafts` has no image or Rive
+  file attached in Prismic, so it shows a heading over empty space at every
+  width. That is content.
+- The homepage has an empty `rich_text` slice (no text, `max_width: full`) between
+  the testimonial video and "Distribution Opportunities", which leaves a ~170px
+  gap on phones. Also content.

@@ -45,6 +45,7 @@ main {
   transition-duration: 500ms;
   width: 100vw;
   height: 100vh;
+  height: 100dvh;
   overflow-x: clip;
   scrollbar-width: none !important;
   overflow-y: auto;
