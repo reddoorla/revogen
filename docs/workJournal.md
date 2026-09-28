@@ -329,3 +329,27 @@ just keep the logo.
 The previous entry's table and emphasis were reformatted by Prettier (no
 wording changed). `pnpm lint` had been run before that entry was written, so
 it went up failing the format check.
+
+## 2026-09-28 — The intro's pulsing logo, centred on the visible screen too (branch `claude/erik-featured-changes-o97v91`)
+
+The operator, checking PR #88's deploy preview on an iPhone: "the transition
+logo still looks low when loading into the homepage". That is the pulsing
+logo in `IntroAnimation.svelte`, not `TransitionOverlay` (a plain colour wash
+with no logo). The first entry today missed it. It moved the intro's outer
+containers to `h-dvh`, but this logo is positioned inside the noise background
+layer, which is `125vh` tall and starts at `-10vh`, and it sat at `top-1/2` of
+that layer. So its centre was at 52.5% of the *large* viewport. That is 2.5vh
+low even where `vh` is honest (22px on a 900px desktop), and on a phone it
+added half the toolbar on top.
+
+Measured mid-animation (t = 2.5s): +61px below the visible centre on iPhone 15,
++50 on Pixel 7, +46 on a 360px Android, +22 on desktop. It was also 6–7px off
+horizontally everywhere, because `-translate-x-3/5` and the layer's `-10vw`
+don't cancel. It is now `left-[60vw] top-[calc(10vh+50dvh)]` with
+`-translate-1/2` on both axes: the `10vh`/`10vw` undo the layer's offset, and
+`50dvh` is the middle of what is actually on screen. After the change it is
+0px off on both axes at all four sizes, the same centre the hero wordmark
+settles on. The same emulation caveat as the first entry applies: "before"
+was rendered at `lvh` and measured against `svh`, and "after" at `svh`. On a
+real phone the two `10vh` terms still cancel exactly, because both resolve
+against the same viewport.

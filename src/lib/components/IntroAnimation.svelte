@@ -145,7 +145,7 @@
     <div class="absolute w-full h-full top-0 left-0 option-0-layer3 will-change-transform"></div>
 
     <svg
-      class="w-1/3 md:w-1/6 absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-3/5 transition-all duration-400 {pulseLogo
+      class="w-1/3 md:w-1/6 absolute left-[60vw] top-[calc(10vh+50dvh)] -translate-y-1/2 -translate-x-1/2 transition-all duration-400 {pulseLogo
         ? 'pulse'
         : ''}"
       class:opacity-0={!showLogo}
