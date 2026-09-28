@@ -338,7 +338,7 @@ logo in `IntroAnimation.svelte`, not `TransitionOverlay` (a plain colour wash
 with no logo). The first entry today missed it. It moved the intro's outer
 containers to `h-dvh`, but this logo is positioned inside the noise background
 layer, which is `125vh` tall and starts at `-10vh`, and it sat at `top-1/2` of
-that layer. So its centre was at 52.5% of the *large* viewport. That is 2.5vh
+that layer. So its centre was at 52.5% of the _large_ viewport. That is 2.5vh
 low even where `vh` is honest (22px on a 900px desktop), and on a phone it
 added half the toolbar on top.
 
