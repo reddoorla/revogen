@@ -8,13 +8,14 @@
 
   type Props = SliceComponentProps<Content.FeaturedProductSlice>;
 
-  // Figma 5608:493 — a 1144px row: a 558×310 product shot and a 456px text
-  // column. The band itself is transparent on purpose: in the comp the
-  // blue-green gradient is sticky behind it, which on the live site is the
-  // layout's fixed gradient. The static Figma render shows grey there only
-  // because the canvas shows through once the sticky layer scrolls off.
+  // Figma 5608:493 set a 558×310 product shot beside a 456px text column in a
+  // 1144px row. Erik asked (Discord, 2026-09-24) for a larger shot and for the
+  // pair to sit centred with even margins, so the text column now hugs its
+  // content and the row centres the two as one group. The band itself is
+  // transparent on purpose: in the comp the blue-green gradient is sticky
+  // behind it, which on the live site is the layout's fixed gradient.
   const WORDMARK_WIDTHS = [308, 616, 924];
-  const PRODUCT_WIDTHS = [558, 828, 1116, 1674];
+  const PRODUCT_WIDTHS = [600, 900, 1200, 1800];
 
   const { slice }: Props = $props();
 
@@ -30,15 +31,19 @@
 >
   <ContentWidth>
     <div
-      class="w-full max-w-[1144px] flex flex-col md:flex-row items-center md:items-start md:justify-between gap-10 md:gap-12"
+      class="w-full flex flex-col md:flex-row items-center md:justify-center gap-10 md:gap-16 lg:gap-24"
     >
       {#if isFilled.image(slice.primary.image)}
-        <div class="w-full md:w-[48.8%] aspect-[558/310] overflow-hidden rounded-md shrink-0">
-          <!-- The comp crops this shot from the left (the image is 592px wide,
-             right-aligned in the 558px box), so pin cover to the right edge. -->
+        <div
+          class="w-full md:flex-1 md:min-w-0 md:max-w-[600px] aspect-[600/357] overflow-hidden rounded-md"
+        >
+          <!-- The RevoGro shot (4096×2144) is transparent for its first ~13%
+             of width. A 600:357 box under cover, pinned right, crops about
+             that much, so the syringe tip is the box's visible left edge and
+             the group's margins read as even. -->
           <PrismicImage
             field={slice.primary.image}
-            sizes="(min-width: 1220px) 558px, (min-width: 768px) 49vw, 92vw"
+            sizes="(min-width: 1220px) 600px, (min-width: 768px) 50vw, 92vw"
             widths={cappedWidths(slice.primary.image, PRODUCT_WIDTHS)}
             loading="lazy"
             class="w-full h-full object-cover object-right"
@@ -47,7 +52,7 @@
       {/if}
 
       <div
-        class="w-full md:w-[39.9%] flex flex-col gap-6 items-center text-center md:items-start md:text-left"
+        class="w-full md:w-fit md:max-w-[39.9%] md:shrink-0 flex flex-col gap-6 items-center text-center md:items-start md:text-left"
       >
         {#if slice.primary.eyebrow}
           <p class="eyebrow uppercase">{slice.primary.eyebrow}</p>
