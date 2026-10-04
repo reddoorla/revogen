@@ -353,3 +353,47 @@ settles on. The same emulation caveat as the first entry applies: "before"
 was rendered at `lvh` and measured against `svh`, and "after" at `svh`. On a
 real phone the two `10vh` terms still cancel exactly, because both resolve
 against the same viewport.
+
+## 2026-10-04 — Off Slice Machine, onto the Prismic CLI (reddoor-maintenance#1090, branch `claude/prismic-cli`)
+
+Phase 4 of the fleet migration (reddoor-maintenance
+`docs/prismic-migration-plan-2026-10.md` §9), following espada's port of
+reddoor-starter#166. Slice Machine is deprecated by Prismic since 2026-09-18;
+models are now edited in the Type Builder and the generated files come from
+`pnpm prismic:gen`.
+
+**The hand-written types were right, and still one model short.** The
+2026-09-23 entry extended `prismicio-types.d.ts` by hand for
+`featured_product` "because no codegen is installed". Regenerated, formatted
+the same way and diffed, every one of the 39 old exported names comes back
+identical in shape, so that hand edit matched the model exactly. The new file
+adds two names, `FormRepliesDocument` and `FormRepliesDocumentDataRepliesItem`:
+`customtypes/form_replies` arrived with the starter's form work and the types
+were never regenerated after it. `src/lib/server/reply-copy.ts` still casts
+`client.getSingle(type as never)`, and its comment says `form_replies` is
+absent from the client's union until the types are regenerated. That half of
+the comment is now false; the cast is still needed for the other reason it
+gives (the reader takes a `string`). Left as is here. The slice index was
+already current: the same eight slices, the same keys.
+
+**The types move did not cost svelte-check anything**, unlike espada, because
+`src/lib/stores/distributorData.ts` imports the types file by relative path,
+and that import pulls the `@prismicio/client` augmentation into the program.
+Pointed at the new root file it is 0 errors, as on main; left at the old path
+it is 11. So no `src/app.d.ts` import was added.
+
+**No framing change was needed.** Revogen passes no `csp` to the central
+config, has no `hooks.server`, and `netlify.toml` sets no headers. Measured
+from `vite preview` (`/slice-simulator`, `/`, `/about`,
+`/surgical-grafts/allografts`, `/health`) and live on revogen.com
+(`/slice-simulator`, `/`, `/about`, `/health`): no X-Frame-Options and no CSP
+on any. The same grep finds both headers on google.com and app.netlify.com, so
+its silence here means the headers are absent. `/slice-simulator` is
+prerendered (root `prerender = "auto"`), which would matter only if a static
+header were ever added on `/*`.
+
+**The codegen gate was proved both ways.** It passed on the committed tree,
+and went red when a field was added to the RichText slice model and when one
+was added to `customtypes/form_replies`, without regenerating. The nightly drift
+sweep read revogen's 12 models as matching Prismic at `4de0cd5`, the base of
+this change, so nothing was owed to Prismic first.

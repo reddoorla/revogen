@@ -1,7 +1,6 @@
 <script>
-  import { SliceSimulator } from "@slicemachine/adapter-sveltekit/simulator";
-  import { SliceZone } from "@prismicio/svelte";
-  import { components } from "$lib/slices/index.js";
+  import { SliceSimulator, SliceZone } from "@prismicio/svelte";
+  import { components } from "$lib/slices";
 </script>
 
 <!-- Slot syntax is used for backward compatibility with Svelte <=4. -->

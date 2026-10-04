@@ -19,6 +19,20 @@ Two things to know before touching anything:
   mobile, median of 3, per-route score floors). A performance regression fails
   the check, not just review.
 
+**`src/lib/slices/index.ts` and `prismicio-types.d.ts` are generated** by the
+Prismic CLI (`pnpm prismic:gen`; Slice Machine is gone, deprecated by Prismic
+2026-09-18, and models are edited in the Type Builder, which previews slices
+through `/slice-simulator`). Edit a model's JSON, regenerate, commit both; the
+`prismic-codegen` job fails a PR whose generated files are stale. Both are in
+`.prettierignore`. The types file sits at the project root, outside SvelteKit's
+`src/**` include; `src/lib/stores/distributorData.ts` imports it by path, which
+is what brings its `@prismicio/client` augmentation into svelte-check. Run by an
+agent, the CLI refuses without `--task-id` and `--user-intent`, so an agent runs
+`pnpm exec prismic task-id` once, then
+`pnpm exec prismic gen types --task-id <id> --user-intent "<the ask>"` and the
+same for `gen slice-index`. Never `prismic push` or `prismic pull`: both delete
+to match. Models reach Prismic through `prismic-models` on merge.
+
 ## The work journal
 
 **Every working session appends a dated entry to `docs/workJournal.md`** — what

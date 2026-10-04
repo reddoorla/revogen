@@ -1,6 +1,6 @@
 <script lang="ts">
   import { SliceZone } from "@prismicio/svelte";
-  import { components } from "$lib/slices/index.js";
+  import { components } from "$lib/slices";
   import { defaultGradientColor } from "$lib/stores/gradientTheme.js";
   import { onMount } from "svelte";
   import { distributorData } from "$lib/stores/distributorData.js";
