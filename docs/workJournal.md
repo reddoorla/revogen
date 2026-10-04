@@ -398,7 +398,7 @@ was added to `customtypes/form_replies`, without regenerating. The nightly drift
 sweep read revogen's 12 models as matching Prismic at `4de0cd5`, the base of
 this change, so nothing was owed to Prismic first.
 
-## 2026-10-04 — The slice simulator leaves every Prismic page's bundle (branch `fix/simulator-chunk-and-encoded-framing`)
+## 2026-10-04 — The slice simulator leaves every Prismic page's bundle (#91)
 
 Ported from reddoor-starter#168, following caltex-landing#70; the reasoning and the fixes that failed are recorded in the starter. The slices import `PrismicImage` and `PrismicRichText` from the `@prismicio/svelte` barrel, and `/slice-simulator` imports `SliceSimulator` from the same barrel. The barrel statically re-exports the simulator, so Rolldown put `@prismicio/simulator` into the shared chunk the slices load, and every Prismic page preloaded it. `scripts/prismic-barrel.ts` declares that one re-export-only module side-effect-free, and Rolldown then binds each import to its own module.
 
