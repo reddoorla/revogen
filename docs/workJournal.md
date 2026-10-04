@@ -397,3 +397,13 @@ and went red when a field was added to the RichText slice model and when one
 was added to `customtypes/form_replies`, without regenerating. The nightly drift
 sweep read revogen's 12 models as matching Prismic at `4de0cd5`, the base of
 this change, so nothing was owed to Prismic first.
+
+## 2026-10-04 — The slice simulator leaves every Prismic page's bundle (branch `fix/simulator-chunk-and-encoded-framing`)
+
+Ported from reddoor-starter#168, following caltex-landing#70; the reasoning and the fixes that failed are recorded in the starter. The slices import `PrismicImage` and `PrismicRichText` from the `@prismicio/svelte` barrel, and `/slice-simulator` imports `SliceSimulator` from the same barrel. The barrel statically re-exports the simulator, so Rolldown put `@prismicio/simulator` into the shared chunk the slices load, and every Prismic page preloaded it. `scripts/prismic-barrel.ts` declares that one re-export-only module side-effect-free, and Rolldown then binds each import to its own module.
+
+Measured from the build manifest as each node's static-import closure, gzipped, before → after: home 123,559 → 119,270, `[uid]` 120,309 → 116,017 and `surgical-grafts/[uid]` 120,275 → 115,985. Each saves about 4.3 KB. Before, all three reached the simulator chunk. After, only `/slice-simulator` does (120,168 → 120,368), and it carries the code in its own node. The root layout (44,916) never reached it and did not change. Rebuilds of the same tree move these numbers by a few bytes, because chunk hashes are part of the files.
+
+There is no framing change. Revogen has no `hooks.server` and sets no X-Frame-Options or CSP anywhere, and `vite preview` showed neither header on any path before or after, including `/slice%2Dsimulator`.
+
+The proof is `tests/smoke/slice-simulator.spec.ts`, which reads the build manifest from disk. On `main` it failed the bundle check (1 of 3). On this branch it passes 3 of 3. With the plugin removed from `vite.config.js` and the site rebuilt, the bundle check fails again. The plugin is imported without an extension because `svelte-check` runs `checkJs` here; Vite prints a warning that `configLoader: 'native'` will not support that, which is only a warning today.
