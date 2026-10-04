@@ -30,9 +30,9 @@ This library will grow as we require new interactive functions or layouts, and a
 
 4. initiate new prismic repo
 
-5. change slicemachine.config.json to new prismic name
+5. change `repositoryName` in prismic.config.json to the new prismic repo
 
-6. start dev server and push changes to prismic
+6. model types and slices in Prismic's Type Builder (it previews slices through `/slice-simulator`), then run `pnpm prismic:gen` to regenerate `prismicio-types.d.ts` and `src/lib/slices/index.ts`
 
 7. build site, using slices if complex cms or custom types if not
 

@@ -1,0 +1,5 @@
+{
+  "repositoryName": "revogen",
+  "libraries": ["./src/lib/slices"],
+  "routes": []
+}
