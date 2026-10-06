@@ -1,4 +1,5 @@
 <script lang="ts">
+  import VimeoGate from "$lib/components/VimeoGate.svelte";
   import ContentWidth from "$lib/components/ContentWidth/ContentWidth.svelte";
   import type { Content } from "@prismicio/client";
   import { PrismicImage, PrismicRichText, type SliceComponentProps } from "@prismicio/svelte";
@@ -202,13 +203,15 @@
                 class="absolute w-full h-full object-cover"
               />
             {/if}
-            <iframe
-              title="video"
-              src={`https://player.vimeo.com/video/${slice.primary.vimeo_id}?background=1&muted=1&loop=1&autoplay=1&dnt=1`}
-              class="absolute w-full h-full contrast-[1.15]"
-              frameborder="0"
-              allowfullscreen
-            ></iframe>
+            <VimeoGate>
+              <iframe
+                title="video"
+                src={`https://player.vimeo.com/video/${slice.primary.vimeo_id}?background=1&muted=1&loop=1&autoplay=1&dnt=1`}
+                class="absolute w-full h-full contrast-[1.15]"
+                frameborder="0"
+                allowfullscreen
+              ></iframe>
+            </VimeoGate>
           </div>
         {:else if isFilled.linkToMedia(slice.primary.rive)}
           <div
