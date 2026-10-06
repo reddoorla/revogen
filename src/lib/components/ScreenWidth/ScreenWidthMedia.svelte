@@ -4,6 +4,7 @@
   import { PrismicImage } from "@prismicio/svelte";
   import Img from "@zerodevx/svelte-img";
   import { onMount } from "svelte";
+  import VimeoGate from "$lib/components/VimeoGate.svelte";
   import { cappedWidths } from "@reddoorla/maintenance/images";
   let {
     src = placeholder,
@@ -77,17 +78,21 @@
 {src === placeholder ? 'lg:w-[45%] md:h-auto' : ''}"
       />
     {/if}
-    {#if vimeoId && videoSrc}
-      <iframe
-        title="background video"
-        src={videoSrc}
-        class="aspect-video absolute contrast-[1.15] -z-10"
-        style={((viewportHeight * percentHeight) / 100) * 16 > viewportWidth * 9
-          ? `height: ${percentHeight}lvh; min-width: 100%`
-          : `width: 100vw; min-height: ${percentHeight}lvh`}
-        frameborder="0"
-        allowfullscreen
-      ></iframe>
+    {#if vimeoId}
+      <VimeoGate>
+        {#if videoSrc}
+          <iframe
+            title="background video"
+            src={videoSrc}
+            class="aspect-video absolute contrast-[1.15] -z-10"
+            style={((viewportHeight * percentHeight) / 100) * 16 > viewportWidth * 9
+              ? `height: ${percentHeight}lvh; min-width: 100%`
+              : `width: 100vw; min-height: ${percentHeight}lvh`}
+            frameborder="0"
+            allowfullscreen
+          ></iframe>
+        {/if}
+      </VimeoGate>
     {/if}
     {#if darken}
       <div
