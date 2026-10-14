@@ -3,7 +3,8 @@
   import ContentWidth from "$lib/components/ContentWidth/ContentWidth.svelte";
   import ScreenWidthMedia from "$lib/components/ScreenWidth/ScreenWidthMedia.svelte";
   import { isFilled, type Content } from "@prismicio/client";
-  import { PrismicRichText, type SliceComponentProps } from "@prismicio/svelte";
+  import { type SliceComponentProps } from "@prismicio/svelte";
+  import RichText from "$lib/components/RichText/RichText.svelte";
   import downArrow from "$lib/assets/icons/downArrow.svg";
   import gridlines from "$lib/assets/icons/linework.svg";
 
@@ -74,7 +75,7 @@
           ? ''
           : 'opacity-0 translate-y-8'}"
       >
-        <PrismicRichText field={slice.primary.text} />
+        <RichText field={slice.primary.text} />
       </div>
 
       {#if isFilled.link(slice.primary.button)}
@@ -86,7 +87,8 @@
           <DefaultButton
             transitionDelayMax={0}
             transitionDuration={1200}
-            href={slice.primary.button.url}>{slice.primary.button.text}</DefaultButton
+            href={slice.primary.button.url}
+            field={slice.primary.button}>{slice.primary.button.text}</DefaultButton
           >
         </div>
       {/if}

@@ -338,6 +338,7 @@
                 class="flex flex-row gap-3 items-center mt-4 hover:opacity-80 active:opacity-100 transition-opacity active:transition-none"
                 href={doc.url}
                 target="_blank"
+                rel="noopener noreferrer"
               >
                 <svg
                   class="h-3 translate-y-[1px]"

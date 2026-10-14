@@ -3,7 +3,8 @@
   import ContentWidth from "$lib/components/ContentWidth/ContentWidth.svelte";
   import ScreenWidthMedia from "$lib/components/ScreenWidth/ScreenWidthMedia.svelte";
   import { isFilled, type Content } from "@prismicio/client";
-  import { PrismicRichText, type SliceComponentProps } from "@prismicio/svelte";
+  import { type SliceComponentProps } from "@prismicio/svelte";
+  import RichText from "$lib/components/RichText/RichText.svelte";
   import downArrow from "$lib/assets/icons/downArrow.svg";
 
   type Props = SliceComponentProps<Content.ScreenWidthVideoSlice>;
@@ -39,15 +40,15 @@
             ? 'justify-center'
             : 'justify-end'} text-center items-center"
         >
-          <PrismicRichText field={slice.primary.text} />
+          <RichText field={slice.primary.text} />
           <div class="flex gap-5">
             {#if isFilled.link(slice.primary.button)}
-              <DefaultButton href={slice.primary.button.url}
+              <DefaultButton href={slice.primary.button.url} field={slice.primary.button}
                 >{slice.primary.button.text}</DefaultButton
               >
             {/if}
             {#if isFilled.link(slice.primary.button_two)}
-              <DefaultButton href={slice.primary.button_two.url}
+              <DefaultButton href={slice.primary.button_two.url} field={slice.primary.button_two}
                 >{slice.primary.button_two.text}</DefaultButton
               >
             {/if}
@@ -61,9 +62,9 @@
               ? 'justify-center'
               : 'justify-end'} text-center items-center"
           >
-            <PrismicRichText field={slice.primary.text} />
+            <RichText field={slice.primary.text} />
             {#if isFilled.link(slice.primary.button)}
-              <DefaultButton href={slice.primary.button.url}
+              <DefaultButton href={slice.primary.button.url} field={slice.primary.button}
                 >{slice.primary.button.text}</DefaultButton
               >
             {/if}

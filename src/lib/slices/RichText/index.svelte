@@ -4,7 +4,8 @@
   import downArrow from "$lib/assets/icons/downArrow.svg";
   import { isFilled } from "@prismicio/client";
   import type { Content } from "@prismicio/client";
-  import { PrismicRichText, type SliceComponentProps } from "@prismicio/svelte";
+  import { type SliceComponentProps } from "@prismicio/svelte";
+  import RichText from "$lib/components/RichText/RichText.svelte";
 
   type Props = SliceComponentProps<Content.RichTextSlice>;
   const { slice }: Props = $props();
@@ -34,13 +35,15 @@
         ? 'text-center items-center justify-center'
         : ''} "
     >
-      <PrismicRichText field={slice.primary.text} />
+      <RichText field={slice.primary.text} />
       <div class="flex gap-5">
         {#if isFilled.link(slice.primary.button)}
-          <DefaultButton href={slice.primary.button.url}>{slice.primary.button.text}</DefaultButton>
+          <DefaultButton href={slice.primary.button.url} field={slice.primary.button}
+            >{slice.primary.button.text}</DefaultButton
+          >
         {/if}
         {#if isFilled.link(slice.primary.button_two)}
-          <DefaultButton href={slice.primary.button_two.url}
+          <DefaultButton href={slice.primary.button_two.url} field={slice.primary.button_two}
             >{slice.primary.button_two.text}</DefaultButton
           >
         {/if}
@@ -57,15 +60,15 @@
           ? 'text-center items-center'
           : ''}"
       >
-        <PrismicRichText field={slice.primary.text} />
+        <RichText field={slice.primary.text} />
         <div class="flex gap-5">
           {#if isFilled.link(slice.primary.button)}
-            <DefaultButton href={slice.primary.button.url}
+            <DefaultButton href={slice.primary.button.url} field={slice.primary.button}
               >{slice.primary.button.text}</DefaultButton
             >
           {/if}
           {#if isFilled.link(slice.primary.button_two)}
-            <DefaultButton href={slice.primary.button_two.url}
+            <DefaultButton href={slice.primary.button_two.url} field={slice.primary.button_two}
               >{slice.primary.button_two.text}</DefaultButton
             >
           {/if}

@@ -1,8 +1,10 @@
 <script lang="ts">
+  import type { LinkField } from "@prismicio/client";
   import type { Snippet } from "svelte";
   import DelayedLink from "../DelayedLink.svelte";
   interface ButtonProps {
     href?: string;
+    field?: LinkField;
     onclick?: (event: MouseEvent) => void;
     class?: string;
     disabled?: boolean;
@@ -11,6 +13,7 @@
   }
   let {
     href = "",
+    field = undefined,
     onclick = () => {},
     class: passedClasses = "",
     disabled = false,
@@ -35,6 +38,7 @@
   {#if href}
     <DelayedLink
       {href}
+      {field}
       onclick={handleClick}
       class="{baseClasses} {disabledClasses} {passedClasses}"
     >
