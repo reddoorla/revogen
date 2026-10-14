@@ -82,7 +82,7 @@
           <!-- DefaultButton wraps itself in a my-2 div; cancel it so the comp's
              24px gap is the only space above the button. -->
           <div class="-my-2">
-            <DefaultButton href={slice.primary.button.url}
+            <DefaultButton href={slice.primary.button.url} field={slice.primary.button}
               >{slice.primary.button.text || "Learn More"}</DefaultButton
             >
           </div>

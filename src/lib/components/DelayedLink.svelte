@@ -2,6 +2,7 @@
   import { goto } from "$app/navigation";
   import { isTransitioning } from "$lib/stores/isTransitioning";
   import { isFilled, type LinkField } from "@prismicio/client";
+  import { linkTargetAttrs } from "$lib/links";
   import { onMount, type Snippet } from "svelte";
   import type { HTMLAnchorAttributes, MouseEventHandler } from "svelte/elements";
 
@@ -21,8 +22,12 @@
     children,
     beforeNavigate,
     onclick,
+    target,
+    rel,
     ...props
   }: DelayedLinkProps = $props();
+
+  const targetAttrs = $derived(linkTargetAttrs(href, field, target));
 
   const isInternalLink = (url: string): boolean => {
     if (url.startsWith("/") || url.startsWith("./") || url.startsWith("../")) {
@@ -42,8 +47,8 @@
   };
 
   const handleClick: MouseEventHandler<HTMLAnchorElement> = async (event) => {
-    // Only apply delayed navigation to internal links (excluding PDFs)
-    if (isInternalLink(href) && !href.includes(".pdf")) {
+    // Only apply delayed navigation to internal links that open in this window
+    if (isInternalLink(href) && !targetAttrs.target) {
       isTransitioning.set(true);
 
       if (onclick) {
@@ -73,6 +78,6 @@
   });
 </script>
 
-<a {href} onclick={handleClick} {...props}>
+<a {href} target={targetAttrs.target} rel={rel ?? targetAttrs.rel} onclick={handleClick} {...props}>
   {@render children()}
 </a>

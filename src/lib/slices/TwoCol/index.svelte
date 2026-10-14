@@ -2,7 +2,8 @@
   import VimeoGate from "$lib/components/VimeoGate.svelte";
   import ContentWidth from "$lib/components/ContentWidth/ContentWidth.svelte";
   import type { Content } from "@prismicio/client";
-  import { PrismicImage, PrismicRichText, type SliceComponentProps } from "@prismicio/svelte";
+  import { PrismicImage, type SliceComponentProps } from "@prismicio/svelte";
+  import RichText from "$lib/components/RichText/RichText.svelte";
   import { isFilled } from "@prismicio/client";
   import DefaultButton from "$lib/components/Buttons/DefaultButton.svelte";
   import ProductSpecTable from "$lib/components/ProductSpecTable.svelte";
@@ -269,15 +270,15 @@
           ? 'md:pl-20'
           : 'md:pr-20'}"
       >
-        <PrismicRichText field={slice.primary.text} />
+        <RichText field={slice.primary.text} />
         <div class="flex gap-5">
           {#if isFilled.link(slice.primary.button)}
-            <DefaultButton href={slice.primary.button.url}
+            <DefaultButton href={slice.primary.button.url} field={slice.primary.button}
               >{slice.primary.button.text}</DefaultButton
             >
           {/if}
           {#if isFilled.link(slice.primary.button_two)}
-            <DefaultButton href={slice.primary.button_two.url}
+            <DefaultButton href={slice.primary.button_two.url} field={slice.primary.button_two}
               >{slice.primary.button_two.text}</DefaultButton
             >
           {/if}
@@ -302,7 +303,7 @@
   {#if slice.variation === "contactForm"}
     <ContentWidth class="flex relative pt-16 flex-col">
       <div class="w-full my-6">
-        <PrismicRichText field={slice.primary.text} />
+        <RichText field={slice.primary.text} />
 
         <form class="mt-12 flex flex-col gap-6" onsubmit={handleSubmit}>
           <!-- First row - First Name and Last Name -->
@@ -535,15 +536,15 @@
         <div class="absolute w-full h-0.5 top-0 left-0 bg-white"></div>
       {/if}
       <div class="w-full md:w-1/2 flex flex-col gap-6 mt-6 md:mt-0">
-        <PrismicRichText field={slice.primary.text} />
+        <RichText field={slice.primary.text} />
         <div class="flex gap-5">
           {#if isFilled.link(slice.primary.button)}
-            <DefaultButton href={slice.primary.button.url}
+            <DefaultButton href={slice.primary.button.url} field={slice.primary.button}
               >{slice.primary.button.text}</DefaultButton
             >
           {/if}
           {#if isFilled.link(slice.primary.button_two)}
-            <DefaultButton href={slice.primary.button_two.url}
+            <DefaultButton href={slice.primary.button_two.url} field={slice.primary.button_two}
               >{slice.primary.button_two.text}</DefaultButton
             >
           {/if}
