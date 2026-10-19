@@ -44,7 +44,7 @@
   "dependencies": {
     "@lucide/svelte": "^1.20.0",
     "@prismicio/client": "^7.21.8",
-    "@prismicio/svelte": "^2.2.1",
+    "@prismicio/svelte": "^3.0.0",
     "@rive-app/canvas": "^2.37.5",
     "@zerodevx/svelte-img": "^2.1.2",
     "svelte-gestures": "^5.2.2",
