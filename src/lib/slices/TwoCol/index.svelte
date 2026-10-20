@@ -510,11 +510,15 @@
                as a flex-column child would sit hard left under the full-width
                fields — so centre the submit block explicitly. -->
           <div class="flex flex-col items-center text-center">
-            {#if submitted}
-              <p class="text-white" role="status" aria-live="polite">
-                Thanks — your message has been sent.
-              </p>
-            {:else}
+            <!-- An always-present live region, empty until the thanks renders inside
+                 it, so a screen reader announces it. It is also the success signal
+                 the fleet's form-e2e probe waits for. -->
+            <div role="status" aria-live="polite">
+              {#if submitted}
+                <p class="text-white">Thanks — your message has been sent.</p>
+              {/if}
+            </div>
+            {#if !submitted}
               <DefaultButton type="submit" disabled={submitting}>
                 {submitting ? "SENDING..." : "SUBMIT"}
               </DefaultButton>
