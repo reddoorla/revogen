@@ -58,6 +58,11 @@ test("no serious/critical axe-core violations on public routes", async ({ page }
 
   const routes = await discoverRoutes(page);
   expect(routes.length, "expected to discover at least the home route").toBeGreaterThan(0);
+  // Every route is audited inside this one test, so the budget scales with the
+  // route count instead of the default 30 s, which a busy dev server (the other
+  // worker submitting the real contact form, tests/smoke/contact-form-e2e.spec.ts)
+  // ran out of in CI on revogen#105.
+  test.setTimeout(30_000 + routes.length * 15_000);
 
   const failures: string[] = [];
 

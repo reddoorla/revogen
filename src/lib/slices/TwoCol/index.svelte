@@ -48,7 +48,7 @@
   // through. Guarded by tests/smoke/rive-fallback.spec.ts.
   let riveFailed = $state(false);
 
-  const triggerSubmitButton = async () => {
+  const triggerSubmitButton = async (form: HTMLFormElement) => {
     // The central ingest is not idempotent — guard against double submits.
     if (submitting) return;
     submitting = true;
@@ -71,6 +71,10 @@
           "bot-field": formBotField,
           "cf-turnstile-response": turnstileToken,
           sourceUrl: window.location.href,
+          // The fleet form-e2e probe's marker: a hidden input it injects, so it is
+          // read from the form element, not from the bound state above. Central
+          // ingest drops a payload carrying it instead of emailing the client.
+          ...(new FormData(form).get("testMode") === "true" ? { testMode: "true" } : {}),
         }),
       });
       const result: { ok?: boolean } = await response.json().catch(() => ({}));
@@ -91,7 +95,7 @@
   // this handler only fires once the form is valid.
   const handleSubmit = (event: SubmitEvent) => {
     event.preventDefault();
-    triggerSubmitButton();
+    triggerSubmitButton(event.currentTarget as HTMLFormElement);
   };
 
   const { slice }: Props = $props();
@@ -506,11 +510,15 @@
                as a flex-column child would sit hard left under the full-width
                fields — so centre the submit block explicitly. -->
           <div class="flex flex-col items-center text-center">
-            {#if submitted}
-              <p class="text-white" role="status" aria-live="polite">
-                Thanks — your message has been sent.
-              </p>
-            {:else}
+            <!-- An always-present live region, empty until the thanks renders inside
+                 it, so a screen reader announces it. It is also the success signal
+                 the fleet's form-e2e probe waits for. -->
+            <div role="status" aria-live="polite">
+              {#if submitted}
+                <p class="text-white">Thanks — your message has been sent.</p>
+              {/if}
+            </div>
+            {#if !submitted}
               <DefaultButton type="submit" disabled={submitting}>
                 {submitting ? "SENDING..." : "SUBMIT"}
               </DefaultButton>

@@ -41,6 +41,9 @@
 
   onNavigate(scrollAllToTop);
   onMount(scrollAllToTop);
+  // The fleet form-e2e probe waits for this before it fills the form, so its
+  // input is not wiped by hydration.
+  onMount(() => document.documentElement.setAttribute("data-hydrated", ""));
 </script>
 
 <svelte:head>
