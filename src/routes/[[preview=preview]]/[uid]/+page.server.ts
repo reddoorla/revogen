@@ -30,7 +30,12 @@ export async function entries() {
 
   const pages = await client.getAllByType("page");
 
-  return pages.map((page) => {
-    return { uid: page.uid };
-  });
+  // src/routes/contact owns /contact (a redirect to the distributor form). A
+  // page with that uid would otherwise fail every prerender with a static-route
+  // clash.
+  return pages
+    .filter((page) => page.uid !== "contact")
+    .map((page) => {
+      return { uid: page.uid };
+    });
 }
