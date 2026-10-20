@@ -48,7 +48,7 @@
   // through. Guarded by tests/smoke/rive-fallback.spec.ts.
   let riveFailed = $state(false);
 
-  const triggerSubmitButton = async () => {
+  const triggerSubmitButton = async (form: HTMLFormElement) => {
     // The central ingest is not idempotent — guard against double submits.
     if (submitting) return;
     submitting = true;
@@ -71,6 +71,10 @@
           "bot-field": formBotField,
           "cf-turnstile-response": turnstileToken,
           sourceUrl: window.location.href,
+          // The fleet form-e2e probe's marker: a hidden input it injects, so it is
+          // read from the form element, not from the bound state above. Central
+          // ingest drops a payload carrying it instead of emailing the client.
+          ...(new FormData(form).get("testMode") === "true" ? { testMode: "true" } : {}),
         }),
       });
       const result: { ok?: boolean } = await response.json().catch(() => ({}));
@@ -91,7 +95,7 @@
   // this handler only fires once the form is valid.
   const handleSubmit = (event: SubmitEvent) => {
     event.preventDefault();
-    triggerSubmitButton();
+    triggerSubmitButton(event.currentTarget as HTMLFormElement);
   };
 
   const { slice }: Props = $props();
