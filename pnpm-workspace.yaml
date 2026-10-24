@@ -2,7 +2,6 @@
 allowBuilds:
   # migrate each package from the old onlyBuiltDependencies here as `name: true`
   "@scarf/scarf": false
-  esbuild: true
   protobufjs: true
   sharp: true
 minimumReleaseAge: 0

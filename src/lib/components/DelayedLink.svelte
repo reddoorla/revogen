@@ -64,7 +64,12 @@
 
       event.preventDefault();
       setTimeout(() => {
-        goto(href);
+        // Kit 3 rejects goto() for a same-origin path with no page route
+        // (navigation_route_missing), where kit 2 fell back to a full page
+        // load; without this the transition overlay stays up for good.
+        goto(href).catch(() => {
+          window.location.href = href;
+        });
       }, delay);
     } else {
       if (onclick) {

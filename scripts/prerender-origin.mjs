@@ -20,6 +20,10 @@ export const PLACEHOLDER = "http://sveltekit-prerender";
 // names it nowhere outside `_app/immutable`.
 const NEEDLE = "sveltekit-prerender";
 const PRODUCTION = "https://revogen.com";
+// The production host over plain http: an origin assembled from
+// page.url.protocol keeps the placeholder's "http:" and names the right host,
+// so the needle above never sees it (review of #108).
+const INSECURE = /http:\/\/(?:www\.)?revogen\.com(?![\w.-])/;
 // The production origin as a whole origin (not a prefix of another host), for
 // the control's count. A regex, not `includes`: CodeQL reads a URL literal in
 // `includes` as a host check (js/incomplete-url-substring-sanitization).
@@ -45,7 +49,7 @@ export function scan(root) {
     const bytes = readFileSync(file);
     if (bytes.includes(0)) continue;
     const text = bytes.toString("utf8");
-    if (text.includes(NEEDLE)) offenders.push(relative(root, file));
+    if (text.includes(NEEDLE) || INSECURE.test(text)) offenders.push(relative(root, file));
     if (CARRIES_PRODUCTION.test(text)) production++;
   }
   return { files: files.length, offenders, production };
@@ -66,7 +70,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(realpathSync(process.ar
   if (offenders.length > 0) {
     console.error(
       `prerender-origin: ${offenders.length} built file(s) carry ${PLACEHOLDER}, ` +
-        `kit 3's prerender placeholder, instead of ${PRODUCTION}. Build absolute ` +
+        `kit 3's prerender placeholder, or http://revogen.com, instead of ${PRODUCTION}. Build absolute ` +
         `URLs from $lib/site's SITE_URL, never from page.url or a load's url:\n  ` +
         offenders.join("\n  "),
     );
