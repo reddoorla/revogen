@@ -1,6 +1,6 @@
 <script lang="ts">
   import { hasIntroRun } from "$lib/stores/hasIntroRun";
-  import { browser } from "$app/environment";
+  import { browser } from "$app/env";
   import { onMount, onDestroy } from "svelte";
 
   import ContentWidth from "./ContentWidth/ContentWidth.svelte";
