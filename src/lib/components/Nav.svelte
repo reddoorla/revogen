@@ -2,7 +2,7 @@
   import logo from "$lib/assets/icons/logos/revogen_white.svg";
   import { fade } from "svelte/transition";
   import ContentWidth from "./ContentWidth/ContentWidth.svelte";
-  import { browser } from "$app/environment";
+  import { browser } from "$app/env";
   import DelayedLink from "./DelayedLink.svelte";
   import { Menu, X } from "@lucide/svelte";
 
