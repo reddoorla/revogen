@@ -22,8 +22,9 @@ const NEEDLE = "sveltekit-prerender";
 const PRODUCTION = "https://revogen.com";
 // The production host over plain http: an origin assembled from
 // page.url.protocol keeps the placeholder's "http:" and names the right host,
-// so the needle above never sees it (review of #108).
-const INSECURE = /http:\/\/(?:www\.)?revogen\.com(?![\w.-])/;
+// so the needle above never sees it; percent-encoded too, as in a share link
+// (review of #108).
+const INSECURE = /http(?::|%3A)(?:\/\/|%2F%2F)(?:www\.)?revogen\.com(?![\w-]|\.\w)/i;
 // The production origin as a whole origin (not a prefix of another host), for
 // the control's count. A regex, not `includes`: CodeQL reads a URL literal in
 // `includes` as a host check (js/incomplete-url-substring-sanitization).
