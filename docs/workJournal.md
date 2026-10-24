@@ -442,5 +442,6 @@ Renovate opened `@sveltejs/kit` ^3 as a security PR overnight (#107, GHSA-27mw-8
 `scripts/prerender-origin.mjs`, from Beachfront, checks the built output for kit 3's `http://sveltekit-prerender` placeholder. Building with `URL` unset proves nothing here: this site's absolute URLs come from the hardcoded `SITE_URL`. So the check was proved instead by mutations that read `page.url`: a sitemap `<loc>` from `url`, and an encoded share link. Each turned it red.
 
 **Measured on the deployed `staging` URL:**
+
 - `/health` was byte-identical to revogen.com's.
 - The smoke suite, run against both sites, passed the same 21 tests on each. The 15 failures were the same set on both: all `/dev/link-fixtures`, which 404 on any deployed site.
