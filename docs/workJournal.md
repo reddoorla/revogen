@@ -429,3 +429,19 @@ The nightly form-e2e probe in reddoor-maintenance refuses to submit to a site wh
 **Measured.** Against this branch's production build, with ingest at a local capture server, the probe followed the 301 and synthesised first-name, last-name, city, state and distributorship. It passed, and the captured body carried `testMode: true`. Adding real submissions to the smoke run tipped `tests/a11y.spec.ts` over: it audits every discovered route inside one test with the default 30 s budget, and in CI it timed out on all three attempts (revogen#105, `71ec15b`) while the other worker submitted forms. Its budget now scales with the route count (30 s plus 15 s a route); no assertion changed.
 
 Review ran three rounds. Round 2 found that a retry could never pass (the capture outlived it and the marker was the test id alone) and that the fixed capture port collided between suites; both are fixed, and the spec also asserts that `/health` declares `forms.testMode`, since a dropped declaration would only make the probe skip, silently. Round 3 was minors only: the thanks now renders inside an always-present `role="status"` region, so it is announced.
+
+## 2026-10-24 — SvelteKit 3 and adapter-netlify 7, onto a new `staging` branch (#108, `b91a6d6`)
+
+Renovate opened `@sveltejs/kit` ^3 as a security PR overnight (#107, GHSA-27mw-82g8-phjj, fixed only in 3.0). It could not pass, because kit 3 refuses to start beside `svelte.config.js`. The migration landed on a new `staging` branch and reaches `main` only through the operator's promotion PR (#110). It followed the recipe from eight other fleet sites (reddoor-maintenance P1-53): the config moved to `sveltekit.config.js` through maintenance's `createKitConfig`, and adapter-netlify 7 came in with it. This site hit four traps that recipe had not written down.
+
+- **Param matchers move to one `src/params.ts`.** The kit 2 `src/params/preview.js` failed the build with `param_matcher_missing`.
+- **Kit 3 exposes only the environment variables `src/env.ts` declares.** Without the file, `FORMS_INGEST_URL` and `FORMS_INGEST_TOKEN` read as `undefined` and the contact form stopped delivering. The build only warned ("will always be undefined"). With the reads moved to `$app/env/private` and `$app/env/public`, svelte-check rejects an undeclared variable. That makes svelte-check the guard. A static spec added in the first commit was dropped after review showed svelte-check caught every case it did and nine it missed.
+- **`goto()` now throws for a same-origin path with no page route** (`navigation_route_missing`). Kit 2 fell back to a full page load. `DelayedLink`, used by the footer and Prismic buttons, shows the full-screen transition overlay before it calls `goto`, so such a link left the visitor on a blue screen for good. No current link hits it. It now falls back to `window.location.href`, which was reproduced on a footer link pointed at `/x/y/z` before and after the change.
+- **`@prismicio/svelte` 2.2.4's `PrismicPreview` passes `goto({ noScroll })`.** Kit 3 removed that option and throws on it in dev. A kit 3 copy is vendored, as on caltex-landing and espada.
+
+`scripts/prerender-origin.mjs`, from Beachfront, checks the built output for kit 3's `http://sveltekit-prerender` placeholder. Building with `URL` unset proves nothing here: this site's absolute URLs come from the hardcoded `SITE_URL`. So the check was proved instead by mutations that read `page.url`: a sitemap `<loc>` from `url`, and an encoded share link. Each turned it red.
+
+**Measured on the deployed `staging` URL:**
+
+- `/health` was byte-identical to revogen.com's.
+- The smoke suite, run against both sites, passed the same 21 tests on each. The 15 failures were the same set on both: all `/dev/link-fixtures`, which 404 on any deployed site.

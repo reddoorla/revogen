@@ -64,7 +64,15 @@
 
       event.preventDefault();
       setTimeout(() => {
-        goto(href);
+        // Kit 3 rejects goto() for a path with no page route
+        // (navigation_route_missing), where kit 2 fell back to a full page
+        // load, and for a URL outside the app such as "//other.host/x"
+        // (navigation_external_url). Either way the transition overlay is
+        // already up, so load the page the way a plain link would.
+        goto(href).catch((error) => {
+          console.warn("DelayedLink: goto failed, loading the page instead", error);
+          window.location.href = href;
+        });
       }, delay);
     } else {
       if (onclick) {
