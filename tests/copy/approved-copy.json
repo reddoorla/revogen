@@ -1,5 +1,5 @@
 {
-  "$comment": "The client's copy approvals of 2026-11-06 (Erik's two annotated PDFs, workspace briefs/2026-11-06-revogen-copy-approvals/evidence). Each applied line is copied exactly, marks and punctuation included. 'held' lines are deferred or ambiguous annotations and must not appear on the site until the client answers. Content rows live in the Prismic release named for this ask; this file covers what the code renders.",
+  "$comment": "The client's copy approvals of 2026-11-06 (Erik's two annotated PDFs, workspace briefs/2026-11-06-revogen-copy-approvals/evidence). Each applied line is copied exactly, marks and punctuation included. 'held' entries are short stems of deferred or ambiguous annotations (so a reworded held claim is still caught) and must not appear on any page in the sitemap, or in heldRoutes, until the client answers. Content rows live in the Prismic release named for this ask; this file covers what the code renders.",
   "applied": [
     {
       "id": "W1-hero",
@@ -84,22 +84,32 @@
     {
       "id": "W1-optionA",
       "source": "Website Copy p1, Option A (not chosen)",
-      "text": "Elevating your patients' health and healing."
+      "text": "health and healing"
     },
     {
       "id": "V1-revogro-composition",
-      "source": "Variances p1 #1, 'Meaghan will reply'",
-      "text": "calcium, magnesium, sodium and silica salts"
+      "source": "Variances p1 #1, 'Meaghan will reply' (both the brochure and the combined-sheet wording)",
+      "text": "silica salts"
+    },
+    {
+      "id": "V1-graft-extender",
+      "source": "Variances p1 #1, combined sheet's 'graft extender', 'Meaghan will reply'",
+      "text": "graft extender"
     },
     {
       "id": "V3-cancellx-claim",
-      "source": "Variances p1 #3, 'Meagan reply'",
-      "text": "retain known bone growth factors"
+      "source": "Variances p1 #3, 'Meagan reply' (either growth-factor wording)",
+      "text": "growth factor"
     },
     {
       "id": "W6-disclaimer",
       "source": "Website Copy p5, 'Await direction, response from quality'",
-      "text": "regulated under Section 361"
+      "text": "Section 361"
+    },
+    {
+      "id": "W6-hctp",
+      "source": "Website Copy p5, 'Await direction, response from quality'",
+      "text": "HCT/P"
     }
   ],
   "heldRoutes": [

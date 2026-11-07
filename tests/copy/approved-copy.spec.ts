@@ -1,4 +1,6 @@
 import { test, expect, type Page } from "@playwright/test";
+
+test.setTimeout(120_000);
 import manifest from "./approved-copy.json" with { type: "json" };
 
 // The client's approved lines, checked against what the built site renders.
@@ -70,13 +72,24 @@ for (const row of manifest.applied as Applied[]) {
   });
 }
 
-for (const route of manifest.heldRoutes) {
-  test(`held annotations have not reached ${route}`, async ({ page }) => {
+// Every page the sitemap lists, plus any listed by hand, so a page added
+// later is covered without editing this file.
+test("held annotations have not reached any page", async ({ page, request }) => {
+  const sitemap = await request.get("/sitemap.xml");
+  expect(sitemap.status()).toBe(200);
+  const fromSitemap = [...(await sitemap.text()).matchAll(/<loc>([^<]+)<\/loc>/g)].map(
+    (m) => new URL(m[1]).pathname,
+  );
+  expect(fromSitemap.length, "sitemap lists pages").toBeGreaterThan(5);
+  const routes = [...new Set([...manifest.heldRoutes, ...fromSitemap])];
+  for (const route of routes) {
     if (route === "/") await homeCardsReady(page);
     else expect((await page.goto(route))?.status(), `${route} must exist`).toBe(200);
     const body = fold(await page.locator("body").textContent());
     for (const row of manifest.held) {
-      expect(body, `${row.id} (${row.source}) is held`).not.toContain(fold(row.text));
+      expect(body, `${row.id} (${row.source}) is held, found on ${route}`).not.toContain(
+        fold(row.text),
+      );
     }
-  });
-}
+  }
+});
