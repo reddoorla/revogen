@@ -7,14 +7,14 @@ export const SITE_URL = "https://revogen.com";
 
 // Canonical site name, used as the brand prefix in <title> fallbacks and as the
 // last-resort tab title. Kept here so it can't drift between routes.
-export const SITE_NAME = "Revogen Biologics";
+export const SITE_NAME = "RevoGen Biologics";
 
 /**
  * Build a unique, human-readable <title> fallback from a document's own UID
- * (e.g. "wound-care" -> "Revogen Biologics | Wound Care"). Used only when a
+ * (e.g. "wound-care" -> "RevoGen Biologics | Wound Care"). Used only when a
  * document has no `meta_title` set in Prismic, so pages never collapse to the
  * bare site name — which would make several page titles identical. Mirrors the
- * "Revogen Biologics | X" shape editors already use in Prismic meta_titles.
+ * "RevoGen Biologics | X" shape editors already use in Prismic meta_titles.
  *
  * @param {string | null | undefined} uid
  * @returns {string}

@@ -1,0 +1,135 @@
+{
+  "$comment": "The client's copy approvals of 2026-11-06 (Erik's two annotated PDFs, workspace briefs/2026-11-06-revogen-copy-approvals/evidence). Each applied line is copied exactly, marks and punctuation included. 'held' entries are short stems of deferred or ambiguous annotations (so a reworded held claim is still caught) and must not appear on any page in the sitemap, or in heldRoutes, until the client answers. Content rows live in the Prismic release named for this ask; this file covers what the code renders.",
+  "applied": [
+    {
+      "id": "W1-hero",
+      "source": "Website Copy p1, 'Use Option B'",
+      "route": "/",
+      "selector": "[data-hero-tagline]",
+      "text": "Elevating your patients' quality of life!",
+      "opaque": true
+    },
+    {
+      "id": "W3-surgical-oneliner",
+      "source": "Website Copy p2, Surgical Grafts one-liner, 'Good'",
+      "route": "/",
+      "mobile": true,
+      "selector": "a[href='/surgical-grafts'] p",
+      "text": "Empowering Surgeons with Advanced Allograft Solutions."
+    },
+    {
+      "id": "V-footer-desktop",
+      "source": "Variances p1 notes: no (R) in footer; capital G in live text",
+      "route": "/",
+      "selector": "footer .copywright",
+      "nth": 0,
+      "pattern": "^© \\d{4} RevoGen Biologics\\. All Rights Reserved\\.$"
+    },
+    {
+      "id": "V-footer-mobile",
+      "source": "Variances p1 notes: no (R) in footer; capital G in live text",
+      "route": "/",
+      "selector": "footer .copywright",
+      "nth": 1,
+      "pattern": "^© \\d{4} RevoGen BiologicsAll Rights Reserved$"
+    },
+    {
+      "id": "V-global-title",
+      "source": "Variances p1 notes: browser tab / site title needs a capital G",
+      "route": "/does-not-exist-copy-check",
+      "expectStatus": 404,
+      "title": "RevoGen Biologics"
+    },
+    {
+      "id": "V-global-wordmark-alt",
+      "source": "Variances p1 GLOBAL note: capital G in live text",
+      "route": "/",
+      "selector": "img[data-hero-wordmark]",
+      "attr": "alt",
+      "text": "RevoGen Biologics"
+    },
+    {
+      "id": "V-global-description",
+      "source": "Variances p1 GLOBAL note: capital G in live text",
+      "route": "/",
+      "selector": "meta[name='description']",
+      "attr": "content",
+      "contains": "RevoGen Biologics is committed",
+      "absent": ["Revogen"]
+    },
+    {
+      "id": "V-global-app-title",
+      "source": "Variances p1 GLOBAL note: the saved site's name needs a capital G",
+      "route": "/",
+      "selector": "meta[name='apple-mobile-web-app-title']",
+      "attr": "content",
+      "text": "RevoGen"
+    },
+    {
+      "id": "V-global-manifest",
+      "source": "Variances p1 GLOBAL note: the saved site's name needs a capital G",
+      "route": "/site.webmanifest",
+      "json": {
+        "name": "RevoGen Biologics",
+        "short_name": "RevoGen"
+      }
+    }
+  ],
+  "held": [
+    {
+      "id": "W1-eyebrow",
+      "source": "Website Copy p1, suggested eyebrow (not chosen)",
+      "text": "Innovative Healing"
+    },
+    {
+      "id": "W1-optionA",
+      "source": "Website Copy p1, Option A (not chosen)",
+      "text": "health and healing"
+    },
+    {
+      "id": "V1-revogro-composition",
+      "source": "Variances p1 #1, 'Meaghan will reply' (both the brochure and the combined-sheet wording)",
+      "text": "silica salts"
+    },
+    {
+      "id": "V1-graft-extender",
+      "source": "Variances p1 #1, combined sheet's 'graft extender', 'Meaghan will reply'",
+      "text": "graft extender"
+    },
+    {
+      "id": "V3-cancellx-claim",
+      "source": "Variances p1 #3, 'Meagan reply' (either growth-factor wording)",
+      "text": "growth factor"
+    },
+    {
+      "id": "W6-disclaimer",
+      "source": "Website Copy p5, 'Await direction, response from quality'",
+      "text": "Section 361"
+    },
+    {
+      "id": "W6-hctp",
+      "source": "Website Copy p5, 'Await direction, response from quality'",
+      "text": "HCT/P"
+    },
+    {
+      "id": "V3-cancellx-brochure",
+      "source": "Variances p1 #3 'Meagan reply' / Website Copy p3 'Consolidate to one sentence' (the brochure's CancellX wording)",
+      "text": "collagen and proteins"
+    },
+    {
+      "id": "W4-revogro-usage",
+      "source": "Website Copy p4, RevoGro usage sentence (held with the composition, Variances p1 #1)",
+      "text": "hydrated with sterile water"
+    }
+  ],
+  "heldRoutes": [
+    "/",
+    "/surgical-grafts",
+    "/surgical-grafts/synthetics",
+    "/surgical-grafts/allografts",
+    "/surgical-grafts/amnion-patches",
+    "/wound-care",
+    "/ocular",
+    "/about"
+  ]
+}
