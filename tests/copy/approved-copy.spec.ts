@@ -24,11 +24,12 @@ type Applied = {
   expectStatus?: number;
 };
 
-// Held lines are matched loosely (case, whitespace, curly or straight
+// Held lines are matched loosely (case, whitespace, hyphens and dashes, curly or straight
 // apostrophe), so a retyped held line is still caught. Applied lines are exact.
 const fold = (s: string | null) =>
   (s ?? "")
     .replace(/[\u2018\u2019]/g, "'")
+    .replace(/[-\u2010-\u2014]/g, " ")
     .replace(/\s+/g, " ")
     .trim()
     .toLowerCase();
@@ -85,7 +86,11 @@ test("held annotations have not reached any page", async ({ page, request }) => 
   for (const route of routes) {
     if (route === "/") await homeCardsReady(page);
     else expect((await page.goto(route))?.status(), `${route} must exist`).toBe(200);
-    const body = fold(await page.locator("body").textContent());
+    // The visible text, plus the head a search result or a share card shows.
+    const head = await page
+      .locator("title, meta[name='description'], meta[property^='og:']")
+      .evaluateAll((els) => els.map((e) => e.textContent || e.getAttribute("content") || ""));
+    const body = fold([await page.locator("body").textContent(), ...head].join(" "));
     for (const row of manifest.held) {
       expect(body, `${row.id} (${row.source}) is held, found on ${route}`).not.toContain(
         fold(row.text),
