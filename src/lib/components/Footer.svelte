@@ -36,7 +36,7 @@
     <div class="flex flex-col justify-stretch mt-4 pb-4">
       <h4 class="">Revolutionizing Bioregeneration</h4>
       <div class="hidden md:block copywright mt-auto">
-        {"© " + new Date().getFullYear() + " RevoGen Biologics®. All Rights Reserved."}
+        {"© " + new Date().getFullYear() + " RevoGen Biologics. All Rights Reserved."}
       </div>
     </div>
     <div class="flex flex-col gap-6 my-6 footer">
@@ -111,7 +111,7 @@
       </div>
     </div>
     <div class="md:hidden block copywright mt-6">
-      {"© " + new Date().getFullYear() + " RevoGen Biologics®"}<br />All Rights Reserved
+      {"© " + new Date().getFullYear() + " RevoGen Biologics"}<br />All Rights Reserved
     </div>
   </ContentWidth>
   {#if showScript}

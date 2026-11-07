@@ -1,0 +1,62 @@
+{
+  "$comment": "The client's copy approvals of 2026-11-06 (Erik's two annotated PDFs, workspace briefs/2026-11-06-revogen-copy-approvals/evidence). Each applied line is copied exactly, marks and punctuation included. 'held' lines are deferred or ambiguous annotations and must not appear on the site until the client answers. Content rows live in the Prismic release named for this ask; this file covers what the code renders.",
+  "applied": [
+    {
+      "id": "W1-hero",
+      "source": "Website Copy p1, 'Use Option B'",
+      "route": "/",
+      "selector": "[data-hero-tagline]",
+      "text": "Elevating your patients' quality of life!"
+    },
+    {
+      "id": "W3-surgical-oneliner",
+      "source": "Website Copy p2, Surgical Grafts one-liner, 'Good'",
+      "route": "/",
+      "mobile": true,
+      "selector": "a[href='/surgical-grafts'] p",
+      "text": "Empowering Surgeons with Advanced Allograft Solutions."
+    },
+    {
+      "id": "V-global-footer",
+      "source": "Variances p1 notes: no (R) in footer; capital G in live text",
+      "route": "/",
+      "selector": "footer",
+      "contains": "RevoGen Biologics",
+      "absent": ["Biologics®", "Revogen Biologics"]
+    },
+    {
+      "id": "V-global-title",
+      "source": "Variances p1 notes: browser tab / site title needs a capital G",
+      "route": "/does-not-exist-copy-check",
+      "expectStatus": 404,
+      "title": "RevoGen Biologics"
+    }
+  ],
+  "held": [
+    {
+      "id": "W1-eyebrow",
+      "source": "Website Copy p1, suggested eyebrow (not chosen)",
+      "text": "Innovative Healing"
+    },
+    {
+      "id": "W1-optionA",
+      "source": "Website Copy p1, Option A (not chosen)",
+      "text": "Elevating your patients' health and healing."
+    },
+    {
+      "id": "V1-revogro-composition",
+      "source": "Variances p1 #1, 'Meaghan will reply'",
+      "text": "calcium, magnesium, sodium and silica salts"
+    },
+    {
+      "id": "V3-cancellx-claim",
+      "source": "Variances p1 #3, 'Meagan reply'",
+      "text": "retain known bone growth factors"
+    },
+    {
+      "id": "W6-disclaimer",
+      "source": "Website Copy p5, 'Await direction, response from quality'",
+      "text": "regulated under Section 361"
+    }
+  ]
+}
