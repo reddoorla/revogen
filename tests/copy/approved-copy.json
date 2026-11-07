@@ -22,7 +22,7 @@
       "route": "/",
       "selector": "footer",
       "contains": "RevoGen Biologics",
-      "absent": ["Biologics®", "Revogen Biologics"]
+      "absent": ["®", "Revogen"]
     },
     {
       "id": "V-global-title",
@@ -30,6 +30,40 @@
       "route": "/does-not-exist-copy-check",
       "expectStatus": 404,
       "title": "RevoGen Biologics"
+    },
+    {
+      "id": "V-global-wordmark-alt",
+      "source": "Variances p1 GLOBAL note: capital G in live text",
+      "route": "/",
+      "selector": "img[data-hero-wordmark]",
+      "attr": "alt",
+      "text": "RevoGen Biologics"
+    },
+    {
+      "id": "V-global-description",
+      "source": "Variances p1 GLOBAL note: capital G in live text",
+      "route": "/",
+      "selector": "meta[name='description']",
+      "attr": "content",
+      "contains": "RevoGen Biologics is committed",
+      "absent": ["Revogen"]
+    },
+    {
+      "id": "V-global-app-title",
+      "source": "Variances p1 GLOBAL note: the saved site's name needs a capital G",
+      "route": "/",
+      "selector": "meta[name='apple-mobile-web-app-title']",
+      "attr": "content",
+      "text": "RevoGen"
+    },
+    {
+      "id": "V-global-manifest",
+      "source": "Variances p1 GLOBAL note: the saved site's name needs a capital G",
+      "route": "/site.webmanifest",
+      "json": {
+        "name": "RevoGen Biologics",
+        "short_name": "RevoGen"
+      }
     }
   ],
   "held": [
@@ -58,5 +92,6 @@
       "source": "Website Copy p5, 'Await direction, response from quality'",
       "text": "regulated under Section 361"
     }
-  ]
+  ],
+  "heldRoutes": ["/", "/synthetics", "/allografts"]
 }
