@@ -6,7 +6,8 @@
       "source": "Website Copy p1, 'Use Option B'",
       "route": "/",
       "selector": "[data-hero-tagline]",
-      "text": "Elevating your patients' quality of life!"
+      "text": "Elevating your patients' quality of life!",
+      "opaque": true
     },
     {
       "id": "W3-surgical-oneliner",
@@ -17,12 +18,20 @@
       "text": "Empowering Surgeons with Advanced Allograft Solutions."
     },
     {
-      "id": "V-global-footer",
+      "id": "V-footer-desktop",
       "source": "Variances p1 notes: no (R) in footer; capital G in live text",
       "route": "/",
-      "selector": "footer",
-      "contains": "RevoGen Biologics",
-      "absent": ["®", "Revogen"]
+      "selector": "footer .copywright",
+      "nth": 0,
+      "pattern": "^© \\d{4} RevoGen Biologics\\. All Rights Reserved\\.$"
+    },
+    {
+      "id": "V-footer-mobile",
+      "source": "Variances p1 notes: no (R) in footer; capital G in live text",
+      "route": "/",
+      "selector": "footer .copywright",
+      "nth": 1,
+      "pattern": "^© \\d{4} RevoGen BiologicsAll Rights Reserved$"
     },
     {
       "id": "V-global-title",
@@ -93,5 +102,14 @@
       "text": "regulated under Section 361"
     }
   ],
-  "heldRoutes": ["/", "/synthetics", "/allografts"]
+  "heldRoutes": [
+    "/",
+    "/surgical-grafts",
+    "/surgical-grafts/synthetics",
+    "/surgical-grafts/allografts",
+    "/surgical-grafts/amnion-patches",
+    "/wound-care",
+    "/ocular",
+    "/about"
+  ]
 }

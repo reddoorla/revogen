@@ -15,11 +15,21 @@ type Applied = {
   absent?: string[];
   title?: string;
   json?: Record<string, string>;
+  nth?: number;
+  pattern?: string;
+  opaque?: boolean;
   mobile?: boolean;
   expectStatus?: number;
 };
 
-const norm = (s: string | null) => (s ?? "").replace(/\s+/g, " ").trim();
+// Held lines are matched loosely (case, whitespace, curly or straight
+// apostrophe), so a retyped held line is still caught. Applied lines are exact.
+const fold = (s: string | null) =>
+  (s ?? "")
+    .replace(/[\u2018\u2019]/g, "'")
+    .replace(/\s+/g, " ")
+    .trim()
+    .toLowerCase();
 
 // The home category cards render their copy only below 768 px (or on hover),
 // and only after the ~6.5 s intro animation on a first visit.
@@ -45,13 +55,16 @@ for (const row of manifest.applied as Applied[]) {
     expect(res?.status()).toBe(row.expectStatus ?? 200);
     if (row.title) await expect(page).toHaveTitle(row.title);
     if (!row.selector) return;
-    const el = page.locator(row.selector).first();
+    const el = page.locator(row.selector).nth(row.nth ?? 0);
     await expect(el).toBeAttached({ timeout: 20_000 });
     // Text checks keep the string as rendered: only the template's own
     // indentation around it is trimmed, never whitespace inside the line.
     const raw = row.attr ? await el.getAttribute(row.attr) : await el.textContent();
     const text = (raw ?? "").trim();
     if (row.text) expect(text).toBe(row.text);
+    if (row.pattern) expect(text).toMatch(new RegExp(row.pattern));
+    // The hero fades in after the intro; a tagline stuck at opacity 0 fails.
+    if (row.opaque) await expect(el).toHaveCSS("opacity", "1", { timeout: 20_000 });
     if (row.contains) expect(text).toContain(row.contains);
     for (const bad of row.absent ?? []) expect(text).not.toContain(bad);
   });
@@ -60,10 +73,10 @@ for (const row of manifest.applied as Applied[]) {
 for (const route of manifest.heldRoutes) {
   test(`held annotations have not reached ${route}`, async ({ page }) => {
     if (route === "/") await homeCardsReady(page);
-    else await page.goto(route);
-    const body = norm(await page.locator("body").textContent()).toLowerCase();
+    else expect((await page.goto(route))?.status(), `${route} must exist`).toBe(200);
+    const body = fold(await page.locator("body").textContent());
     for (const row of manifest.held) {
-      expect(body, `${row.id} (${row.source}) is held`).not.toContain(row.text.toLowerCase());
+      expect(body, `${row.id} (${row.source}) is held`).not.toContain(fold(row.text));
     }
   });
 }
