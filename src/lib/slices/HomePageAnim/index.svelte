@@ -10,7 +10,7 @@
   import ocularBefore from "$lib/assets/images/ocular-before.png?as=run";
   import woundCareBefore from "$lib/assets/images/wound-before.png?as=run";
   import Img from "@zerodevx/svelte-img";
-  import { fade } from "svelte/transition";
+  import { fade, slide } from "svelte/transition";
   import DelayedLink from "$lib/components/DelayedLink.svelte";
   import { onMount } from "svelte";
   import * as rive from "@rive-app/canvas";
@@ -108,6 +108,11 @@
         />
       </div>
       <h4>Surgical Grafts</h4>
+      {#if viewportWidth < 768 || $gradientTheme === 1}
+        <p transition:slide class="text-center mt-4">
+          Empowering Surgeons with Advanced Allograft Solutions.
+        </p>
+      {/if}
       <div
         class="w-8 h-8 border-[1.5px] border-white rounded-full relative mt-4 hover:opacity-80 bump"
       >

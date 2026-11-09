@@ -20,7 +20,7 @@
   // non-empty, honest description even when its Prismic doc has no
   // meta_description set. A per-doc meta_description always wins over this.
   const DEFAULT_DESCRIPTION =
-    "Revogen Biologics is committed to making lives better through cutting-edge biologics, delivering quality products and services to our clients.";
+    "RevoGen Biologics is committed to making lives better through cutting-edge biologics, delivering quality products and services to our clients.";
 
   const metaDescription = $derived(page.data.meta_description || DEFAULT_DESCRIPTION);
 

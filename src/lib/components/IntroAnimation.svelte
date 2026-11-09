@@ -226,16 +226,23 @@
   <ContentWidth
     class="h-full flex flex-col gap-4 py-12 justify-center text-center items-center text-white relative"
   >
-    <!-- Hero copy is down at the client's request (Aug 2026 language rewrite);
-         the wordmark holds the hero until approved copy comes back. -->
+    <!-- The wordmark holds the hero; the tagline under it is the client's
+         approved line (Option B, RevoShield+ Amnion Patch Brochure cover),
+         chosen in Erik's annotated PDF of 2026-11-06. Copy it exactly. -->
     <img
       src={logo}
-      alt="Revogen Biologics"
+      alt="RevoGen Biologics"
       data-hero-wordmark
       class="w-4/5 max-w-[560px] transition-opacity duration-700 ease-out {showIH
         ? 'opacity-100'
         : 'opacity-0'}"
     />
+    <h2
+      data-hero-tagline
+      class="transition-opacity duration-700 ease-out {showIH ? 'opacity-100' : 'opacity-0'}"
+    >
+      Elevating your patients' quality of life!
+    </h2>
   </ContentWidth>
 </div>
 
