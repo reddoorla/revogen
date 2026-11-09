@@ -51,5 +51,10 @@
     "@rive-app/canvas": "^2.37.5",
     "@zerodevx/svelte-img": "^2.1.2",
     "svelte-gestures": "^5.2.2"
+  },
+  "reddoor": {
+    "absentFixtures": [
+      "/dev/animate-in"
+    ]
   }
 }
