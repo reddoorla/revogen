@@ -1,13 +1,57 @@
 {
-  "$comment": "The client's copy approvals of 2026-11-06 (Erik's two annotated PDFs, workspace briefs/2026-11-06-revogen-copy-approvals/evidence). Each applied line is copied exactly, marks and punctuation included. 'held' entries are short stems of deferred or ambiguous annotations (so a reworded held claim is still caught) and must not appear on any page in the sitemap, or in heldRoutes, until the client answers. Content rows live in the Prismic release named for this ask; this file covers what the code renders.",
+  "$comment": "The client's copy approvals of 2026-11-06 (Erik's two annotated PDFs, workspace briefs/2026-11-06-revogen-copy-approvals/evidence). Each applied line is copied exactly, marks and punctuation included. 'held' entries are short stems of deferred or ambiguous annotations (so a reworded held claim is still caught) and must not appear on any page in the sitemap, or in heldRoutes, until the client answers. Content rows live in the Prismic release named for this ask; this file covers what the code renders. Erik's 11-12 asks in #revogen (workspace briefs/2026-11-12-cockpit/revogen-homepage-worker-brief.md) apply the eyebrow, drop the hero wordmark, set the hero text to 90% of its former size (h2 40px/25px), and activate the Wound Care and Ocular one-liners from the Verbatim Pulls PDF p2.",
   "applied": [
     {
+      "id": "W1-eyebrow",
+      "source": "Erik, #revogen 11-12 7:59am PT: eyebrow 'INNOVATIVE HEALING' in all caps (Verbatim Pulls p1 suggested lockup)",
+      "route": "/",
+      "selector": "[data-hero-eyebrow]",
+      "text": "Innovative Healing",
+      "opaque": true,
+      "css": {
+        "text-transform": "uppercase",
+        "font-size": "18px"
+      }
+    },
+    {
+      "id": "W1-eyebrow-mobile",
+      "source": "Erik, #revogen 11-12: hero text down 10% (phone)",
+      "route": "/",
+      "mobile": true,
+      "selector": "[data-hero-eyebrow]",
+      "text": "Innovative Healing",
+      "css": {
+        "font-size": "13.5px"
+      }
+    },
+    {
       "id": "W1-hero",
-      "source": "Website Copy p1, 'Use Option B'",
+      "source": "Website Copy p1, 'Use Option B'; Erik 11-12: 10% smaller (h2's 40px to 36px)",
       "route": "/",
       "selector": "[data-hero-tagline]",
       "text": "Elevating your patients' quality of life!",
-      "opaque": true
+      "opaque": true,
+      "css": {
+        "font-size": "36px"
+      }
+    },
+    {
+      "id": "W1-hero-mobile",
+      "source": "Erik, #revogen 11-12: hero text down 10% (phone: h2's 25px to 22.5px)",
+      "route": "/",
+      "mobile": true,
+      "selector": "[data-hero-tagline]",
+      "text": "Elevating your patients' quality of life!",
+      "css": {
+        "font-size": "22.5px"
+      }
+    },
+    {
+      "id": "W1-no-wordmark",
+      "source": "Erik, #revogen 11-12: 'remove the giant logo' from the hero",
+      "route": "/",
+      "selector": "[data-hero-wordmark]",
+      "count": 0
     },
     {
       "id": "W3-surgical-oneliner",
@@ -16,6 +60,22 @@
       "mobile": true,
       "selector": "a[href='/surgical-grafts'] p",
       "text": "Empowering Surgeons with Advanced Allograft Solutions."
+    },
+    {
+      "id": "W3-wound-oneliner",
+      "source": "Website Copy p2, Wound Care one-liner (RevoShield+ Brochure); activated by Erik, #revogen 11-12 8:00am PT",
+      "route": "/",
+      "mobile": true,
+      "selector": "a[href='/wound-care'] p",
+      "text": "Acute or Chronic Wound Covering"
+    },
+    {
+      "id": "W3-ocular-oneliner",
+      "source": "Website Copy p2, Ocular one-liner (RevoShield Ocular Brochure, cover); activated by Erik, #revogen 11-12 8:00am PT",
+      "route": "/",
+      "mobile": true,
+      "selector": "a[href='/ocular'] p",
+      "text": "Easy to Apply. Multiple Indications."
     },
     {
       "id": "V-footer-desktop",
@@ -39,14 +99,6 @@
       "route": "/does-not-exist-copy-check",
       "expectStatus": 404,
       "title": "RevoGen Biologics"
-    },
-    {
-      "id": "V-global-wordmark-alt",
-      "source": "Variances p1 GLOBAL note: capital G in live text",
-      "route": "/",
-      "selector": "img[data-hero-wordmark]",
-      "attr": "alt",
-      "text": "RevoGen Biologics"
     },
     {
       "id": "V-global-description",
@@ -76,11 +128,6 @@
     }
   ],
   "held": [
-    {
-      "id": "W1-eyebrow",
-      "source": "Website Copy p1, suggested eyebrow (not chosen)",
-      "text": "Innovative Healing"
-    },
     {
       "id": "W1-optionA",
       "source": "Website Copy p1, Option A (not chosen)",

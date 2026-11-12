@@ -22,6 +22,8 @@ type Applied = {
   opaque?: boolean;
   mobile?: boolean;
   expectStatus?: number;
+  css?: Record<string, string>;
+  count?: number;
 };
 
 // Held lines are matched loosely (case, whitespace, hyphens and dashes, curly or straight
@@ -58,6 +60,11 @@ for (const row of manifest.applied as Applied[]) {
     expect(res?.status()).toBe(row.expectStatus ?? 200);
     if (row.title) await expect(page).toHaveTitle(row.title);
     if (!row.selector) return;
+    // An element the page must no longer render (the hero wordmark, since 11-12).
+    if (row.count !== undefined) {
+      await expect(page.locator(row.selector)).toHaveCount(row.count);
+      return;
+    }
     const el = page.locator(row.selector).nth(row.nth ?? 0);
     await expect(el).toBeAttached({ timeout: 20_000 });
     // Text checks keep the string as rendered: only the template's own
@@ -68,6 +75,8 @@ for (const row of manifest.applied as Applied[]) {
     if (row.pattern) expect(text).toMatch(new RegExp(row.pattern));
     // The hero fades in after the intro; a tagline stuck at opacity 0 fails.
     if (row.opaque) await expect(el).toHaveCSS("opacity", "1", { timeout: 20_000 });
+    for (const [prop, value] of Object.entries(row.css ?? {}))
+      await expect(el).toHaveCSS(prop, value);
     if (row.contains) expect(text).toContain(row.contains);
     for (const bad of row.absent ?? []) expect(text).not.toContain(bad);
   });

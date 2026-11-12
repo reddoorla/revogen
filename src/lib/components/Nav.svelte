@@ -144,13 +144,6 @@
       visibility 300ms;
   }
 
-  @media (max-width: 767.98px) {
-    :global(main:has([data-hero-wordmark]) a.nav-logo:not(.menu-open)) {
-      opacity: 0;
-      visibility: hidden;
-    }
-  }
-
   .menu-background {
     background: radial-gradient(
       290.67% 131.61% at 97.4% 4.48%,
