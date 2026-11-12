@@ -4,7 +4,6 @@
   import { onMount, onDestroy } from "svelte";
 
   import ContentWidth from "./ContentWidth/ContentWidth.svelte";
-  import logo from "$lib/assets/icons/logos/revogen_white.svg";
 
   let isIntroRunning = $state(false);
 
@@ -226,20 +225,23 @@
   <ContentWidth
     class="h-full flex flex-col gap-4 py-12 justify-center text-center items-center text-white relative"
   >
-    <!-- The wordmark holds the hero; the tagline under it is the client's
-         approved line (Option B, RevoShield+ Amnion Patch Brochure cover),
-         chosen in Erik's annotated PDF of 2026-11-06. Copy it exactly. -->
-    <img
-      src={logo}
-      alt="RevoGen Biologics"
-      data-hero-wordmark
-      class="w-4/5 max-w-[560px] transition-opacity duration-700 ease-out {showIH
+    <!-- Erik, #revogen 11-12: no wordmark; the eyebrow "INNOVATIVE HEALING" in
+         caps, then the client's approved line (Option B, RevoShield+ Amnion
+         Patch Brochure cover, Erik's annotated PDF of 2026-11-06), each at 90%
+         of its style: the eyebrow of h3, the tagline of h2. Copy the tagline exactly. -->
+    <p
+      data-hero-eyebrow
+      class="hero-eyebrow uppercase transition-opacity duration-700 ease-out {showIH
         ? 'opacity-100'
         : 'opacity-0'}"
-    />
+    >
+      Innovative Healing
+    </p>
     <h2
       data-hero-tagline
-      class="transition-opacity duration-700 ease-out {showIH ? 'opacity-100' : 'opacity-0'}"
+      class="hero-tagline transition-opacity duration-700 ease-out {showIH
+        ? 'opacity-100'
+        : 'opacity-0'}"
     >
       Elevating your patients' quality of life!
     </h2>
@@ -247,6 +249,23 @@
 </div>
 
 <style>
+  /* 90% of app.css's h3 (eyebrow) and h2 sizes, phone breakpoint included. */
+  .hero-eyebrow {
+    font-size: 18px;
+    line-height: normal;
+  }
+  .hero-tagline {
+    font-size: 36px;
+  }
+  @media only screen and (max-width: 786px) {
+    .hero-eyebrow {
+      font-size: 13.5px;
+    }
+    .hero-tagline {
+      font-size: 22.5px;
+    }
+  }
+
   .logo-path {
     fill: transparent;
     stroke: white;
