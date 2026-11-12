@@ -54,6 +54,14 @@
       "count": 0
     },
     {
+      "id": "V-global-nav-logo-alt",
+      "source": "Variances p1 GLOBAL note: capital G in live text (moved from the hero wordmark, removed 11-12, to the nav logo now shown on every width)",
+      "route": "/",
+      "selector": "a.nav-logo img",
+      "attr": "alt",
+      "text": "RevoGen Biologics"
+    },
+    {
       "id": "W3-surgical-oneliner",
       "source": "Website Copy p2, Surgical Grafts one-liner, 'Good'",
       "route": "/",

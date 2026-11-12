@@ -227,8 +227,8 @@
   >
     <!-- Erik, #revogen 11-12: no wordmark; the eyebrow "INNOVATIVE HEALING" in
          caps, then the client's approved line (Option B, RevoShield+ Amnion
-         Patch Brochure cover, Erik's annotated PDF of 2026-11-06), both 10%
-         smaller than the h2 style. Copy the tagline exactly. -->
+         Patch Brochure cover, Erik's annotated PDF of 2026-11-06), each at 90%
+         of its style: the eyebrow of h3, the tagline of h2. Copy the tagline exactly. -->
     <p
       data-hero-eyebrow
       class="hero-eyebrow uppercase transition-opacity duration-700 ease-out {showIH
