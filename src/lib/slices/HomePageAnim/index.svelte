@@ -151,6 +151,9 @@
         />
       </div>
       <h4>Wound Care Grafts</h4>
+      {#if viewportWidth < 768 || $gradientTheme === 2}
+        <p transition:slide class="text-center mt-4">Acute or Chronic Wound Covering</p>
+      {/if}
       <div
         class="w-8 h-8 border-[1.5px] border-white rounded-full relative mt-4 hover:opacity-80 bump"
       >
@@ -188,6 +191,9 @@
         />
       </div>
       <h4>Ocular Grafts</h4>
+      {#if viewportWidth < 768 || $gradientTheme === 3}
+        <p transition:slide class="text-center mt-4">Easy to Apply. Multiple Indications.</p>
+      {/if}
       <div
         class="w-8 h-8 border-[1.5px] border-white rounded-full relative mt-4 hover:opacity-80 bump"
       >
