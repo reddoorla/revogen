@@ -101,15 +101,11 @@
 {/if}
 <div class="absolute top-0 left-0 w-screen z-50">
   <ContentWidth class="h-24 flex flex-row justify-between items-center">
-    <DelayedLink
-      href="/"
-      class="bump nav-logo {isNavModalOpen ? 'menu-open' : ''}"
-      onclick={() => (isNavModalOpen = false)}
-    >
+    <DelayedLink href="/" class="bump nav-logo" onclick={() => (isNavModalOpen = false)}>
       <img
         src={logo}
         class="h-10 drop-shadow hover:opacity-90 transition duration-300"
-        alt="revogen logo"
+        alt="RevoGen Biologics"
       />
     </DelayedLink>
     <button
@@ -138,17 +134,7 @@
 
 <style>
   :global(a.nav-logo) {
-    transition:
-      transform 200ms ease-out,
-      opacity 300ms ease-out,
-      visibility 300ms;
-  }
-
-  @media (max-width: 767.98px) {
-    :global(main:has([data-hero-wordmark]) a.nav-logo:not(.menu-open)) {
-      opacity: 0;
-      visibility: hidden;
-    }
+    transition: transform 200ms ease-out;
   }
 
   .menu-background {
