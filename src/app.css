@@ -7,6 +7,11 @@
   --screen-lg: 1024px;
   --screen-xl: 1340px;
 
+  /* The space between the two columns of a TwoCol slice from `lg` (1024px) up:
+     `lg:gap-column-gap` / `lg:pl-column-gap` / `lg:pr-column-gap`. Erik asked for
+     about 100px on laptop and desktop (11-17); tablet and phone keep their own. */
+  --spacing-column-gap: 100px;
+
   --color-transparent: transparent;
   --color-current: currentColor;
   --color-black: #000;
