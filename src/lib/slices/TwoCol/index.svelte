@@ -271,8 +271,8 @@
 
       <div
         class="w-full md:w-1/2 flex flex-col gap-6 my-6 md:mt-0 {slice.primary.isMediaFirst
-          ? 'md:pl-20'
-          : 'md:pr-20'}"
+          ? 'md:pl-20 lg:pl-column-gap'
+          : 'md:pr-20 lg:pr-column-gap'}"
       >
         <RichText field={slice.primary.text} />
         <div class="flex gap-5">
@@ -535,8 +535,10 @@
   {/if}
 
   {#if slice.variation === "tableText"}
+    <!-- The column gap applies from lg up only; below that the text and the
+         table sit edge to edge at md and stack on phones. -->
     <ContentWidth
-      class="flex relative pt-16 {!slice.primary.isTableFirst
+      class="flex relative pt-16 lg:gap-column-gap {!slice.primary.isTableFirst
         ? 'flex-col md:flex-row'
         : 'flex-col-reverse md:flex-row-reverse'}"
     >
