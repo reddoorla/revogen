@@ -8,17 +8,34 @@ import { test, expect, type Page } from "@playwright/test";
  * 100px between its columns' content boxes. Tablet keeps what it had (0 for
  * `tableText`, 80 for the media + text variants) and phone stays stacked.
  *
- * The pages cover all three side-by-side variants, and two pages of
- * `tableText`, so a fix applied to one page instead of the slice fails a row.
+ * The pages cover all three side-by-side variants, both orientations of the
+ * media + text layout (`isMediaFirst` puts the text column's padding on the
+ * other side), and two pages of `tableText`, so a fix applied to one page or
+ * one branch instead of the slice fails a row. The layouts depend on live
+ * Prismic content, so the lg test also asserts it saw every one of them.
+ * `tableText` with `isTableFirst` is on no page; its gap is a flex `gap`,
+ * which does not depend on order.
  */
 const PAGES = [
   "/surgical-grafts/allografts", // tableText (BioStruXure, Erik's screenshot)
   "/surgical-grafts/sports-medicine", // tableText
   "/about", // default
   "/wound-care", // imageTableText
+  "/ocular", // imageTableText, and default with the media on the right
 ];
 
-type Measured = { variation: string; sideBySide: boolean; gap: number };
+/** Variation and flex direction of every layout the PAGES must still carry. */
+const REQUIRED_LAYOUTS = [
+  "tableText:row",
+  "default:row",
+  "imageTableText:row",
+  "default:row-reverse",
+];
+
+// A cold dev server compiles for well over the default 30s (contact-form-e2e.spec.ts).
+test.describe.configure({ timeout: 90_000 });
+
+type Measured = { variation: string; layout: string; sideBySide: boolean; gap: number };
 
 /** The gap between the two columns' content boxes (padding excluded), per TwoCol. */
 async function measure(page: Page): Promise<Measured[]> {
@@ -43,8 +60,10 @@ async function measure(page: Page): Promise<Measured[]> {
         const [a, b] = boxes;
         const sideBySide =
           boxes.length === 2 && Math.abs(a.left - b.left) > 1 && Math.abs(a.top - b.top) < 100;
+        const variation = s.dataset.sliceVariation ?? "";
         return {
-          variation: s.dataset.sliceVariation ?? "",
+          variation,
+          layout: `${variation}:${getComputedStyle(s.firstElementChild as Element).flexDirection}`,
           sideBySide,
           gap: sideBySide ? Math.round(b.left - a.right) : 0,
         };
@@ -55,11 +74,13 @@ async function measure(page: Page): Promise<Measured[]> {
 for (const width of [1024, 1440, 1920]) {
   test(`TwoCol columns are ~100px apart at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
+    const seen = new Set<string>();
     for (const path of PAGES) {
       await page.goto(path, { waitUntil: "domcontentloaded" });
       const slices = await measure(page);
       expect(slices.length, `TwoCol slices on ${path}`).toBeGreaterThan(0);
       for (const [i, s] of slices.entries()) {
+        seen.add(s.layout);
         expect(s.sideBySide, `${path} #${i} (${s.variation}) side by side`).toBe(true);
         expect(s.gap, `${path} #${i} (${s.variation}) gap at ${width}px`).toBeGreaterThanOrEqual(
           98,
@@ -67,6 +88,9 @@ for (const width of [1024, 1440, 1920]) {
         expect(s.gap, `${path} #${i} (${s.variation}) gap at ${width}px`).toBeLessThanOrEqual(102);
       }
     }
+    expect([...seen].sort(), "TwoCol layouts covered").toEqual(
+      expect.arrayContaining(REQUIRED_LAYOUTS),
+    );
   });
 }
 

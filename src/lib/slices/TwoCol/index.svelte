@@ -535,8 +535,8 @@
   {/if}
 
   {#if slice.variation === "tableText"}
-    <!-- Text and table sat flush (0px apart) until 11-17; the gap is lg-up only,
-         so tablet keeps both halves at full width. -->
+    <!-- The column gap applies from lg up only; below that the text and the
+         table sit edge to edge at md and stack on phones. -->
     <ContentWidth
       class="flex relative pt-16 lg:gap-column-gap {!slice.primary.isTableFirst
         ? 'flex-col md:flex-row'
