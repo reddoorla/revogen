@@ -40,54 +40,66 @@
       </div>
     </div>
     <div class="flex flex-col gap-6 my-6 footer">
-      <DelayedLink href="/about" class="hover:opacity-85 transition-opacity duration-300 uppercase "
-        >About</DelayedLink
+      <DelayedLink
+        href="/about"
+        class="hover:opacity-85 transition-opacity duration-300 uppercase "
       >
+        About
+      </DelayedLink>
       <DelayedLink
         href="/distribution-opportunities"
         class="hover:opacity-85 transition-opacity duration-300 uppercase "
-        >distribution<br />opportunities</DelayedLink
       >
+        distribution<br />opportunities
+      </DelayedLink>
       <DelayedLink
         href="/distributor-resource-hub"
         class="hover:opacity-85 transition-opacity duration-300 uppercase "
-        >distributor resource hub</DelayedLink
       >
+        distributor resource hub
+      </DelayedLink>
       <DelayedLink
         href="/ocular"
         class="hover:opacity-85 transition-opacity duration-300 uppercase "
-        >ocular grafts</DelayedLink
       >
+        ocular grafts
+      </DelayedLink>
       <DelayedLink
         href="/wound-care"
         class="hover:opacity-85 transition-opacity duration-300 uppercase "
-        >wound care grafts</DelayedLink
       >
+        wound care grafts
+      </DelayedLink>
       <DelayedLink
         href="/surgical-grafts/"
         class="hover:opacity-85 transition-opacity duration-300 uppercase "
-        >surgical grafts</DelayedLink
       >
+        surgical grafts
+      </DelayedLink>
       <DelayedLink
         href="/surgical-grafts/allografts"
         class="ml-5 hover:opacity-85 transition-opacity duration-300 uppercase "
-        >allografts</DelayedLink
       >
+        allografts
+      </DelayedLink>
       <DelayedLink
         href="/surgical-grafts/sports-medicine"
         class="ml-5 hover:opacity-85 transition-opacity duration-300 uppercase "
-        >sports medicine grafts</DelayedLink
       >
+        sports medicine grafts
+      </DelayedLink>
       <DelayedLink
         href="/surgical-grafts/amnion-patches"
         class="ml-5 hover:opacity-85 transition-opacity duration-300 uppercase "
-        >amnion patches</DelayedLink
       >
+        amnion patches
+      </DelayedLink>
       <DelayedLink
         href="/surgical-grafts/synthetics"
         class="ml-5 hover:opacity-85 transition-opacity duration-300 uppercase "
-        >synthetics</DelayedLink
       >
+        synthetics
+      </DelayedLink>
       <div class="h-0.5 w-full bg-white rounded-full"></div>
       <div class="leading-normal">
         4903 Golden Quail,<br />
@@ -96,18 +108,21 @@
         <a
           href="mailto:sales@revogen.com"
           class="underline hover:opacity-85 transition-opacity duration-300 inline-block py-1"
-          >sales@revogen.com</a
-        ><br />
+        >
+          sales@revogen.com
+        </a><br />
         <a
           href="tel:210.607.4037"
           class="underline hover:opacity-85 transition-opacity duration-300 inline-block py-1"
-          >210.607.4037</a
-        ><br />
+        >
+          210.607.4037
+        </a><br />
         <a
           href="https://www.linkedin.com/company/revogen-biologics"
           class="underline hover:opacity-85 transition-opacity duration-300 inline-block py-1"
-          >LinkedIn</a
         >
+          LinkedIn
+        </a>
       </div>
     </div>
     <div class="md:hidden block copywright mt-6">

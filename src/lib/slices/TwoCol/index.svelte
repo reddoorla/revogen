@@ -277,14 +277,14 @@
         <RichText field={slice.primary.text} />
         <div class="flex gap-5">
           {#if isFilled.link(slice.primary.button)}
-            <DefaultButton href={slice.primary.button.url} field={slice.primary.button}
-              >{slice.primary.button.text}</DefaultButton
-            >
+            <DefaultButton href={slice.primary.button.url} field={slice.primary.button}>
+              {slice.primary.button.text}
+            </DefaultButton>
           {/if}
           {#if isFilled.link(slice.primary.button_two)}
-            <DefaultButton href={slice.primary.button_two.url} field={slice.primary.button_two}
-              >{slice.primary.button_two.text}</DefaultButton
-            >
+            <DefaultButton href={slice.primary.button_two.url} field={slice.primary.button_two}>
+              {slice.primary.button_two.text}
+            </DefaultButton>
           {/if}
         </div>
 
@@ -315,8 +315,10 @@
             <div class="w-full md:w-1/2">
               <label
                 for="cf-first-name"
-                class="block text-white mb-2 text-sm uppercase tracking-wide">FIRST NAME*</label
+                class="block text-white mb-2 text-sm uppercase tracking-wide"
               >
+                FIRST NAME*
+              </label>
               <input
                 id="cf-first-name"
                 type="text"
@@ -330,8 +332,10 @@
             <div class="w-full md:w-1/2">
               <label
                 for="cf-last-name"
-                class="block text-white mb-2 text-sm uppercase tracking-wide">LAST NAME*</label
+                class="block text-white mb-2 text-sm uppercase tracking-wide"
               >
+                LAST NAME*
+              </label>
               <input
                 id="cf-last-name"
                 type="text"
@@ -347,9 +351,9 @@
           <!-- Second row - City and State -->
           <div class="w-full flex flex-col md:flex-row gap-4">
             <div class="w-full md:w-1/2">
-              <label for="cf-city" class="block text-white mb-2 text-sm uppercase tracking-wide"
-                >CITY*</label
-              >
+              <label for="cf-city" class="block text-white mb-2 text-sm uppercase tracking-wide">
+                CITY*
+              </label>
               <input
                 id="cf-city"
                 type="text"
@@ -361,9 +365,9 @@
               />
             </div>
             <div class="w-full md:w-1/2">
-              <label for="cf-state" class="block text-white mb-2 text-sm uppercase tracking-wide"
-                >STATE*</label
-              >
+              <label for="cf-state" class="block text-white mb-2 text-sm uppercase tracking-wide">
+                STATE*
+              </label>
               <select
                 id="cf-state"
                 name="state"
@@ -429,9 +433,9 @@
           <!-- Third row - Email and Phone -->
           <div class="w-full flex flex-col md:flex-row gap-4">
             <div class="w-full md:w-1/2">
-              <label for="cf-email" class="block text-white mb-2 text-sm uppercase tracking-wide"
-                >EMAIL*</label
-              >
+              <label for="cf-email" class="block text-white mb-2 text-sm uppercase tracking-wide">
+                EMAIL*
+              </label>
               <input
                 id="cf-email"
                 type="email"
@@ -443,9 +447,9 @@
               />
             </div>
             <div class="w-full md:w-1/2">
-              <label for="cf-phone" class="block text-white mb-2 text-sm uppercase tracking-wide"
-                >PHONE</label
-              >
+              <label for="cf-phone" class="block text-white mb-2 text-sm uppercase tracking-wide">
+                PHONE
+              </label>
               <input
                 id="cf-phone"
                 type="tel"
@@ -462,8 +466,9 @@
             <label
               for="cf-distributorship"
               class="block text-white mb-2 text-sm uppercase tracking-wide"
-              >CURRENT DISTRIBUTORSHIP</label
             >
+              CURRENT DISTRIBUTORSHIP
+            </label>
             <input
               id="cf-distributorship"
               type="text"
@@ -477,9 +482,9 @@
 
           <!-- Message field (full width) -->
           <div class="w-full">
-            <label for="cf-message" class="block text-white mb-2 text-sm uppercase tracking-wide"
-              >MESSAGE</label
-            >
+            <label for="cf-message" class="block text-white mb-2 text-sm uppercase tracking-wide">
+              MESSAGE
+            </label>
             <textarea
               id="cf-message"
               name="message"
@@ -549,14 +554,14 @@
         <RichText field={slice.primary.text} />
         <div class="flex gap-5">
           {#if isFilled.link(slice.primary.button)}
-            <DefaultButton href={slice.primary.button.url} field={slice.primary.button}
-              >{slice.primary.button.text}</DefaultButton
-            >
+            <DefaultButton href={slice.primary.button.url} field={slice.primary.button}>
+              {slice.primary.button.text}
+            </DefaultButton>
           {/if}
           {#if isFilled.link(slice.primary.button_two)}
-            <DefaultButton href={slice.primary.button_two.url} field={slice.primary.button_two}
-              >{slice.primary.button_two.text}</DefaultButton
-            >
+            <DefaultButton href={slice.primary.button_two.url} field={slice.primary.button_two}>
+              {slice.primary.button_two.text}
+            </DefaultButton>
           {/if}
         </div>
       </div>

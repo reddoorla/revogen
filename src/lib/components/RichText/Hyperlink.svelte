@@ -10,6 +10,6 @@
   const targetAttrs = $derived(linkTargetAttrs(base.href, field));
 </script>
 
-<a href={base.href} target={targetAttrs.target ?? base.target} rel={targetAttrs.rel ?? base.rel}
-  >{@render children()}</a
->
+<a href={base.href} target={targetAttrs.target ?? base.target} rel={targetAttrs.rel ?? base.rel}>
+  {@render children()}
+</a>
