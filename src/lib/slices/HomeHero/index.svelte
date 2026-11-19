@@ -88,8 +88,10 @@
             transitionDelayMax={0}
             transitionDuration={1200}
             href={slice.primary.button.url}
-            field={slice.primary.button}>{slice.primary.button.text}</DefaultButton
+            field={slice.primary.button}
           >
+            {slice.primary.button.text}
+          </DefaultButton>
         </div>
       {/if}
     </ContentWidth>
