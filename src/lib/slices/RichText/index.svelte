@@ -38,14 +38,14 @@
       <RichText field={slice.primary.text} />
       <div class="flex gap-5">
         {#if isFilled.link(slice.primary.button)}
-          <DefaultButton href={slice.primary.button.url} field={slice.primary.button}
-            >{slice.primary.button.text}</DefaultButton
-          >
+          <DefaultButton href={slice.primary.button.url} field={slice.primary.button}>
+            {slice.primary.button.text}
+          </DefaultButton>
         {/if}
         {#if isFilled.link(slice.primary.button_two)}
-          <DefaultButton href={slice.primary.button_two.url} field={slice.primary.button_two}
-            >{slice.primary.button_two.text}</DefaultButton
-          >
+          <DefaultButton href={slice.primary.button_two.url} field={slice.primary.button_two}>
+            {slice.primary.button_two.text}
+          </DefaultButton>
         {/if}
       </div>
       {#if slice.primary.show_scroll_arrow}
@@ -63,14 +63,14 @@
         <RichText field={slice.primary.text} />
         <div class="flex gap-5">
           {#if isFilled.link(slice.primary.button)}
-            <DefaultButton href={slice.primary.button.url} field={slice.primary.button}
-              >{slice.primary.button.text}</DefaultButton
-            >
+            <DefaultButton href={slice.primary.button.url} field={slice.primary.button}>
+              {slice.primary.button.text}
+            </DefaultButton>
           {/if}
           {#if isFilled.link(slice.primary.button_two)}
-            <DefaultButton href={slice.primary.button_two.url} field={slice.primary.button_two}
-              >{slice.primary.button_two.text}</DefaultButton
-            >
+            <DefaultButton href={slice.primary.button_two.url} field={slice.primary.button_two}>
+              {slice.primary.button_two.text}
+            </DefaultButton>
           {/if}
         </div>
         {#if slice.primary.show_scroll_arrow}
