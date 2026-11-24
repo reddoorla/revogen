@@ -1032,11 +1032,11 @@ type HomeHeroSliceVariation = HomeHeroSliceDefault
 export type HomeHeroSlice = prismic.SharedSlice<"home_hero", HomeHeroSliceVariation>;
 
 /**
- * Item in *HomePageAnim → Default → Primary → cards (a card needs a title, link and image; filling any card replaces all three built-in cards)*
+ * Item in *HomePageAnim → Default → Primary → cards (up to three; each needs a title, link and image; filling any card replaces all three built-in cards)*
  */
 export interface HomePageAnimSliceDefaultPrimaryCardsItem {
 	/**
-	 * title field in *HomePageAnim → Default → Primary → cards (a card needs a title, link and image; filling any card replaces all three built-in cards)*
+	 * title field in *HomePageAnim → Default → Primary → cards (up to three; each needs a title, link and image; filling any card replaces all three built-in cards)*
 	 *
 	 * - **Field Type**: Text
 	 * - **Placeholder**: *None*
@@ -1046,7 +1046,7 @@ export interface HomePageAnimSliceDefaultPrimaryCardsItem {
 	title: prismic.KeyTextField;
 	
 	/**
-	 * pitch field in *HomePageAnim → Default → Primary → cards (a card needs a title, link and image; filling any card replaces all three built-in cards)*
+	 * pitch field in *HomePageAnim → Default → Primary → cards (up to three; each needs a title, link and image; filling any card replaces all three built-in cards)*
 	 *
 	 * - **Field Type**: Text
 	 * - **Placeholder**: Line shown under the title on phones and on hover.
@@ -1056,7 +1056,7 @@ export interface HomePageAnimSliceDefaultPrimaryCardsItem {
 	pitch: prismic.KeyTextField;
 	
 	/**
-	 * link field in *HomePageAnim → Default → Primary → cards (a card needs a title, link and image; filling any card replaces all three built-in cards)*
+	 * link field in *HomePageAnim → Default → Primary → cards (up to three; each needs a title, link and image; filling any card replaces all three built-in cards)*
 	 *
 	 * - **Field Type**: Link
 	 * - **Placeholder**: *None*
@@ -1066,7 +1066,7 @@ export interface HomePageAnimSliceDefaultPrimaryCardsItem {
 	link: prismic.LinkField<string, string, unknown, prismic.FieldState, never>;
 	
 	/**
-	 * image field in *HomePageAnim → Default → Primary → cards (a card needs a title, link and image; filling any card replaces all three built-in cards)*
+	 * image field in *HomePageAnim → Default → Primary → cards (up to three; each needs a title, link and image; filling any card replaces all three built-in cards)*
 	 *
 	 * - **Field Type**: Image
 	 * - **Placeholder**: *None*
@@ -1076,7 +1076,7 @@ export interface HomePageAnimSliceDefaultPrimaryCardsItem {
 	image: prismic.ImageField<never>;
 	
 	/**
-	 * outline image field in *HomePageAnim → Default → Primary → cards (a card needs a title, link and image; filling any card replaces all three built-in cards)*
+	 * outline image field in *HomePageAnim → Default → Primary → cards (up to three; each needs a title, link and image; filling any card replaces all three built-in cards)*
 	 *
 	 * - **Field Type**: Image
 	 * - **Placeholder**: *None*
@@ -1091,7 +1091,7 @@ export interface HomePageAnimSliceDefaultPrimaryCardsItem {
  */
 export interface HomePageAnimSliceDefaultPrimary {
 	/**
-	 * cards (a card needs a title, link and image; filling any card replaces all three built-in cards) field in *HomePageAnim → Default → Primary*
+	 * cards (up to three; each needs a title, link and image; filling any card replaces all three built-in cards) field in *HomePageAnim → Default → Primary*
 	 *
 	 * - **Field Type**: Group
 	 * - **Placeholder**: *None*

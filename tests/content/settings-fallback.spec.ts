@@ -37,7 +37,16 @@ test("filled tagline and menu items replace the code's", async ({ page }) => {
   await page.goto("/dev/settings-fixture?filled");
   await expect(page.locator("footer h4")).toHaveText("Fixture tagline");
   await openMenu(page);
-  await expect(page.getByRole("heading", { name: "Fixture menu item", exact: true })).toBeVisible();
+  const item = page.getByRole("heading", { name: "Fixture menu item", exact: true });
+  await expect(item).toBeVisible();
+  // column "right" puts it in the second column; the editor's new-tab setting carries through.
+  await expect(
+    page.locator(".nav + div").getByRole("heading", { name: "Fixture menu item" }),
+  ).toBeVisible();
+  await expect(page.locator('a[href="https://example.com/menu"]')).toHaveAttribute(
+    "target",
+    "_blank",
+  );
   await expect(page.getByRole("heading", { name: "About", exact: true })).toHaveCount(0);
 });
 
@@ -47,4 +56,26 @@ test("an empty menu group renders the code's menu", async ({ page }) => {
   for (const label of ["About", "Surgical Grafts", "Allografts", "Ocular Grafts"]) {
     await expect(page.getByRole("heading", { name: label, exact: true })).toBeVisible();
   }
+});
+
+test("with no settings document the footer reads exactly as the code wrote it", async ({
+  page,
+}) => {
+  await page.goto("/dev/settings-fixture?none");
+  const footer = page.locator("footer");
+  await expect(footer.locator("h4")).toHaveText("Revolutionizing Bioregeneration");
+  const year = new Date().getFullYear();
+  await expect(footer.locator(".copywright").first()).toHaveText(
+    `© ${year} RevoGen Biologics. All Rights Reserved.`,
+  );
+  await expect(footer.locator(".leading-normal")).toHaveText(
+    /^\s*4903 Golden Quail,\s*Suite 120\s*San Antonio, TX 78240\s*sales@revogen\.com\s*210\.607\.4037\s*LinkedIn\s*$/,
+  );
+  await expect(footer.locator('a[href="mailto:sales@revogen.com"]')).toHaveCount(1);
+  await expect(footer.locator('a[href="tel:210.607.4037"]')).toHaveCount(1);
+  await expect(
+    footer.locator('a[href="https://www.linkedin.com/company/revogen-biologics"]'),
+  ).toHaveText("LinkedIn");
+  await expect(footer.locator('a[href="/surgical-grafts/allografts"]')).toHaveClass(/ml-5/);
+  await expect(footer.locator('a[href="/distribution-opportunities"] br')).toHaveCount(1);
 });

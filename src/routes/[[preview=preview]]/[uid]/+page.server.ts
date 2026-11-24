@@ -6,6 +6,8 @@ import { SITE_NAME, titleFromUid } from "$lib/site";
 export async function load({ params, fetch, cookies, parent }) {
   const client = createClient({ fetch, cookies });
   const parentData = parent();
+  // Handled by the awaits below; this only stops Node calling it unhandled meanwhile.
+  parentData.catch(() => {});
 
   let page;
   try {

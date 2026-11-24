@@ -14,6 +14,8 @@ const web = (url: string): Link => ({ link_type: "Web", url });
 const noLink: Link = { link_type: "Any" };
 
 export function load({ url }) {
+  // ?none: no settings document at all, as on the live site today.
+  if (url.searchParams.has("none")) return { settings: null };
   const filled = url.searchParams.has("filled");
   const settings: Partial<Settings> = {
     // Empty by default: the footer must show the code's tagline.
@@ -32,7 +34,7 @@ export function load({ url }) {
       ? [
           {
             label: line("Fixture menu item"),
-            link: web("https://example.com/menu"),
+            link: { link_type: "Web", url: "https://example.com/menu", target: "_blank" },
             column: "right",
             is_sub_item: true,
           },

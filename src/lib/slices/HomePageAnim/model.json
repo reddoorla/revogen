@@ -15,7 +15,7 @@
         "cards": {
           "type": "Group",
           "config": {
-            "label": "cards (a card needs a title, link and image; filling any card replaces all three built-in cards)",
+            "label": "cards (up to three; each needs a title, link and image; filling any card replaces all three built-in cards)",
             "repeat": true,
             "fields": {
               "title": {

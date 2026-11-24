@@ -21,7 +21,6 @@
       lines: ["distributor resource hub"],
       href: "/distributor-resource-hub",
       is_sub_item: false,
-      column: "left",
     },
     { lines: ["ocular grafts"], href: "/ocular", is_sub_item: false },
     { lines: ["wound care grafts"], href: "/wound-care", is_sub_item: false },
@@ -30,7 +29,6 @@
       lines: ["allografts"],
       href: "/surgical-grafts/allografts",
       is_sub_item: true,
-      column: "left",
     },
     {
       lines: ["sports medicine grafts"],
@@ -41,13 +39,11 @@
       lines: ["amnion patches"],
       href: "/surgical-grafts/amnion-patches",
       is_sub_item: true,
-      column: "left",
     },
     {
       lines: ["synthetics"],
       href: "/surgical-grafts/synthetics",
       is_sub_item: true,
-      column: "left",
     },
   ];
   const ADDRESS_FALLBACK = ["4903 Golden Quail,", "Suite 120", "San Antonio, TX 78240"];
@@ -62,7 +58,8 @@
   const linkedinHref = $derived(
     linkHref(settings?.linkedin_url) || "https://www.linkedin.com/company/revogen-biologics",
   );
-  const company = $derived(settings?.copyright_name || "RevoGen Biologics");
+  // A name ending in a period ("…, Inc.") must not become "Inc.. All".
+  const company = $derived((settings?.copyright_name || "RevoGen Biologics").replace(/\.$/, ""));
   const rights = $derived(settings?.rights_text || "All Rights Reserved");
 
   let showScript = $state(false);

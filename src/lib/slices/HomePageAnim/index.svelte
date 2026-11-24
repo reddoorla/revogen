@@ -73,7 +73,9 @@
         // The media library's alt wins; otherwise the card's title, as the code's alts were.
         image: { field: card.image, alt: card.image.alt || (card.title ?? "").toLowerCase() },
         hover: { field: card.hover_image, alt: "" },
-      })),
+      }))
+      // Three cards, one per gradient theme: a fourth would share the third's.
+      .slice(0, 3),
   );
   // Today's three cards are the fallback when the slice's `cards` group is empty (P1-120).
   const cards: Card[] = $derived(
