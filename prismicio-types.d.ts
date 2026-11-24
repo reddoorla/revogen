@@ -295,6 +295,352 @@ interface ResourceHubCategoryDocumentData {
  */
 export type ResourceHubCategoryDocument<Lang extends string = string> = prismic.PrismicDocumentWithUID<Simplify<ResourceHubCategoryDocumentData>, "resource_hub_category", Lang>;
 
+/**
+ * Item in *Site settings → menu items*
+ */
+export interface SettingsDocumentDataNavItemsItem {
+	/**
+	 * label field in *Site settings → menu items*
+	 *
+	 * - **Field Type**: Rich Text
+	 * - **Placeholder**: Shift+Enter for a line break.
+	 * - **API ID Path**: settings.nav_items[].label
+	 * - **Documentation**: https://prismic.io/docs/fields/rich-text
+	 */
+	label: prismic.RichTextField;
+	
+	/**
+	 * link field in *Site settings → menu items*
+	 *
+	 * - **Field Type**: Link
+	 * - **Placeholder**: *None*
+	 * - **API ID Path**: settings.nav_items[].link
+	 * - **Documentation**: https://prismic.io/docs/fields/link
+	 */
+	link: prismic.LinkField<string, string, unknown, prismic.FieldState, never>;
+	
+	/**
+	 * column field in *Site settings → menu items*
+	 *
+	 * - **Field Type**: Select
+	 * - **Placeholder**: *None*
+	 * - **Default Value**: left
+	 * - **API ID Path**: settings.nav_items[].column
+	 * - **Documentation**: https://prismic.io/docs/fields/select
+	 */
+	column: prismic.SelectField<"left" | "right", "filled">;
+	
+	/**
+	 * sub-item (indented under the one above) field in *Site settings → menu items*
+	 *
+	 * - **Field Type**: Boolean
+	 * - **Placeholder**: *None*
+	 * - **Default Value**: false
+	 * - **API ID Path**: settings.nav_items[].is_sub_item
+	 * - **Documentation**: https://prismic.io/docs/fields/boolean
+	 */
+	is_sub_item: prismic.BooleanField;
+}
+
+/**
+ * Item in *Site settings → footer links*
+ */
+export interface SettingsDocumentDataFooterLinksItem {
+	/**
+	 * label field in *Site settings → footer links*
+	 *
+	 * - **Field Type**: Rich Text
+	 * - **Placeholder**: Shift+Enter for a line break.
+	 * - **API ID Path**: settings.footer_links[].label
+	 * - **Documentation**: https://prismic.io/docs/fields/rich-text
+	 */
+	label: prismic.RichTextField;
+	
+	/**
+	 * link field in *Site settings → footer links*
+	 *
+	 * - **Field Type**: Link
+	 * - **Placeholder**: *None*
+	 * - **API ID Path**: settings.footer_links[].link
+	 * - **Documentation**: https://prismic.io/docs/fields/link
+	 */
+	link: prismic.LinkField<string, string, unknown, prismic.FieldState, never>;
+	
+	/**
+	 * sub-item (indented under the one above) field in *Site settings → footer links*
+	 *
+	 * - **Field Type**: Boolean
+	 * - **Placeholder**: *None*
+	 * - **Default Value**: false
+	 * - **API ID Path**: settings.footer_links[].is_sub_item
+	 * - **Documentation**: https://prismic.io/docs/fields/boolean
+	 */
+	is_sub_item: prismic.BooleanField;
+}
+
+/**
+ * Content for Site settings documents
+ */
+interface SettingsDocumentData {
+	/**
+	 * site name field in *Site settings*
+	 *
+	 * - **Field Type**: Text
+	 * - **Placeholder**: Brand name in browser tab titles, e.g. RevoGen Biologics. Leave empty to keep today's wording.
+	 * - **API ID Path**: settings.site_name
+	 * - **Tab**: Main
+	 * - **Documentation**: https://prismic.io/docs/fields/text
+	 */
+	site_name: prismic.KeyTextField;
+	
+	/**
+	 * header logo field in *Site settings*
+	 *
+	 * - **Field Type**: Image
+	 * - **Placeholder**: *None*
+	 * - **API ID Path**: settings.logo
+	 * - **Tab**: Main
+	 * - **Documentation**: https://prismic.io/docs/fields/image
+	 */
+	logo: prismic.ImageField<never>;
+	
+	/**
+	 * footer tagline field in *Site settings*
+	 *
+	 * - **Field Type**: Text
+	 * - **Placeholder**: Line at the top of the footer. Leave empty to keep today's wording.
+	 * - **API ID Path**: settings.footer_tagline
+	 * - **Tab**: Main
+	 * - **Documentation**: https://prismic.io/docs/fields/text
+	 */
+	footer_tagline: prismic.KeyTextField;
+	
+	/**
+	 * copyright name field in *Site settings*
+	 *
+	 * - **Field Type**: Text
+	 * - **Placeholder**: Company name after the © year. Leave empty to keep today's wording.
+	 * - **API ID Path**: settings.copyright_name
+	 * - **Tab**: Main
+	 * - **Documentation**: https://prismic.io/docs/fields/text
+	 */
+	copyright_name: prismic.KeyTextField;
+	
+	/**
+	 * rights text field in *Site settings*
+	 *
+	 * - **Field Type**: Text
+	 * - **Placeholder**: Words after the company name, e.g. All Rights Reserved. Leave empty to keep today's wording.
+	 * - **API ID Path**: settings.rights_text
+	 * - **Tab**: Main
+	 * - **Documentation**: https://prismic.io/docs/fields/text
+	 */
+	rights_text: prismic.KeyTextField;
+	
+	/**
+	 * address field in *Site settings*
+	 *
+	 * - **Field Type**: Rich Text
+	 * - **Placeholder**: Footer address. Press Shift+Enter between lines. Leave empty to keep today's wording.
+	 * - **API ID Path**: settings.address
+	 * - **Tab**: Main
+	 * - **Documentation**: https://prismic.io/docs/fields/rich-text
+	 */
+	address: prismic.RichTextField;
+	
+	/**
+	 * email field in *Site settings*
+	 *
+	 * - **Field Type**: Text
+	 * - **Placeholder**: Footer email address. Leave empty to keep today's wording.
+	 * - **API ID Path**: settings.email
+	 * - **Tab**: Main
+	 * - **Documentation**: https://prismic.io/docs/fields/text
+	 */
+	email: prismic.KeyTextField;
+	
+	/**
+	 * phone field in *Site settings*
+	 *
+	 * - **Field Type**: Text
+	 * - **Placeholder**: Footer phone number, as it should read. Leave empty to keep today's wording.
+	 * - **API ID Path**: settings.phone
+	 * - **Tab**: Main
+	 * - **Documentation**: https://prismic.io/docs/fields/text
+	 */
+	phone: prismic.KeyTextField;
+	
+	/**
+	 * LinkedIn link field in *Site settings*
+	 *
+	 * - **Field Type**: Link
+	 * - **Placeholder**: *None*
+	 * - **API ID Path**: settings.linkedin_url
+	 * - **Tab**: Main
+	 * - **Documentation**: https://prismic.io/docs/fields/link
+	 */
+	linkedin_url: prismic.LinkField<string, string, unknown, prismic.FieldState, never>;
+	
+	/**
+	 * LinkedIn label field in *Site settings*
+	 *
+	 * - **Field Type**: Text
+	 * - **Placeholder**: Words shown for the LinkedIn link. Leave empty to keep today's wording.
+	 * - **API ID Path**: settings.linkedin_label
+	 * - **Tab**: Main
+	 * - **Documentation**: https://prismic.io/docs/fields/text
+	 */
+	linkedin_label: prismic.KeyTextField;/**
+	 * menu items field in *Site settings*
+	 *
+	 * - **Field Type**: Group
+	 * - **Placeholder**: *None*
+	 * - **API ID Path**: settings.nav_items[]
+	 * - **Tab**: Menus
+	 * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+	 */
+	nav_items: prismic.GroupField<Simplify<SettingsDocumentDataNavItemsItem>>;
+	
+	/**
+	 * footer links field in *Site settings*
+	 *
+	 * - **Field Type**: Group
+	 * - **Placeholder**: *None*
+	 * - **API ID Path**: settings.footer_links[]
+	 * - **Tab**: Menus
+	 * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+	 */
+	footer_links: prismic.GroupField<Simplify<SettingsDocumentDataFooterLinksItem>>;/**
+	 * intro eyebrow field in *Site settings*
+	 *
+	 * - **Field Type**: Text
+	 * - **Placeholder**: Small line above the home intro tagline. Leave empty to keep today's wording.
+	 * - **API ID Path**: settings.intro_eyebrow
+	 * - **Tab**: Home intro
+	 * - **Documentation**: https://prismic.io/docs/fields/text
+	 */
+	intro_eyebrow: prismic.KeyTextField;
+	
+	/**
+	 * intro tagline field in *Site settings*
+	 *
+	 * - **Field Type**: Text
+	 * - **Placeholder**: The home intro's large line. Leave empty to keep today's wording.
+	 * - **API ID Path**: settings.intro_tagline
+	 * - **Tab**: Home intro
+	 * - **Documentation**: https://prismic.io/docs/fields/text
+	 */
+	intro_tagline: prismic.KeyTextField;/**
+	 * menu button label field in *Site settings*
+	 *
+	 * - **Field Type**: Text
+	 * - **Placeholder**: Read by screen readers for the menu button. Leave empty to keep today's wording.
+	 * - **API ID Path**: settings.menu_toggle_label
+	 * - **Tab**: Interface text
+	 * - **Documentation**: https://prismic.io/docs/fields/text
+	 */
+	menu_toggle_label: prismic.KeyTextField;
+	
+	/**
+	 * logo description field in *Site settings*
+	 *
+	 * - **Field Type**: Text
+	 * - **Placeholder**: Read by screen readers for the header logo. Leave empty to keep today's wording.
+	 * - **API ID Path**: settings.logo_alt
+	 * - **Tab**: Interface text
+	 * - **Documentation**: https://prismic.io/docs/fields/text
+	 */
+	logo_alt: prismic.KeyTextField;
+	
+	/**
+	 * scroll button label field in *Site settings*
+	 *
+	 * - **Field Type**: Text
+	 * - **Placeholder**: Read by screen readers for the scroll-down arrow. Leave empty to keep today's wording.
+	 * - **API ID Path**: settings.scroll_label
+	 * - **Tab**: Interface text
+	 * - **Documentation**: https://prismic.io/docs/fields/text
+	 */
+	scroll_label: prismic.KeyTextField;
+	
+	/**
+	 * scroll arrow description field in *Site settings*
+	 *
+	 * - **Field Type**: Text
+	 * - **Placeholder**: Description of the scroll-down arrow image. Leave empty to keep today's wording.
+	 * - **API ID Path**: settings.scroll_arrow_alt
+	 * - **Tab**: Interface text
+	 * - **Documentation**: https://prismic.io/docs/fields/text
+	 */
+	scroll_arrow_alt: prismic.KeyTextField;
+	
+	/**
+	 * background image description field in *Site settings*
+	 *
+	 * - **Field Type**: Text
+	 * - **Placeholder**: Description of full-width background images. Leave empty to keep today's wording.
+	 * - **API ID Path**: settings.background_image_alt
+	 * - **Tab**: Interface text
+	 * - **Documentation**: https://prismic.io/docs/fields/text
+	 */
+	background_image_alt: prismic.KeyTextField;
+	
+	/**
+	 * background video title field in *Site settings*
+	 *
+	 * - **Field Type**: Text
+	 * - **Placeholder**: Title read for full-width background videos. Leave empty to keep today's wording.
+	 * - **API ID Path**: settings.background_video_title
+	 * - **Tab**: Interface text
+	 * - **Documentation**: https://prismic.io/docs/fields/text
+	 */
+	background_video_title: prismic.KeyTextField;
+	
+	/**
+	 * video title field in *Site settings*
+	 *
+	 * - **Field Type**: Text
+	 * - **Placeholder**: Title read for videos in two-column sections. Leave empty to keep today's wording.
+	 * - **API ID Path**: settings.video_title
+	 * - **Tab**: Interface text
+	 * - **Documentation**: https://prismic.io/docs/fields/text
+	 */
+	video_title: prismic.KeyTextField;
+	
+	/**
+	 * portrait notice field in *Site settings*
+	 *
+	 * - **Field Type**: Text
+	 * - **Placeholder**: Shown on phones held sideways. Leave empty to keep today's wording.
+	 * - **API ID Path**: settings.portrait_notice
+	 * - **Tab**: Interface text
+	 * - **Documentation**: https://prismic.io/docs/fields/text
+	 */
+	portrait_notice: prismic.KeyTextField;
+	
+	/**
+	 * page-not-found message field in *Site settings*
+	 *
+	 * - **Field Type**: Text
+	 * - **Placeholder**: Shown when a page does not exist. {page} is replaced by the address asked for. Leave empty to keep today's wording.
+	 * - **API ID Path**: settings.not_found_message
+	 * - **Tab**: Interface text
+	 * - **Documentation**: https://prismic.io/docs/fields/text
+	 */
+	not_found_message: prismic.KeyTextField;
+}
+
+/**
+ * Site settings document from Prismic
+ *
+ * - **API ID**: `settings`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/content-modeling
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type SettingsDocument<Lang extends string = string> = prismic.PrismicDocumentWithoutUID<Simplify<SettingsDocumentData>, "settings", Lang>;
+
 type SurgicalGraftsDocumentDataSlicesSlice = TwoColSlice | HomePageAnimSlice | ImageRowSlice | ScreenWidthVideoSlice | RichTextSlice
 
 /**
@@ -367,7 +713,7 @@ interface SurgicalGraftsDocumentData {
  */
 export type SurgicalGraftsDocument<Lang extends string = string> = prismic.PrismicDocumentWithUID<Simplify<SurgicalGraftsDocumentData>, "surgical_grafts", Lang>;
 
-export type AllDocumentTypes = FormRepliesDocument | PageDocument | ResourceHubCategoryDocument | SurgicalGraftsDocument;
+export type AllDocumentTypes = FormRepliesDocument | PageDocument | ResourceHubCategoryDocument | SettingsDocument | SurgicalGraftsDocument;
 
 /**
  * Primary content in *DistributorLogin → Default → Primary*
@@ -383,6 +729,116 @@ export interface DistributorLoginSliceDefaultPrimary {
 	 * - **Documentation**: https://prismic.io/docs/fields/select
 	 */
 	vertical_padding: prismic.SelectField<"0" | "5" | "10" | "20", "filled">;
+	
+	/**
+	 * password prompt field in *DistributorLogin → Default → Primary*
+	 *
+	 * - **Field Type**: Text
+	 * - **Placeholder**: Above the password box. Leave empty to keep today's wording.
+	 * - **API ID Path**: distributor_login.default.primary.prompt
+	 * - **Documentation**: https://prismic.io/docs/fields/text
+	 */
+	prompt: prismic.KeyTextField;
+	
+	/**
+	 * password label field in *DistributorLogin → Default → Primary*
+	 *
+	 * - **Field Type**: Text
+	 * - **Placeholder**: Leave empty to keep today's wording.
+	 * - **API ID Path**: distributor_login.default.primary.password_label
+	 * - **Documentation**: https://prismic.io/docs/fields/text
+	 */
+	password_label: prismic.KeyTextField;
+	
+	/**
+	 * help text field in *DistributorLogin → Default → Primary*
+	 *
+	 * - **Field Type**: Text
+	 * - **Placeholder**: Under the password box. Leave empty to keep today's wording.
+	 * - **API ID Path**: distributor_login.default.primary.help_text
+	 * - **Documentation**: https://prismic.io/docs/fields/text
+	 */
+	help_text: prismic.KeyTextField;
+	
+	/**
+	 * wrong password message field in *DistributorLogin → Default → Primary*
+	 *
+	 * - **Field Type**: Text
+	 * - **Placeholder**: Leave empty to keep today's wording.
+	 * - **API ID Path**: distributor_login.default.primary.error_message
+	 * - **Documentation**: https://prismic.io/docs/fields/text
+	 */
+	error_message: prismic.KeyTextField;
+	
+	/**
+	 * submit button label field in *DistributorLogin → Default → Primary*
+	 *
+	 * - **Field Type**: Text
+	 * - **Placeholder**: Read by screen readers for the arrow button. Leave empty to keep today's wording.
+	 * - **API ID Path**: distributor_login.default.primary.submit_label
+	 * - **Documentation**: https://prismic.io/docs/fields/text
+	 */
+	submit_label: prismic.KeyTextField;
+	
+	/**
+	 * intro field in *DistributorLogin → Default → Primary*
+	 *
+	 * - **Field Type**: Text
+	 * - **Placeholder**: Paragraph shown once signed in. Leave empty to keep today's wording.
+	 * - **API ID Path**: distributor_login.default.primary.intro
+	 * - **Documentation**: https://prismic.io/docs/fields/text
+	 */
+	intro: prismic.KeyTextField;
+	
+	/**
+	 * topics heading field in *DistributorLogin → Default → Primary*
+	 *
+	 * - **Field Type**: Text
+	 * - **Placeholder**: Above the topic circles. Leave empty to keep today's wording.
+	 * - **API ID Path**: distributor_login.default.primary.topics_heading
+	 * - **Documentation**: https://prismic.io/docs/fields/text
+	 */
+	topics_heading: prismic.KeyTextField;
+	
+	/**
+	 * general heading field in *DistributorLogin → Default → Primary*
+	 *
+	 * - **Field Type**: Text
+	 * - **Placeholder**: Leave empty to keep today's wording.
+	 * - **API ID Path**: distributor_login.default.primary.general_label
+	 * - **Documentation**: https://prismic.io/docs/fields/text
+	 */
+	general_label: prismic.KeyTextField;
+	
+	/**
+	 * documents heading field in *DistributorLogin → Default → Primary*
+	 *
+	 * - **Field Type**: Text
+	 * - **Placeholder**: Leave empty to keep today's wording.
+	 * - **API ID Path**: distributor_login.default.primary.documents_label
+	 * - **Documentation**: https://prismic.io/docs/fields/text
+	 */
+	documents_label: prismic.KeyTextField;
+	
+	/**
+	 * papers heading field in *DistributorLogin → Default → Primary*
+	 *
+	 * - **Field Type**: Text
+	 * - **Placeholder**: Leave empty to keep today's wording.
+	 * - **API ID Path**: distributor_login.default.primary.papers_label
+	 * - **Documentation**: https://prismic.io/docs/fields/text
+	 */
+	papers_label: prismic.KeyTextField;
+	
+	/**
+	 * videos heading field in *DistributorLogin → Default → Primary*
+	 *
+	 * - **Field Type**: Text
+	 * - **Placeholder**: Leave empty to keep today's wording.
+	 * - **API ID Path**: distributor_login.default.primary.videos_label
+	 * - **Documentation**: https://prismic.io/docs/fields/text
+	 */
+	videos_label: prismic.KeyTextField;
 }
 
 /**
@@ -576,13 +1032,83 @@ type HomeHeroSliceVariation = HomeHeroSliceDefault
 export type HomeHeroSlice = prismic.SharedSlice<"home_hero", HomeHeroSliceVariation>;
 
 /**
+ * Item in *HomePageAnim → Default → Primary → cards*
+ */
+export interface HomePageAnimSliceDefaultPrimaryCardsItem {
+	/**
+	 * title field in *HomePageAnim → Default → Primary → cards*
+	 *
+	 * - **Field Type**: Text
+	 * - **Placeholder**: *None*
+	 * - **API ID Path**: home_page_anim.default.primary.cards[].title
+	 * - **Documentation**: https://prismic.io/docs/fields/text
+	 */
+	title: prismic.KeyTextField;
+	
+	/**
+	 * pitch field in *HomePageAnim → Default → Primary → cards*
+	 *
+	 * - **Field Type**: Text
+	 * - **Placeholder**: Line shown under the title on phones and on hover.
+	 * - **API ID Path**: home_page_anim.default.primary.cards[].pitch
+	 * - **Documentation**: https://prismic.io/docs/fields/text
+	 */
+	pitch: prismic.KeyTextField;
+	
+	/**
+	 * link field in *HomePageAnim → Default → Primary → cards*
+	 *
+	 * - **Field Type**: Link
+	 * - **Placeholder**: *None*
+	 * - **API ID Path**: home_page_anim.default.primary.cards[].link
+	 * - **Documentation**: https://prismic.io/docs/fields/link
+	 */
+	link: prismic.LinkField<string, string, unknown, prismic.FieldState, never>;
+	
+	/**
+	 * image field in *HomePageAnim → Default → Primary → cards*
+	 *
+	 * - **Field Type**: Image
+	 * - **Placeholder**: *None*
+	 * - **API ID Path**: home_page_anim.default.primary.cards[].image
+	 * - **Documentation**: https://prismic.io/docs/fields/image
+	 */
+	image: prismic.ImageField<never>;
+	
+	/**
+	 * outline image field in *HomePageAnim → Default → Primary → cards*
+	 *
+	 * - **Field Type**: Image
+	 * - **Placeholder**: *None*
+	 * - **API ID Path**: home_page_anim.default.primary.cards[].hover_image
+	 * - **Documentation**: https://prismic.io/docs/fields/image
+	 */
+	hover_image: prismic.ImageField<never>;
+}
+
+/**
+ * Primary content in *HomePageAnim → Default → Primary*
+ */
+export interface HomePageAnimSliceDefaultPrimary {
+	/**
+	 * cards field in *HomePageAnim → Default → Primary*
+	 *
+	 * - **Field Type**: Group
+	 * - **Placeholder**: *None*
+	 * - **API ID Path**: home_page_anim.default.primary.cards[]
+	 * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+	 */
+	cards: prismic.GroupField<Simplify<HomePageAnimSliceDefaultPrimaryCardsItem>>;
+}
+
+/**
  * Default variation for HomePageAnim Slice
  *
  * - **API ID**: `default`
  * - **Description**: Default
  * - **Documentation**: https://prismic.io/docs/slices
  */
-export type HomePageAnimSliceDefault = prismic.SharedSliceVariation<"default", Record<string, never>, never>;
+export type HomePageAnimSliceDefault = prismic.SharedSliceVariation<"default", Simplify<HomePageAnimSliceDefaultPrimary>, never>;
 
 /**
  * Slice variation for *HomePageAnim*
@@ -1299,6 +1825,136 @@ export interface TwoColSliceContactFormPrimary {
 	 * - **Documentation**: https://prismic.io/docs/fields/select
 	 */
 	vertical_padding: prismic.SelectField<"0" | "5" | "10" | "20", "filled">;
+	
+	/**
+	 * first name label field in *TwoCol → Contact Form → Primary*
+	 *
+	 * - **Field Type**: Text
+	 * - **Placeholder**: Leave empty to keep today's wording.
+	 * - **API ID Path**: two_col.contactForm.primary.first_name_label
+	 * - **Documentation**: https://prismic.io/docs/fields/text
+	 */
+	first_name_label: prismic.KeyTextField;
+	
+	/**
+	 * last name label field in *TwoCol → Contact Form → Primary*
+	 *
+	 * - **Field Type**: Text
+	 * - **Placeholder**: Leave empty to keep today's wording.
+	 * - **API ID Path**: two_col.contactForm.primary.last_name_label
+	 * - **Documentation**: https://prismic.io/docs/fields/text
+	 */
+	last_name_label: prismic.KeyTextField;
+	
+	/**
+	 * city label field in *TwoCol → Contact Form → Primary*
+	 *
+	 * - **Field Type**: Text
+	 * - **Placeholder**: Leave empty to keep today's wording.
+	 * - **API ID Path**: two_col.contactForm.primary.city_label
+	 * - **Documentation**: https://prismic.io/docs/fields/text
+	 */
+	city_label: prismic.KeyTextField;
+	
+	/**
+	 * state label field in *TwoCol → Contact Form → Primary*
+	 *
+	 * - **Field Type**: Text
+	 * - **Placeholder**: Leave empty to keep today's wording.
+	 * - **API ID Path**: two_col.contactForm.primary.state_label
+	 * - **Documentation**: https://prismic.io/docs/fields/text
+	 */
+	state_label: prismic.KeyTextField;
+	
+	/**
+	 * email label field in *TwoCol → Contact Form → Primary*
+	 *
+	 * - **Field Type**: Text
+	 * - **Placeholder**: Leave empty to keep today's wording.
+	 * - **API ID Path**: two_col.contactForm.primary.email_label
+	 * - **Documentation**: https://prismic.io/docs/fields/text
+	 */
+	email_label: prismic.KeyTextField;
+	
+	/**
+	 * phone label field in *TwoCol → Contact Form → Primary*
+	 *
+	 * - **Field Type**: Text
+	 * - **Placeholder**: Leave empty to keep today's wording.
+	 * - **API ID Path**: two_col.contactForm.primary.phone_label
+	 * - **Documentation**: https://prismic.io/docs/fields/text
+	 */
+	phone_label: prismic.KeyTextField;
+	
+	/**
+	 * distributorship label field in *TwoCol → Contact Form → Primary*
+	 *
+	 * - **Field Type**: Text
+	 * - **Placeholder**: Leave empty to keep today's wording.
+	 * - **API ID Path**: two_col.contactForm.primary.distributorship_label
+	 * - **Documentation**: https://prismic.io/docs/fields/text
+	 */
+	distributorship_label: prismic.KeyTextField;
+	
+	/**
+	 * message label field in *TwoCol → Contact Form → Primary*
+	 *
+	 * - **Field Type**: Text
+	 * - **Placeholder**: Leave empty to keep today's wording.
+	 * - **API ID Path**: two_col.contactForm.primary.message_label
+	 * - **Documentation**: https://prismic.io/docs/fields/text
+	 */
+	message_label: prismic.KeyTextField;
+	
+	/**
+	 * spam-trap label field in *TwoCol → Contact Form → Primary*
+	 *
+	 * - **Field Type**: Text
+	 * - **Placeholder**: Hidden from visitors; read only by bots. Leave empty to keep today's wording.
+	 * - **API ID Path**: two_col.contactForm.primary.honeypot_label
+	 * - **Documentation**: https://prismic.io/docs/fields/text
+	 */
+	honeypot_label: prismic.KeyTextField;
+	
+	/**
+	 * submit button field in *TwoCol → Contact Form → Primary*
+	 *
+	 * - **Field Type**: Text
+	 * - **Placeholder**: Leave empty to keep today's wording.
+	 * - **API ID Path**: two_col.contactForm.primary.submit_label
+	 * - **Documentation**: https://prismic.io/docs/fields/text
+	 */
+	submit_label: prismic.KeyTextField;
+	
+	/**
+	 * submit button while sending field in *TwoCol → Contact Form → Primary*
+	 *
+	 * - **Field Type**: Text
+	 * - **Placeholder**: Leave empty to keep today's wording.
+	 * - **API ID Path**: two_col.contactForm.primary.sending_label
+	 * - **Documentation**: https://prismic.io/docs/fields/text
+	 */
+	sending_label: prismic.KeyTextField;
+	
+	/**
+	 * thank-you message field in *TwoCol → Contact Form → Primary*
+	 *
+	 * - **Field Type**: Text
+	 * - **Placeholder**: Leave empty to keep today's wording.
+	 * - **API ID Path**: two_col.contactForm.primary.success_message
+	 * - **Documentation**: https://prismic.io/docs/fields/text
+	 */
+	success_message: prismic.KeyTextField;
+	
+	/**
+	 * error message field in *TwoCol → Contact Form → Primary*
+	 *
+	 * - **Field Type**: Text
+	 * - **Placeholder**: Leave empty to keep today's wording.
+	 * - **API ID Path**: two_col.contactForm.primary.error_message
+	 * - **Documentation**: https://prismic.io/docs/fields/text
+	 */
+	error_message: prismic.KeyTextField;
 }
 
 /**
@@ -1675,6 +2331,10 @@ declare module "@prismicio/client" {
 			ResourceHubCategoryDocument,
 			ResourceHubCategoryDocumentData,
 			ResourceHubCategoryDocumentDataHeadersItem,
+			SettingsDocument,
+			SettingsDocumentData,
+			SettingsDocumentDataNavItemsItem,
+			SettingsDocumentDataFooterLinksItem,
 			SurgicalGraftsDocument,
 			SurgicalGraftsDocumentData,
 			SurgicalGraftsDocumentDataSlicesSlice,
@@ -1692,6 +2352,8 @@ declare module "@prismicio/client" {
 			HomeHeroSliceVariation,
 			HomeHeroSliceDefault,
 			HomePageAnimSlice,
+			HomePageAnimSliceDefaultPrimaryCardsItem,
+			HomePageAnimSliceDefaultPrimary,
 			HomePageAnimSliceVariation,
 			HomePageAnimSliceDefault,
 			ImageRowSlice,

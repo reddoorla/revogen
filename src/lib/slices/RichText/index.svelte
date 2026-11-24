@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { page } from "$app/state";
   import ContentWidth from "$lib/components/ContentWidth/ContentWidth.svelte";
   import DefaultButton from "$lib/components/Buttons/DefaultButton.svelte";
   import downArrow from "$lib/assets/icons/downArrow.svg";
@@ -49,7 +50,11 @@
         {/if}
       </div>
       {#if slice.primary.show_scroll_arrow}
-        <img src={downArrow} alt="down" class="mt-10 h-20" />
+        <img
+          src={downArrow}
+          alt={page.data.settings?.scroll_arrow_alt || "down"}
+          class="mt-10 h-20"
+        />
       {/if}
     </ContentWidth>
   {:else}
@@ -74,7 +79,11 @@
           {/if}
         </div>
         {#if slice.primary.show_scroll_arrow}
-          <button onclick={scrollToNext} aria-label="Scroll to next section" class="mt-10 h-20">
+          <button
+            onclick={scrollToNext}
+            aria-label={page.data.settings?.scroll_label || "Scroll to next section"}
+            class="mt-10 h-20"
+          >
             <img src={downArrow} alt="" />
           </button>
         {/if}

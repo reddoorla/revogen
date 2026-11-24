@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { page } from "$app/state";
   import DefaultButton from "$lib/components/Buttons/DefaultButton.svelte";
   import ContentWidth from "$lib/components/ContentWidth/ContentWidth.svelte";
   import ScreenWidthMedia from "$lib/components/ScreenWidth/ScreenWidthMedia.svelte";
@@ -55,7 +56,7 @@
   <button
     class="absolute top-[100dvh] -translate-y-[150%] left-1/2 -translate-x-1/2"
     onclick={scrollToNext}
-    aria-label="Scroll to next section"
+    aria-label={page.data.settings?.scroll_label || "Scroll to next section"}
   >
     <img src={downArrow} alt="" class="h-16 negative-bump" />
   </button>

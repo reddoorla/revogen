@@ -47,7 +47,7 @@
 </script>
 
 <svelte:head>
-  <title>{page.data.title ?? SITE_NAME}</title>
+  <title>{page.data.title ?? (page.data.settings?.site_name || SITE_NAME)}</title>
   <meta name="description" content={metaDescription} />
   {#if page.data.title}
     <meta property="og:title" content={page.data.title} />

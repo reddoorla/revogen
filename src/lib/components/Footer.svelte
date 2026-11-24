@@ -6,6 +6,45 @@
   import script from "$lib/assets/icons/logos/Revogen Script-w.svg";
   import { quadOut } from "svelte/easing";
 
+  import { page } from "$app/state";
+  import { menuFromGroup, textLines, linkHref } from "$lib/settings";
+
+  // Today's footer, shown when its `settings` field is empty (P1-120).
+  const FOOTER_LINKS_FALLBACK = [
+    { lines: ["About"], href: "/about", is_sub_item: false },
+    {
+      lines: ["distribution", "opportunities"],
+      href: "/distribution-opportunities",
+      is_sub_item: false,
+    },
+    { lines: ["distributor resource hub"], href: "/distributor-resource-hub", is_sub_item: false },
+    { lines: ["ocular grafts"], href: "/ocular", is_sub_item: false },
+    { lines: ["wound care grafts"], href: "/wound-care", is_sub_item: false },
+    { lines: ["surgical grafts"], href: "/surgical-grafts/", is_sub_item: false },
+    { lines: ["allografts"], href: "/surgical-grafts/allografts", is_sub_item: true },
+    {
+      lines: ["sports medicine grafts"],
+      href: "/surgical-grafts/sports-medicine",
+      is_sub_item: true,
+    },
+    { lines: ["amnion patches"], href: "/surgical-grafts/amnion-patches", is_sub_item: true },
+    { lines: ["synthetics"], href: "/surgical-grafts/synthetics", is_sub_item: true },
+  ];
+  const ADDRESS_FALLBACK = ["4903 Golden Quail,", "Suite 120", "San Antonio, TX 78240"];
+
+  const settings = $derived(page.data.settings);
+  const footerLinks = $derived(menuFromGroup(settings?.footer_links));
+  const links = $derived(footerLinks.length > 0 ? footerLinks : FOOTER_LINKS_FALLBACK);
+  const addressLines = $derived(textLines(settings?.address));
+  const address = $derived(addressLines.length > 0 ? addressLines : ADDRESS_FALLBACK);
+  const email = $derived(settings?.email || "sales@revogen.com");
+  const phone = $derived(settings?.phone || "210.607.4037");
+  const linkedinHref = $derived(
+    linkHref(settings?.linkedin_url) || "https://www.linkedin.com/company/revogen-biologics",
+  );
+  const company = $derived(settings?.copyright_name || "RevoGen Biologics");
+  const rights = $derived(settings?.rights_text || "All Rights Reserved");
+
   let showScript = $state(false);
   let footerElement: HTMLElement;
 
@@ -34,99 +73,47 @@
     class="flex flex-col md:flex-row justify-between text-white footer relative border-t-[2px] border-white mt-20 mb-5"
   >
     <div class="flex flex-col justify-stretch mt-4 pb-4">
-      <h4 class="">Revolutionizing Bioregeneration</h4>
+      <h4 class="">{settings?.footer_tagline || "Revolutionizing Bioregeneration"}</h4>
       <div class="hidden md:block copywright mt-auto">
-        {"© " + new Date().getFullYear() + " RevoGen Biologics. All Rights Reserved."}
+        {"© " + new Date().getFullYear() + " " + company + ". " + rights + "."}
       </div>
     </div>
     <div class="flex flex-col gap-6 my-6 footer">
-      <DelayedLink
-        href="/about"
-        class="hover:opacity-85 transition-opacity duration-300 uppercase "
-      >
-        About
-      </DelayedLink>
-      <DelayedLink
-        href="/distribution-opportunities"
-        class="hover:opacity-85 transition-opacity duration-300 uppercase "
-      >
-        distribution<br />opportunities
-      </DelayedLink>
-      <DelayedLink
-        href="/distributor-resource-hub"
-        class="hover:opacity-85 transition-opacity duration-300 uppercase "
-      >
-        distributor resource hub
-      </DelayedLink>
-      <DelayedLink
-        href="/ocular"
-        class="hover:opacity-85 transition-opacity duration-300 uppercase "
-      >
-        ocular grafts
-      </DelayedLink>
-      <DelayedLink
-        href="/wound-care"
-        class="hover:opacity-85 transition-opacity duration-300 uppercase "
-      >
-        wound care grafts
-      </DelayedLink>
-      <DelayedLink
-        href="/surgical-grafts/"
-        class="hover:opacity-85 transition-opacity duration-300 uppercase "
-      >
-        surgical grafts
-      </DelayedLink>
-      <DelayedLink
-        href="/surgical-grafts/allografts"
-        class="ml-5 hover:opacity-85 transition-opacity duration-300 uppercase "
-      >
-        allografts
-      </DelayedLink>
-      <DelayedLink
-        href="/surgical-grafts/sports-medicine"
-        class="ml-5 hover:opacity-85 transition-opacity duration-300 uppercase "
-      >
-        sports medicine grafts
-      </DelayedLink>
-      <DelayedLink
-        href="/surgical-grafts/amnion-patches"
-        class="ml-5 hover:opacity-85 transition-opacity duration-300 uppercase "
-      >
-        amnion patches
-      </DelayedLink>
-      <DelayedLink
-        href="/surgical-grafts/synthetics"
-        class="ml-5 hover:opacity-85 transition-opacity duration-300 uppercase "
-      >
-        synthetics
-      </DelayedLink>
+      {#each links as link, i (i)}
+        <DelayedLink
+          href={link.href}
+          class="{link.is_sub_item
+            ? 'ml-5 '
+            : ''}hover:opacity-85 transition-opacity duration-300 uppercase "
+        >
+          {#each link.lines as line, j (j)}{#if j > 0}<br />{/if}{line}{/each}
+        </DelayedLink>
+      {/each}
       <div class="h-0.5 w-full bg-white rounded-full"></div>
       <div class="leading-normal">
-        4903 Golden Quail,<br />
-        Suite 120<br />
-        San Antonio, TX 78240 <br />
+        {#each address as line, i (i)}{line}<br />{/each}
         <a
-          href="mailto:sales@revogen.com"
+          href="mailto:{email}"
           class="underline hover:opacity-85 transition-opacity duration-300 inline-block py-1"
         >
-          sales@revogen.com
+          {email}
         </a><br />
         <a
-          href="tel:210.607.4037"
+          href="tel:{phone}"
           class="underline hover:opacity-85 transition-opacity duration-300 inline-block py-1"
         >
-          210.607.4037
+          {phone}
         </a><br />
         <a
-          href="https://www.linkedin.com/company/revogen-biologics"
+          href={linkedinHref}
           class="underline hover:opacity-85 transition-opacity duration-300 inline-block py-1"
         >
-          LinkedIn
+          {settings?.linkedin_label || "LinkedIn"}
         </a>
       </div>
     </div>
     <div class="md:hidden block copywright mt-6">
-      {"© " + new Date().getFullYear() + " RevoGen Biologics"}<br />All Rights Reserved
+      {"© " + new Date().getFullYear() + " " + company}<br />{rights}
     </div>
   </ContentWidth>
   {#if showScript}

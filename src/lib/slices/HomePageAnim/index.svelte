@@ -16,6 +16,9 @@
   import * as rive from "@rive-app/canvas";
   import puttyRive from "$lib/assets/rive/RevgroPutty.riv";
   import { ChevronRight, Plus } from "@lucide/svelte";
+  import { isFilled, type ImageField } from "@prismicio/client";
+  import { PrismicImage } from "@prismicio/svelte";
+  import { linkHref } from "$lib/settings";
 
   type Props = SliceComponentProps<Content.HomePageAnimSlice>;
 
@@ -24,6 +27,69 @@
   let riveInstance: rive.Rive | null = null;
 
   const { slice }: Props = $props();
+
+  type CardImage = { field: ImageField } | { src: typeof surgical; alt: string };
+  type Card = { title: string; pitch: string; href: string; image: CardImage; hover: CardImage };
+
+  // Each position keeps the classes it had when the cards were written out by
+  // hand; a fourth card takes the third's.
+  const CARD_STYLES = [
+    {
+      off: "opacity-10 brightness-0 invert",
+      ease: "ease-out",
+      hover: " transition duration-700 ease-out absolute top-1/2 left-1/2 -translate-1/2",
+    },
+    {
+      off: "brightness-0 invert opacity-10",
+      ease: "ease-fast-slow",
+      hover: "absolute top-1/2 left-1/2 -translate-1/2",
+    },
+    {
+      off: "brightness-0 invert opacity-10",
+      ease: "ease-fast-slow",
+      hover: "absolute top-1/2 left-1/2 -translate-1/2",
+    },
+  ];
+
+  const prismicCards: Card[] = $derived(
+    (slice.primary.cards ?? [])
+      .filter((card) => isFilled.keyText(card.title))
+      .map((card) => ({
+        title: card.title ?? "",
+        pitch: card.pitch ?? "",
+        href: linkHref(card.link),
+        image: { field: card.image },
+        hover: { field: card.hover_image },
+      })),
+  );
+  // Today's three cards are the fallback when the slice's `cards` group is empty (P1-120).
+  const cards: Card[] = $derived(
+    prismicCards.length > 0
+      ? prismicCards
+      : [
+          {
+            title: "Surgical Grafts",
+            pitch: "Empowering Surgeons with Advanced Allograft Solutions.",
+            href: "/surgical-grafts",
+            image: { src: surgical, alt: "surgical grafts" },
+            hover: { src: surgicalBefore, alt: "" },
+          },
+          {
+            title: "Wound Care Grafts",
+            pitch: "Acute or Chronic Wound Covering",
+            href: "/wound-care",
+            image: { src: woundCare, alt: "wound care grafts" },
+            hover: { src: woundCareBefore, alt: "" },
+          },
+          {
+            title: "Ocular Grafts",
+            pitch: "Easy to Apply. Multiple Indications.",
+            href: "/ocular",
+            image: { src: ocular, alt: "ocular grafts" },
+            hover: { src: ocularBefore, alt: "" },
+          },
+        ],
+  );
 
   // Preload images on mount
   onMount(() => {
@@ -74,6 +140,16 @@
   });
 </script>
 
+{#snippet cardImage(image: CardImage, className: string)}
+  {#if "field" in image}
+    {#if isFilled.image(image.field)}
+      <PrismicImage field={image.field} sizes="(min-width: 768px) 25vw, 70vw" class={className} />
+    {/if}
+  {:else}
+    <Img src={image.src} alt={image.alt} sizes="(min-width: 768px) 25vw, 70vw" class={className} />
+  {/if}
+{/snippet}
+
 <svelte:window bind:innerWidth={viewportWidth} />
 
 <section
@@ -84,130 +160,53 @@
   <ContentWidth
     class="h-full min-h-screen flex flex-col gap-12 md:gap-0 md:flex-row items-center justify-evenly text-white"
   >
-    <DelayedLink
-      class="hover:cursor-pointer md:w-1/4 flex flex-col items-center justify-center"
-      onmouseenter={() => gradientTheme.set(1)}
-      onmouseleave={() => gradientTheme.set($defaultGradientTheme)}
-      href="/surgical-grafts"
-    >
-      <div class="relative w-full aspect-square">
-        <Img
-          src={surgical}
-          alt="surgical grafts"
-          sizes="(min-width: 768px) 25vw, 70vw"
-          class="{viewportWidth < 768 || $gradientTheme === 1
-            ? ''
-            : 'opacity-10 brightness-0 invert'} transition duration-700 ease-out absolute top-1/2 left-1/2 -translate-1/2"
-        />
-
-        <Img
-          src={surgicalBefore}
-          alt=""
-          sizes="(min-width: 768px) 25vw, 70vw"
-          class=" transition duration-700 ease-out absolute top-1/2 left-1/2 -translate-1/2"
-        />
-      </div>
-      <h4>Surgical Grafts</h4>
-      {#if viewportWidth < 768 || $gradientTheme === 1}
-        <p transition:slide class="text-center mt-4">
-          Empowering Surgeons with Advanced Allograft Solutions.
-        </p>
-      {/if}
-      <div
-        class="w-8 h-8 border-[1.5px] border-white rounded-full relative mt-4 hover:opacity-80 bump"
+    {#each cards as card, i (i)}
+      {@const style = CARD_STYLES[Math.min(i, CARD_STYLES.length - 1)]}
+      {@const theme = Math.min(i, CARD_STYLES.length - 1) + 1}
+      {@const open = viewportWidth < 768 || $gradientTheme === theme}
+      <DelayedLink
+        class="hover:cursor-pointer md:w-1/4 flex flex-col items-center justify-center"
+        onmouseenter={() => gradientTheme.set(theme)}
+        onmouseleave={() => gradientTheme.set($defaultGradientTheme)}
+        href={card.href}
       >
-        {#if viewportWidth < 768 || $gradientTheme === 1}
-          <span in:fade={{ delay: 400 }} out:fade class="absolute left-1/2 top-1/2 -translate-1/2">
-            <ChevronRight class="size-[1.25em]" strokeWidth={1.5} />
-          </span>
-        {:else}
-          <span in:fade={{ delay: 400 }} out:fade class="absolute left-1/2 top-1/2 -translate-1/2">
-            <Plus class="size-[1.25em]" strokeWidth={1.5} />
-          </span>
+        <div class="relative w-full aspect-square">
+          {@render cardImage(
+            card.image,
+            (open ? "" : style.off) +
+              " transition duration-700 " +
+              style.ease +
+              " absolute top-1/2 left-1/2 -translate-1/2",
+          )}
+          {@render cardImage(card.hover, style.hover)}
+        </div>
+        <h4>{card.title}</h4>
+        {#if open && card.pitch}
+          <p transition:slide class="text-center mt-4">{card.pitch}</p>
         {/if}
-      </div>
-    </DelayedLink>
-    <DelayedLink
-      class="hover:cursor-pointer md:w-1/4 flex flex-col items-center justify-center"
-      onmouseenter={() => gradientTheme.set(2)}
-      onmouseleave={() => gradientTheme.set($defaultGradientTheme)}
-      href="/wound-care"
-    >
-      <div class="relative w-full aspect-square">
-        <Img
-          src={woundCare}
-          alt="wound care grafts"
-          sizes="(min-width: 768px) 25vw, 70vw"
-          class="{viewportWidth < 768 || $gradientTheme === 2
-            ? ''
-            : 'brightness-0 invert opacity-10'} transition duration-700 ease-fast-slow absolute top-1/2 left-1/2 -translate-1/2"
-        />
-
-        <Img
-          src={woundCareBefore}
-          alt=""
-          sizes="(min-width: 768px) 25vw, 70vw"
-          class="absolute top-1/2 left-1/2 -translate-1/2"
-        />
-      </div>
-      <h4>Wound Care Grafts</h4>
-      {#if viewportWidth < 768 || $gradientTheme === 2}
-        <p transition:slide class="text-center mt-4">Acute or Chronic Wound Covering</p>
-      {/if}
-      <div
-        class="w-8 h-8 border-[1.5px] border-white rounded-full relative mt-4 hover:opacity-80 bump"
-      >
-        {#if viewportWidth < 768 || $gradientTheme === 2}
-          <span in:fade={{ delay: 400 }} out:fade class="absolute left-1/2 top-1/2 -translate-1/2">
-            <ChevronRight class="size-[1.25em]" strokeWidth={1.5} />
-          </span>
-        {:else}
-          <span in:fade={{ delay: 400 }} out:fade class="absolute left-1/2 top-1/2 -translate-1/2">
-            <Plus class="size-[1.25em]" strokeWidth={1.5} />
-          </span>
-        {/if}
-      </div>
-    </DelayedLink>
-    <DelayedLink
-      class="hover:cursor-pointer md:w-1/4 flex flex-col items-center justify-center"
-      onmouseenter={() => gradientTheme.set(3)}
-      onmouseleave={() => gradientTheme.set($defaultGradientTheme)}
-      href="/ocular"
-    >
-      <div class="relative w-full aspect-square">
-        <Img
-          src={ocular}
-          alt="ocular grafts"
-          sizes="(min-width: 768px) 25vw, 70vw"
-          class="{viewportWidth < 768 || $gradientTheme === 3
-            ? ''
-            : 'brightness-0 invert opacity-10'} transition duration-700 ease-fast-slow absolute top-1/2 left-1/2 -translate-1/2"
-        />
-        <Img
-          src={ocularBefore}
-          alt=""
-          sizes="(min-width: 768px) 25vw, 70vw"
-          class="absolute top-1/2 left-1/2 -translate-1/2"
-        />
-      </div>
-      <h4>Ocular Grafts</h4>
-      {#if viewportWidth < 768 || $gradientTheme === 3}
-        <p transition:slide class="text-center mt-4">Easy to Apply. Multiple Indications.</p>
-      {/if}
-      <div
-        class="w-8 h-8 border-[1.5px] border-white rounded-full relative mt-4 hover:opacity-80 bump"
-      >
-        {#if viewportWidth < 768 || $gradientTheme === 3}
-          <span in:fade={{ delay: 400 }} out:fade class="absolute left-1/2 top-1/2 -translate-1/2">
-            <ChevronRight class="size-[1.25em]" strokeWidth={1.5} />
-          </span>
-        {:else}
-          <span in:fade={{ delay: 400 }} out:fade class="absolute left-1/2 top-1/2 -translate-1/2">
-            <Plus class="size-[1.25em]" strokeWidth={1.5} />
-          </span>
-        {/if}
-      </div>
-    </DelayedLink>
+        <div
+          class="w-8 h-8 border-[1.5px] border-white rounded-full relative mt-4 hover:opacity-80 bump"
+        >
+          {#if open}
+            <span
+              in:fade={{ delay: 400 }}
+              out:fade
+              class="absolute left-1/2 top-1/2 -translate-1/2"
+            >
+              <ChevronRight class="size-[1.25em]" strokeWidth={1.5} />
+            </span>
+          {:else}
+            <span
+              in:fade={{ delay: 400 }}
+              out:fade
+              class="absolute left-1/2 top-1/2 -translate-1/2"
+            >
+              <Plus class="size-[1.25em]" strokeWidth={1.5} />
+            </span>
+          {/if}
+        </div>
+      </DelayedLink>
+    {/each}
   </ContentWidth>
 </section>
 

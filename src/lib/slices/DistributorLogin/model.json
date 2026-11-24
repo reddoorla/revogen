@@ -20,6 +20,83 @@
             "options": ["0", "5", "10", "20"],
             "default_value": "0"
           }
+        },
+        "prompt": {
+          "type": "Text",
+          "config": {
+            "label": "password prompt",
+            "placeholder": "Above the password box. Leave empty to keep today's wording."
+          }
+        },
+        "password_label": {
+          "type": "Text",
+          "config": {
+            "label": "password label",
+            "placeholder": "Leave empty to keep today's wording."
+          }
+        },
+        "help_text": {
+          "type": "Text",
+          "config": {
+            "label": "help text",
+            "placeholder": "Under the password box. Leave empty to keep today's wording."
+          }
+        },
+        "error_message": {
+          "type": "Text",
+          "config": {
+            "label": "wrong password message",
+            "placeholder": "Leave empty to keep today's wording."
+          }
+        },
+        "submit_label": {
+          "type": "Text",
+          "config": {
+            "label": "submit button label",
+            "placeholder": "Read by screen readers for the arrow button. Leave empty to keep today's wording."
+          }
+        },
+        "intro": {
+          "type": "Text",
+          "config": {
+            "label": "intro",
+            "placeholder": "Paragraph shown once signed in. Leave empty to keep today's wording."
+          }
+        },
+        "topics_heading": {
+          "type": "Text",
+          "config": {
+            "label": "topics heading",
+            "placeholder": "Above the topic circles. Leave empty to keep today's wording."
+          }
+        },
+        "general_label": {
+          "type": "Text",
+          "config": {
+            "label": "general heading",
+            "placeholder": "Leave empty to keep today's wording."
+          }
+        },
+        "documents_label": {
+          "type": "Text",
+          "config": {
+            "label": "documents heading",
+            "placeholder": "Leave empty to keep today's wording."
+          }
+        },
+        "papers_label": {
+          "type": "Text",
+          "config": {
+            "label": "papers heading",
+            "placeholder": "Leave empty to keep today's wording."
+          }
+        },
+        "videos_label": {
+          "type": "Text",
+          "config": {
+            "label": "videos heading",
+            "placeholder": "Leave empty to keep today's wording."
+          }
         }
       },
       "items": {}

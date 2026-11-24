@@ -1,16 +1,18 @@
 import { error } from "@sveltejs/kit";
 
 import { createClient } from "$lib/prismicio";
-import { titleFromUid } from "$lib/site";
+import { SITE_NAME, titleFromUid } from "$lib/site";
 
-export async function load({ params, fetch, cookies }) {
+export async function load({ params, fetch, cookies, parent }) {
   const client = createClient({ fetch, cookies });
+  const { settings } = await parent();
 
   let page;
   try {
     page = await client.getByUID("page", params.uid);
   } catch {
-    throw error(404, `Page "${params.uid}" not found`);
+    const message = settings?.not_found_message || 'Page "{page}" not found';
+    throw error(404, message.replaceAll("{page}", params.uid));
   }
 
   const distributorCategories = await client.getAllByType("resource_hub_category");
@@ -18,7 +20,7 @@ export async function load({ params, fetch, cookies }) {
   return {
     page,
     distributorCategories,
-    title: page.data.meta_title || titleFromUid(page.uid),
+    title: page.data.meta_title || titleFromUid(page.uid, settings?.site_name || SITE_NAME),
     meta_description: page.data.meta_description,
     meta_title: page.data.meta_title,
     meta_image: page.data.meta_image.url,
