@@ -1,6 +1,23 @@
 {
   "version": 1,
   "counts": {
+    "src/lib/components/Buttons/ArrowButton.svelte": {
+      "alt\tlink arrow": 1,
+      "image\twireframe-link-arrow-right.svg": 1
+    },
+    "src/lib/components/ContentWidth/TestimonialSlider.svelte": {
+      "alt\tslideshow item": 1,
+      "copy\tNo testimonials available": 1,
+      "copy\tslide left": 2,
+      "copy\tslide right": 2,
+      "image\tprofile_placeholder.png": 1
+    },
+    "src/lib/components/FullWidth/Slideshow.svelte": {
+      "alt\tslideshow item": 1,
+      "copy\tNo images available": 1,
+      "copy\tslide left": 1,
+      "copy\tslide right": 1
+    },
     "src/lib/components/Nav.svelte": {
       "link\t/": 1
     }

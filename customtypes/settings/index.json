@@ -47,7 +47,6 @@
         "config": {
           "label": "address",
           "placeholder": "Footer address. Press Shift+Enter between lines. Leave empty to keep today's wording.",
-          "allowTargetBlank": true,
           "single": "paragraph"
         }
       },
@@ -73,7 +72,8 @@
           "select": null,
           "allowTargetBlank": true,
           "allowText": false,
-          "repeat": false
+          "repeat": false,
+          "customtypes": ["page", "surgical_grafts"]
         }
       },
       "linkedin_label": {
@@ -88,7 +88,7 @@
       "nav_items": {
         "type": "Group",
         "config": {
-          "label": "menu items",
+          "label": "menu items (filling any row replaces the whole built-in menu; enter every item)",
           "repeat": true,
           "fields": {
             "label": {
@@ -96,7 +96,6 @@
               "config": {
                 "label": "label",
                 "placeholder": "Shift+Enter for a line break.",
-                "allowTargetBlank": true,
                 "single": "paragraph"
               }
             },
@@ -108,7 +107,8 @@
                 "select": null,
                 "allowTargetBlank": true,
                 "allowText": false,
-                "repeat": false
+                "repeat": false,
+                "customtypes": ["page", "surgical_grafts"]
               }
             },
             "column": {
@@ -133,7 +133,7 @@
       "footer_links": {
         "type": "Group",
         "config": {
-          "label": "footer links",
+          "label": "footer links (filling any row replaces all built-in footer links; enter every one)",
           "repeat": true,
           "fields": {
             "label": {
@@ -141,7 +141,6 @@
               "config": {
                 "label": "label",
                 "placeholder": "Shift+Enter for a line break.",
-                "allowTargetBlank": true,
                 "single": "paragraph"
               }
             },
@@ -153,7 +152,8 @@
                 "select": null,
                 "allowTargetBlank": true,
                 "allowText": false,
-                "repeat": false
+                "repeat": false,
+                "customtypes": ["page", "surgical_grafts"]
               }
             },
             "is_sub_item": {

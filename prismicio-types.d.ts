@@ -296,11 +296,11 @@ interface ResourceHubCategoryDocumentData {
 export type ResourceHubCategoryDocument<Lang extends string = string> = prismic.PrismicDocumentWithUID<Simplify<ResourceHubCategoryDocumentData>, "resource_hub_category", Lang>;
 
 /**
- * Item in *Site settings → menu items*
+ * Item in *Site settings → menu items (filling any row replaces the whole built-in menu; enter every item)*
  */
 export interface SettingsDocumentDataNavItemsItem {
 	/**
-	 * label field in *Site settings → menu items*
+	 * label field in *Site settings → menu items (filling any row replaces the whole built-in menu; enter every item)*
 	 *
 	 * - **Field Type**: Rich Text
 	 * - **Placeholder**: Shift+Enter for a line break.
@@ -310,7 +310,7 @@ export interface SettingsDocumentDataNavItemsItem {
 	label: prismic.RichTextField;
 	
 	/**
-	 * link field in *Site settings → menu items*
+	 * link field in *Site settings → menu items (filling any row replaces the whole built-in menu; enter every item)*
 	 *
 	 * - **Field Type**: Link
 	 * - **Placeholder**: *None*
@@ -320,7 +320,7 @@ export interface SettingsDocumentDataNavItemsItem {
 	link: prismic.LinkField<string, string, unknown, prismic.FieldState, never>;
 	
 	/**
-	 * column field in *Site settings → menu items*
+	 * column field in *Site settings → menu items (filling any row replaces the whole built-in menu; enter every item)*
 	 *
 	 * - **Field Type**: Select
 	 * - **Placeholder**: *None*
@@ -331,7 +331,7 @@ export interface SettingsDocumentDataNavItemsItem {
 	column: prismic.SelectField<"left" | "right", "filled">;
 	
 	/**
-	 * sub-item (indented under the one above) field in *Site settings → menu items*
+	 * sub-item (indented under the one above) field in *Site settings → menu items (filling any row replaces the whole built-in menu; enter every item)*
 	 *
 	 * - **Field Type**: Boolean
 	 * - **Placeholder**: *None*
@@ -343,11 +343,11 @@ export interface SettingsDocumentDataNavItemsItem {
 }
 
 /**
- * Item in *Site settings → footer links*
+ * Item in *Site settings → footer links (filling any row replaces all built-in footer links; enter every one)*
  */
 export interface SettingsDocumentDataFooterLinksItem {
 	/**
-	 * label field in *Site settings → footer links*
+	 * label field in *Site settings → footer links (filling any row replaces all built-in footer links; enter every one)*
 	 *
 	 * - **Field Type**: Rich Text
 	 * - **Placeholder**: Shift+Enter for a line break.
@@ -357,7 +357,7 @@ export interface SettingsDocumentDataFooterLinksItem {
 	label: prismic.RichTextField;
 	
 	/**
-	 * link field in *Site settings → footer links*
+	 * link field in *Site settings → footer links (filling any row replaces all built-in footer links; enter every one)*
 	 *
 	 * - **Field Type**: Link
 	 * - **Placeholder**: *None*
@@ -367,7 +367,7 @@ export interface SettingsDocumentDataFooterLinksItem {
 	link: prismic.LinkField<string, string, unknown, prismic.FieldState, never>;
 	
 	/**
-	 * sub-item (indented under the one above) field in *Site settings → footer links*
+	 * sub-item (indented under the one above) field in *Site settings → footer links (filling any row replaces all built-in footer links; enter every one)*
 	 *
 	 * - **Field Type**: Boolean
 	 * - **Placeholder**: *None*
@@ -491,7 +491,7 @@ interface SettingsDocumentData {
 	 * - **Documentation**: https://prismic.io/docs/fields/text
 	 */
 	linkedin_label: prismic.KeyTextField;/**
-	 * menu items field in *Site settings*
+	 * menu items (filling any row replaces the whole built-in menu; enter every item) field in *Site settings*
 	 *
 	 * - **Field Type**: Group
 	 * - **Placeholder**: *None*
@@ -502,7 +502,7 @@ interface SettingsDocumentData {
 	nav_items: prismic.GroupField<Simplify<SettingsDocumentDataNavItemsItem>>;
 	
 	/**
-	 * footer links field in *Site settings*
+	 * footer links (filling any row replaces all built-in footer links; enter every one) field in *Site settings*
 	 *
 	 * - **Field Type**: Group
 	 * - **Placeholder**: *None*
@@ -1032,11 +1032,11 @@ type HomeHeroSliceVariation = HomeHeroSliceDefault
 export type HomeHeroSlice = prismic.SharedSlice<"home_hero", HomeHeroSliceVariation>;
 
 /**
- * Item in *HomePageAnim → Default → Primary → cards*
+ * Item in *HomePageAnim → Default → Primary → cards (a card needs a title, link and image; filling any card replaces all three built-in cards)*
  */
 export interface HomePageAnimSliceDefaultPrimaryCardsItem {
 	/**
-	 * title field in *HomePageAnim → Default → Primary → cards*
+	 * title field in *HomePageAnim → Default → Primary → cards (a card needs a title, link and image; filling any card replaces all three built-in cards)*
 	 *
 	 * - **Field Type**: Text
 	 * - **Placeholder**: *None*
@@ -1046,7 +1046,7 @@ export interface HomePageAnimSliceDefaultPrimaryCardsItem {
 	title: prismic.KeyTextField;
 	
 	/**
-	 * pitch field in *HomePageAnim → Default → Primary → cards*
+	 * pitch field in *HomePageAnim → Default → Primary → cards (a card needs a title, link and image; filling any card replaces all three built-in cards)*
 	 *
 	 * - **Field Type**: Text
 	 * - **Placeholder**: Line shown under the title on phones and on hover.
@@ -1056,7 +1056,7 @@ export interface HomePageAnimSliceDefaultPrimaryCardsItem {
 	pitch: prismic.KeyTextField;
 	
 	/**
-	 * link field in *HomePageAnim → Default → Primary → cards*
+	 * link field in *HomePageAnim → Default → Primary → cards (a card needs a title, link and image; filling any card replaces all three built-in cards)*
 	 *
 	 * - **Field Type**: Link
 	 * - **Placeholder**: *None*
@@ -1066,7 +1066,7 @@ export interface HomePageAnimSliceDefaultPrimaryCardsItem {
 	link: prismic.LinkField<string, string, unknown, prismic.FieldState, never>;
 	
 	/**
-	 * image field in *HomePageAnim → Default → Primary → cards*
+	 * image field in *HomePageAnim → Default → Primary → cards (a card needs a title, link and image; filling any card replaces all three built-in cards)*
 	 *
 	 * - **Field Type**: Image
 	 * - **Placeholder**: *None*
@@ -1076,7 +1076,7 @@ export interface HomePageAnimSliceDefaultPrimaryCardsItem {
 	image: prismic.ImageField<never>;
 	
 	/**
-	 * outline image field in *HomePageAnim → Default → Primary → cards*
+	 * outline image field in *HomePageAnim → Default → Primary → cards (a card needs a title, link and image; filling any card replaces all three built-in cards)*
 	 *
 	 * - **Field Type**: Image
 	 * - **Placeholder**: *None*
@@ -1091,7 +1091,7 @@ export interface HomePageAnimSliceDefaultPrimaryCardsItem {
  */
 export interface HomePageAnimSliceDefaultPrimary {
 	/**
-	 * cards field in *HomePageAnim → Default → Primary*
+	 * cards (a card needs a title, link and image; filling any card replaces all three built-in cards) field in *HomePageAnim → Default → Primary*
 	 *
 	 * - **Field Type**: Group
 	 * - **Placeholder**: *None*

@@ -16,7 +16,7 @@
   import * as rive from "@rive-app/canvas";
   import puttyRive from "$lib/assets/rive/RevgroPutty.riv";
   import { ChevronRight, Plus } from "@lucide/svelte";
-  import { isFilled, type ImageField } from "@prismicio/client";
+  import { isFilled, type ImageField, type LinkField } from "@prismicio/client";
   import { PrismicImage } from "@prismicio/svelte";
   import { linkHref } from "$lib/settings";
 
@@ -28,8 +28,15 @@
 
   const { slice }: Props = $props();
 
-  type CardImage = { field: ImageField } | { src: typeof surgical; alt: string };
-  type Card = { title: string; pitch: string; href: string; image: CardImage; hover: CardImage };
+  type CardImage = { field: ImageField; alt: string } | { src: typeof surgical; alt: string };
+  type Card = {
+    title: string;
+    pitch: string;
+    href: string;
+    link?: LinkField;
+    image: CardImage;
+    hover: CardImage;
+  };
 
   // Each position keeps the classes it had when the cards were written out by
   // hand; a fourth card takes the third's.
@@ -53,13 +60,19 @@
 
   const prismicCards: Card[] = $derived(
     (slice.primary.cards ?? [])
-      .filter((card) => isFilled.keyText(card.title))
+      // A card needs a title, a link and an image; a half-filled row is skipped.
+      .filter(
+        (card) =>
+          isFilled.keyText(card.title) && linkHref(card.link) !== "" && isFilled.image(card.image),
+      )
       .map((card) => ({
         title: card.title ?? "",
         pitch: card.pitch ?? "",
         href: linkHref(card.link),
-        image: { field: card.image },
-        hover: { field: card.hover_image },
+        link: card.link,
+        // The media library's alt wins; otherwise the card's title, as the code's alts were.
+        image: { field: card.image, alt: card.image.alt || (card.title ?? "").toLowerCase() },
+        hover: { field: card.hover_image, alt: "" },
       })),
   );
   // Today's three cards are the fallback when the slice's `cards` group is empty (P1-120).
@@ -143,7 +156,12 @@
 {#snippet cardImage(image: CardImage, className: string)}
   {#if "field" in image}
     {#if isFilled.image(image.field)}
-      <PrismicImage field={image.field} sizes="(min-width: 768px) 25vw, 70vw" class={className} />
+      <PrismicImage
+        field={image.field}
+        alt={image.alt as ""}
+        sizes="(min-width: 768px) 25vw, 70vw"
+        class={className}
+      />
     {/if}
   {:else}
     <Img src={image.src} alt={image.alt} sizes="(min-width: 768px) 25vw, 70vw" class={className} />
@@ -169,6 +187,7 @@
         onmouseenter={() => gradientTheme.set(theme)}
         onmouseleave={() => gradientTheme.set($defaultGradientTheme)}
         href={card.href}
+        field={card.link}
       >
         <div class="relative w-full aspect-square">
           {@render cardImage(

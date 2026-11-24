@@ -404,7 +404,7 @@
                       <h2>{header.name}</h2>
                       {#if header.distributor_documents.length !== 0}
                         <h5 class="mt-10 uppercase">
-                          {slice.primary.documents_label || "Documents"}
+                          {slice.primary.documents_label || "Distributor Documents"}
                         </h5>
                         <div class="h-0.5 w-full bg-white my-4"></div>
                         {#each header.distributor_documents as doc, docIndex (docIndex)}
@@ -428,7 +428,9 @@
                       {/if}
 
                       {#if header.white_papers.length !== 0}
-                        <h5 class="mt-10 uppercase">{slice.primary.papers_label || "Papers"}</h5>
+                        <h5 class="mt-10 uppercase">
+                          {slice.primary.papers_label || "White paper / case studies"}
+                        </h5>
                         <div class="h-0.5 w-full bg-white my-4"></div>
                         {#each header.white_papers as doc, docIndex (docIndex)}
                           {#if isFilled.link(doc)}

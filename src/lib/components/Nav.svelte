@@ -7,7 +7,7 @@
   import { Menu, X } from "@lucide/svelte";
 
   import { page } from "$app/state";
-  import { menuFromGroup } from "$lib/settings";
+  import { menuFromGroup, type MenuEntry } from "$lib/settings";
 
   // Today's menu, shown when `settings.nav_items` is empty (P1-120).
   const NAV_ITEMS_FALLBACK = [
@@ -68,9 +68,10 @@
   });
 </script>
 
-{#snippet navLink(item: { lines: string[]; href: string; is_sub_item: boolean })}
+{#snippet navLink(item: MenuEntry)}
   <DelayedLink
     href={item.href}
+    field={item.field}
     class="bump w-fit{item.is_sub_item ? ' ml-8 md:ml-0 opacity-75' : ''}"
     onclick={() => (isNavModalOpen = false)}
   >

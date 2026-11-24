@@ -7,28 +7,48 @@
   import { quadOut } from "svelte/easing";
 
   import { page } from "$app/state";
-  import { menuFromGroup, textLines, linkHref } from "$lib/settings";
+  import { menuFromGroup, textLines, linkHref, type MenuEntry } from "$lib/settings";
 
   // Today's footer, shown when its `settings` field is empty (P1-120).
-  const FOOTER_LINKS_FALLBACK = [
+  const FOOTER_LINKS_FALLBACK: MenuEntry[] = [
     { lines: ["About"], href: "/about", is_sub_item: false },
     {
       lines: ["distribution", "opportunities"],
       href: "/distribution-opportunities",
       is_sub_item: false,
     },
-    { lines: ["distributor resource hub"], href: "/distributor-resource-hub", is_sub_item: false },
+    {
+      lines: ["distributor resource hub"],
+      href: "/distributor-resource-hub",
+      is_sub_item: false,
+      column: "left",
+    },
     { lines: ["ocular grafts"], href: "/ocular", is_sub_item: false },
     { lines: ["wound care grafts"], href: "/wound-care", is_sub_item: false },
     { lines: ["surgical grafts"], href: "/surgical-grafts/", is_sub_item: false },
-    { lines: ["allografts"], href: "/surgical-grafts/allografts", is_sub_item: true },
+    {
+      lines: ["allografts"],
+      href: "/surgical-grafts/allografts",
+      is_sub_item: true,
+      column: "left",
+    },
     {
       lines: ["sports medicine grafts"],
       href: "/surgical-grafts/sports-medicine",
       is_sub_item: true,
     },
-    { lines: ["amnion patches"], href: "/surgical-grafts/amnion-patches", is_sub_item: true },
-    { lines: ["synthetics"], href: "/surgical-grafts/synthetics", is_sub_item: true },
+    {
+      lines: ["amnion patches"],
+      href: "/surgical-grafts/amnion-patches",
+      is_sub_item: true,
+      column: "left",
+    },
+    {
+      lines: ["synthetics"],
+      href: "/surgical-grafts/synthetics",
+      is_sub_item: true,
+      column: "left",
+    },
   ];
   const ADDRESS_FALLBACK = ["4903 Golden Quail,", "Suite 120", "San Antonio, TX 78240"];
 
@@ -75,13 +95,14 @@
     <div class="flex flex-col justify-stretch mt-4 pb-4">
       <h4 class="">{settings?.footer_tagline || "Revolutionizing Bioregeneration"}</h4>
       <div class="hidden md:block copywright mt-auto">
-        {"© " + new Date().getFullYear() + " " + company + ". " + rights + "."}
+        {"© " + new Date().getFullYear() + " " + company + ". " + rights.replace(/\.$/, "") + "."}
       </div>
     </div>
     <div class="flex flex-col gap-6 my-6 footer">
       {#each links as link, i (i)}
         <DelayedLink
           href={link.href}
+          field={link.field}
           class="{link.is_sub_item
             ? 'ml-5 '
             : ''}hover:opacity-85 transition-opacity duration-300 uppercase "

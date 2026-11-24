@@ -15,7 +15,7 @@
         "cards": {
           "type": "Group",
           "config": {
-            "label": "cards",
+            "label": "cards (a card needs a title, link and image; filling any card replaces all three built-in cards)",
             "repeat": true,
             "fields": {
               "title": {
@@ -40,7 +40,8 @@
                   "select": null,
                   "allowTargetBlank": true,
                   "allowText": false,
-                  "repeat": false
+                  "repeat": false,
+                  "customtypes": ["page", "surgical_grafts"]
                 }
               },
               "image": {

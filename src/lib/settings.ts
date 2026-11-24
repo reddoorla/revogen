@@ -43,7 +43,14 @@ export function linkHref(field: prismic.LinkField | null | undefined): string {
 }
 
 /** One menu entry, as the nav and footer render it. */
-export type MenuEntry = { lines: string[]; href: string; column: string; is_sub_item: boolean };
+export type MenuEntry = {
+  lines: string[];
+  href: string;
+  column?: string;
+  is_sub_item: boolean;
+  /** The Link field, so DelayedLink applies its "open in a new tab"; absent for code fallbacks. */
+  field?: prismic.LinkField;
+};
 
 type MenuRow = {
   label: prismic.RichTextField;
@@ -60,6 +67,7 @@ export function menuFromGroup(rows: prismic.GroupField<MenuRow> | null | undefin
       href: linkHref(row.link),
       column: row.column ?? "left",
       is_sub_item: row.is_sub_item === true,
+      field: row.link,
     }))
     .filter((entry) => entry.lines.length > 0 && entry.href !== "");
 }

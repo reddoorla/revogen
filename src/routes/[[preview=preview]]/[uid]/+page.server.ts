@@ -5,17 +5,24 @@ import { SITE_NAME, titleFromUid } from "$lib/site";
 
 export async function load({ params, fetch, cookies, parent }) {
   const client = createClient({ fetch, cookies });
-  const { settings } = await parent();
+  const parentData = parent();
 
   let page;
   try {
     page = await client.getByUID("page", params.uid);
   } catch {
+    const { settings } = await parentData;
     const message = settings?.not_found_message || 'Page "{page}" not found';
-    throw error(404, message.replaceAll("{page}", params.uid));
+    throw error(
+      404,
+      message.replaceAll("{page}", () => params.uid),
+    );
   }
 
-  const distributorCategories = await client.getAllByType("resource_hub_category");
+  const [distributorCategories, { settings }] = await Promise.all([
+    client.getAllByType("resource_hub_category"),
+    parentData,
+  ]);
 
   return {
     page,
