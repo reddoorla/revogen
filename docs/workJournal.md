@@ -520,3 +520,48 @@ Review round 1 (three Opus lenses) found two real defects, both in the spec. Rev
 Promotion to `main` is a production deploy and stays the operator's.
 
 Usage: $9.22, 1,325/78,907 tokens, 22,174,149/536,300 cache, rate limit allowed (session total at 9:35am PT, before landing).
+
+## 2026-11-24 — Visitor-facing content moves into Prismic fields, today's wording kept as the fallback (#159, into `staging`)
+
+P1-120 phase 3, the pilot of the fleet's hard-coded-content work. Phase 1's census (11-21) found 219 hard-coded rows here, 196 with no Prismic field. `content-check --all` on `staging` `6ee9a2c` gave 183, exactly the census's 196 less its 13 `/dev` rows. On this branch it gives 1 un-exempted row, the logo's link to `/`. That row is in the baseline along with 13 rows in the three components nothing renders (`ArrowButton`, `TestimonialSlider`, `FullWidth/Slideshow`), which stay in place: 14 rows in all. The 50 state names plus "Select a state" and four decorative image names are exempt, on the operator's word.
+
+**Where things went.**
+
+- Site-wide facts went into a new `settings` singleton: the nav and footer menus as repeatable groups, the address, email, phone, LinkedIn, the copyright name and rights line, and the tagline.
+- Per-slice wording became new fields on the slices that render it:
+  - `home_page_anim.cards`, a group capped at three;
+  - eleven words on `distributor_login`;
+  - thirteen form labels and messages on `two_col`'s `contactForm` variation.
+
+Every model change is add-only, and the CI delta on every head listed only `NEW customtype settings` and `+` fields. Every field falls back to today's literal when it is empty, so nothing changes for a visitor until an editor fills one. `settings` is loaded once in the root layout. The document does not exist in Prismic yet; `NotFoundError` returns null, and any other error is rethrown only while prerendering.
+
+**The order changed.** The brief wanted the release seeded and previewed before the promotion. But models reach Prismic only on push to `main`, and at 11:49am PT the `revogen` repository had only the four types on `main` and no releases. So there are two steps (the operator, 11:52am PT): this PR, then his promotion, then a release seeded from the literals and preview-compared. He publishes it.
+
+**The screenshot compare was blind twice before it was trusted.**
+
+- This site scrolls inside `<main>`, so Playwright's full-page shot is the first screen only. The first pass said 26 of 26 identical, and so did a control that changed "Suite 120" to "Suite 121".
+- Unclipping `<main>` gave white text on white below the hero, and the control again said "same".
+- Scrolling `<main>` one screen at a time worked: the control showed 54 px, and the real run was 117 of 117 screens identical at 1440 and 390, plus the open menu.
+
+**Four review rounds; three were dirty.** Each real finding has a test or mutation behind it, in the PR body's table:
+
+- **Round 1:**
+  - a card image with an empty media-library alt had no `alt` attribute;
+  - the editor's nav could be ignored and every test still passed;
+  - `$&` in a 404 address was read as a replacement pattern;
+  - new-tab targets were dropped;
+  - half-filled cards rendered.
+- **Round 2:** a fourth card shared the third's gradient theme, so hovering it opened both; "Inc.."; three surviving mutations.
+- **Round 3:** a company name ending in a period lost the period on the mobile line, and the LinkedIn link ignored the editor's new-tab setting. Both were reproduced.
+- **Round 4:** clean. Its minors were folded: names and rights are trimmed, and a stale comment was fixed.
+
+The test gaps left are #160 (`loadSettings` is not unit-tested) and #161 (HomePageAnim's filled cards).
+
+**Beliefs corrected on contact.**
+
+- `content-check` follows a fallback constant only when it is read inside the ternary's arm. A list of image imports in a separate `const` was reported, and inlining it cleared it.
+- An `ignore` of `"/"` is an empty regex and would hide everything.
+- This repo's env module is `$app/env`, not `$app/environment`.
+- `tests/content/settings-fallback.spec.ts` runs in CI's `pnpm test`, not only in fleet smoke: the Playwright `testDir` is `tests`.
+
+Promotion to `main` and publishing the release stay the operator's.

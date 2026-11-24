@@ -39,7 +39,7 @@
   };
 
   // Each position keeps the classes it had when the cards were written out by
-  // hand; a fourth card takes the third's.
+  // hand. Cards are capped at three, so every card has its own.
   const CARD_STYLES = [
     {
       off: "opacity-10 brightness-0 invert",

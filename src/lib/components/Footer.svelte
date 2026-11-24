@@ -61,11 +61,11 @@
   );
   // The editor's new-tab setting carries through; the code's link has none.
   const linkedinAttrs = $derived(linkTargetAttrs(linkedinHref, settings?.linkedin_url));
-  const company = $derived(settings?.copyright_name || "RevoGen Biologics");
+  const company = $derived((settings?.copyright_name || "RevoGen Biologics").trim());
   // A name ending in a period ("…, Inc.") keeps it, and the desktop line adds
   // none of its own, so it never reads "Inc.. All" or loses the "Inc." period.
   const companySep = $derived(company.endsWith(".") ? " " : ". ");
-  const rights = $derived(settings?.rights_text || "All Rights Reserved");
+  const rights = $derived((settings?.rights_text || "All Rights Reserved").trim());
 
   let showScript = $state(false);
   let footerElement: HTMLElement;
