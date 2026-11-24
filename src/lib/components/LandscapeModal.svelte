@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { page } from "$app/state";
   import { onMount } from "svelte";
   import { fade } from "svelte/transition";
 
@@ -34,6 +35,8 @@
     transition:fade
     class="w-screen h-screen fixed bg-black flex justify-center items-center top-0 left-0 z-50"
   >
-    <h3 class="text-white">Please Switch to Portrait Mode</h3>
+    <h3 class="text-white">
+      {page.data.settings?.portrait_notice || "Please Switch to Portrait Mode"}
+    </h3>
   </div>
 {/if}

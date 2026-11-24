@@ -1,0 +1,252 @@
+{
+  "format": "custom",
+  "id": "settings",
+  "label": "Site settings",
+  "repeatable": false,
+  "status": true,
+  "json": {
+    "Main": {
+      "site_name": {
+        "type": "Text",
+        "config": {
+          "label": "site name",
+          "placeholder": "Brand name in browser tab titles, e.g. RevoGen Biologics. Leave empty to keep today's wording."
+        }
+      },
+      "logo": {
+        "type": "Image",
+        "config": {
+          "label": "header logo",
+          "constraint": {},
+          "thumbnails": []
+        }
+      },
+      "footer_tagline": {
+        "type": "Text",
+        "config": {
+          "label": "footer tagline",
+          "placeholder": "Line at the top of the footer. Leave empty to keep today's wording."
+        }
+      },
+      "copyright_name": {
+        "type": "Text",
+        "config": {
+          "label": "copyright name",
+          "placeholder": "Company name after the \u00a9 year. Leave empty to keep today's wording."
+        }
+      },
+      "rights_text": {
+        "type": "Text",
+        "config": {
+          "label": "rights text",
+          "placeholder": "Words after the company name, e.g. All Rights Reserved. Leave empty to keep today's wording."
+        }
+      },
+      "address": {
+        "type": "StructuredText",
+        "config": {
+          "label": "address",
+          "placeholder": "Footer address. Press Shift+Enter between lines. Leave empty to keep today's wording.",
+          "single": "paragraph"
+        }
+      },
+      "email": {
+        "type": "Text",
+        "config": {
+          "label": "email",
+          "placeholder": "Footer email address. Leave empty to keep today's wording."
+        }
+      },
+      "phone": {
+        "type": "Text",
+        "config": {
+          "label": "phone",
+          "placeholder": "Footer phone number, as it should read. Leave empty to keep today's wording."
+        }
+      },
+      "linkedin_url": {
+        "type": "Link",
+        "config": {
+          "label": "LinkedIn link",
+          "placeholder": "",
+          "select": null,
+          "allowTargetBlank": true,
+          "allowText": false,
+          "repeat": false,
+          "customtypes": ["page", "surgical_grafts"]
+        }
+      },
+      "linkedin_label": {
+        "type": "Text",
+        "config": {
+          "label": "LinkedIn label",
+          "placeholder": "Words shown for the LinkedIn link. Leave empty to keep today's wording."
+        }
+      }
+    },
+    "Menus": {
+      "nav_items": {
+        "type": "Group",
+        "config": {
+          "label": "menu items (filling any row replaces the whole built-in menu; enter every item)",
+          "repeat": true,
+          "fields": {
+            "label": {
+              "type": "StructuredText",
+              "config": {
+                "label": "label",
+                "placeholder": "Shift+Enter for a line break.",
+                "single": "paragraph"
+              }
+            },
+            "link": {
+              "type": "Link",
+              "config": {
+                "label": "link",
+                "placeholder": "",
+                "select": null,
+                "allowTargetBlank": true,
+                "allowText": false,
+                "repeat": false,
+                "customtypes": ["page", "surgical_grafts"]
+              }
+            },
+            "column": {
+              "type": "Select",
+              "config": {
+                "label": "column",
+                "placeholder": "",
+                "options": ["left", "right"],
+                "default_value": "left"
+              }
+            },
+            "is_sub_item": {
+              "type": "Boolean",
+              "config": {
+                "label": "sub-item (indented under the one above)",
+                "default_value": false
+              }
+            }
+          }
+        }
+      },
+      "footer_links": {
+        "type": "Group",
+        "config": {
+          "label": "footer links (filling any row replaces all built-in footer links; enter every one)",
+          "repeat": true,
+          "fields": {
+            "label": {
+              "type": "StructuredText",
+              "config": {
+                "label": "label",
+                "placeholder": "Shift+Enter for a line break.",
+                "single": "paragraph"
+              }
+            },
+            "link": {
+              "type": "Link",
+              "config": {
+                "label": "link",
+                "placeholder": "",
+                "select": null,
+                "allowTargetBlank": true,
+                "allowText": false,
+                "repeat": false,
+                "customtypes": ["page", "surgical_grafts"]
+              }
+            },
+            "is_sub_item": {
+              "type": "Boolean",
+              "config": {
+                "label": "sub-item (indented under the one above)",
+                "default_value": false
+              }
+            }
+          }
+        }
+      }
+    },
+    "Home intro": {
+      "intro_eyebrow": {
+        "type": "Text",
+        "config": {
+          "label": "intro eyebrow",
+          "placeholder": "Small line above the home intro tagline. Leave empty to keep today's wording."
+        }
+      },
+      "intro_tagline": {
+        "type": "Text",
+        "config": {
+          "label": "intro tagline",
+          "placeholder": "The home intro's large line. Leave empty to keep today's wording."
+        }
+      }
+    },
+    "Interface text": {
+      "menu_toggle_label": {
+        "type": "Text",
+        "config": {
+          "label": "menu button label",
+          "placeholder": "Read by screen readers for the menu button. Leave empty to keep today's wording."
+        }
+      },
+      "logo_alt": {
+        "type": "Text",
+        "config": {
+          "label": "logo description",
+          "placeholder": "Read by screen readers for the header logo. Leave empty to keep today's wording."
+        }
+      },
+      "scroll_label": {
+        "type": "Text",
+        "config": {
+          "label": "scroll button label",
+          "placeholder": "Read by screen readers for the scroll-down arrow. Leave empty to keep today's wording."
+        }
+      },
+      "scroll_arrow_alt": {
+        "type": "Text",
+        "config": {
+          "label": "scroll arrow description",
+          "placeholder": "Description of the scroll-down arrow image. Leave empty to keep today's wording."
+        }
+      },
+      "background_image_alt": {
+        "type": "Text",
+        "config": {
+          "label": "background image description",
+          "placeholder": "Description of full-width background images. Leave empty to keep today's wording."
+        }
+      },
+      "background_video_title": {
+        "type": "Text",
+        "config": {
+          "label": "background video title",
+          "placeholder": "Title read for full-width background videos. Leave empty to keep today's wording."
+        }
+      },
+      "video_title": {
+        "type": "Text",
+        "config": {
+          "label": "video title",
+          "placeholder": "Title read for videos in two-column sections. Leave empty to keep today's wording."
+        }
+      },
+      "portrait_notice": {
+        "type": "Text",
+        "config": {
+          "label": "portrait notice",
+          "placeholder": "Shown on phones held sideways. Leave empty to keep today's wording."
+        }
+      },
+      "not_found_message": {
+        "type": "Text",
+        "config": {
+          "label": "page-not-found message",
+          "placeholder": "Shown when a page does not exist. {page} is replaced by the address asked for. Leave empty to keep today's wording."
+        }
+      }
+    }
+  }
+}

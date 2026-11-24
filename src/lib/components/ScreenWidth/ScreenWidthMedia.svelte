@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { page } from "$app/state";
   import { isFilled } from "@prismicio/client";
   import placeholder from "../../assets/images/background_placeholder.svg";
   import { PrismicImage } from "@prismicio/svelte";
@@ -9,7 +10,7 @@
   let {
     src = placeholder,
     field = undefined,
-    altText = "background image",
+    altText = undefined,
     placeholderSide = "right",
     vimeoId = "",
     darken = false,
@@ -66,14 +67,14 @@
     {:else if typeof src === "string"}
       <img
         {src}
-        alt={altText}
+        alt={altText || page.data.settings?.background_image_alt || "background image"}
         class="absolute bottom-0 {placeholderSide}-0 h-full w-full object-cover {passedClasses} -z-10
 {src === placeholder ? 'lg:w-[45%] md:h-auto' : ''}"
       />
     {:else if src}
       <Img
         {src}
-        alt={altText}
+        alt={altText || page.data.settings?.background_image_alt || "background image"}
         class="absolute bottom-0 {placeholderSide}-0 h-full w-full object-cover {passedClasses} -z-10
 {src === placeholder ? 'lg:w-[45%] md:h-auto' : ''}"
       />
@@ -82,7 +83,7 @@
       <VimeoGate>
         {#if videoSrc}
           <iframe
-            title="background video"
+            title={page.data.settings?.background_video_title || "background video"}
             src={videoSrc}
             class="aspect-video absolute contrast-[1.15] -z-10"
             style={((viewportHeight * percentHeight) / 100) * 16 > viewportWidth * 9
