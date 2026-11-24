@@ -8,6 +8,7 @@
 
   import { page } from "$app/state";
   import { menuFromGroup, textLines, linkHref, type MenuEntry } from "$lib/settings";
+  import { linkTargetAttrs } from "$lib/links";
 
   // Today's footer, shown when its `settings` field is empty (P1-120).
   const FOOTER_LINKS_FALLBACK: MenuEntry[] = [
@@ -58,8 +59,12 @@
   const linkedinHref = $derived(
     linkHref(settings?.linkedin_url) || "https://www.linkedin.com/company/revogen-biologics",
   );
-  // A name ending in a period ("…, Inc.") must not become "Inc.. All".
-  const company = $derived((settings?.copyright_name || "RevoGen Biologics").replace(/\.$/, ""));
+  // The editor's new-tab setting carries through; the code's link has none.
+  const linkedinAttrs = $derived(linkTargetAttrs(linkedinHref, settings?.linkedin_url));
+  const company = $derived(settings?.copyright_name || "RevoGen Biologics");
+  // A name ending in a period ("…, Inc.") keeps it, and the desktop line adds
+  // none of its own, so it never reads "Inc.. All" or loses the "Inc." period.
+  const companySep = $derived(company.endsWith(".") ? " " : ". ");
   const rights = $derived(settings?.rights_text || "All Rights Reserved");
 
   let showScript = $state(false);
@@ -92,7 +97,13 @@
     <div class="flex flex-col justify-stretch mt-4 pb-4">
       <h4 class="">{settings?.footer_tagline || "Revolutionizing Bioregeneration"}</h4>
       <div class="hidden md:block copywright mt-auto">
-        {"© " + new Date().getFullYear() + " " + company + ". " + rights.replace(/\.$/, "") + "."}
+        {"© " +
+          new Date().getFullYear() +
+          " " +
+          company +
+          companySep +
+          rights.replace(/\.$/, "") +
+          "."}
       </div>
     </div>
     <div class="flex flex-col gap-6 my-6 footer">
@@ -124,6 +135,7 @@
         </a><br />
         <a
           href={linkedinHref}
+          {...linkedinAttrs}
           class="underline hover:opacity-85 transition-opacity duration-300 inline-block py-1"
         >
           {settings?.linkedin_label || "LinkedIn"}

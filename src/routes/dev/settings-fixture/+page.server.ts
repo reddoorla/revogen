@@ -21,7 +21,11 @@ export function load({ url }) {
     // Empty by default: the footer must show the code's tagline.
     footer_tagline: filled ? "Fixture tagline" : null,
     // Filled: the footer must show these instead of the code's.
-    copyright_name: "Fixture Biologics",
+    copyright_name: filled ? "Fixture Biologics, Inc." : "Fixture Biologics",
+    rights_text: filled ? "All rights reserved." : null,
+    linkedin_url: filled
+      ? { link_type: "Web", url: "https://example.com/li", target: "_blank" }
+      : noLink,
     address: line("1 Fixture Way\nTestville"),
     footer_links: [
       { label: line("fixture link"), link: web("https://example.com/fixture"), is_sub_item: false },

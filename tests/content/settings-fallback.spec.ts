@@ -50,6 +50,23 @@ test("filled tagline and menu items replace the code's", async ({ page }) => {
   await expect(page.getByRole("heading", { name: "About", exact: true })).toHaveCount(0);
 });
 
+test("a filled company name keeps its period on both copyright lines", async ({ page }) => {
+  await page.goto("/dev/settings-fixture?filled");
+  const year = new Date().getFullYear();
+  const lines = page.locator("footer .copywright");
+  // Desktop: one period after "Inc.", never "Inc.." and never none.
+  await expect(lines.nth(0)).toHaveText(`© ${year} Fixture Biologics, Inc. All rights reserved.`);
+  // Mobile: the name as the editor typed it, then the rights line.
+  await expect(lines.nth(1)).toHaveText(`© ${year} Fixture Biologics, Inc.All rights reserved.`);
+});
+
+test("a filled LinkedIn link keeps the editor's new-tab setting", async ({ page }) => {
+  await page.goto("/dev/settings-fixture?filled");
+  const li = page.locator('footer a[href="https://example.com/li"]');
+  await expect(li).toHaveAttribute("target", "_blank");
+  await expect(li).toHaveAttribute("rel", "noopener noreferrer");
+});
+
 test("an empty menu group renders the code's menu", async ({ page }) => {
   await page.goto("/dev/settings-fixture");
   await openMenu(page);
@@ -76,6 +93,13 @@ test("with no settings document the footer reads exactly as the code wrote it", 
   await expect(
     footer.locator('a[href="https://www.linkedin.com/company/revogen-biologics"]'),
   ).toHaveText("LinkedIn");
+  // The code's LinkedIn link opens in the same tab, as it always has.
+  await expect(
+    footer.locator('a[href="https://www.linkedin.com/company/revogen-biologics"]'),
+  ).not.toHaveAttribute("target", /.*/);
+  await expect(footer.locator(".copywright").nth(1)).toHaveText(
+    `© ${year} RevoGen BiologicsAll Rights Reserved`,
+  );
   await expect(footer.locator('a[href="/surgical-grafts/allografts"]')).toHaveClass(/ml-5/);
   await expect(footer.locator('a[href="/distribution-opportunities"] br')).toHaveCount(1);
 });
