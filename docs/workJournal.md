@@ -583,6 +583,7 @@ Step 2 of P1-120 phase 3, after the operator promoted #162 at 8:51am PT. The rel
 **Mutation 2** changed the Hub prompt's ":" to ";" in the release content. Only `/distributor-resource-hub` moved: 1130 px on desktop, 91 px on phone. Every other route was unchanged, and the three card screens kept their exact pixel counts, so that baseline is deterministic.
 
 **Two invisible differences, and one thing for the next editor to know.**
+
 - The footer's "surgical grafts" link becomes `/surgical-grafts`; the code had `/surgical-grafts/`, which is the same page.
 - The header logo now loads from Prismic's CDN.
 - `documents_label` and `papers_label` each have a second fallback in the Hub's hidden height-measuring copy ("Distributor Documents", "White paper / case studies", inside an `opacity-0` block). The release seeds the visible words, "Documents" and "Papers". Once it is published, the measuring copy uses those too. It is invisible, but it means one field holds what used to be two wordings.
