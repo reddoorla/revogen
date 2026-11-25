@@ -565,3 +565,26 @@ The test gaps left are #160 (`loadSettings` is not unit-tested) and #161 (HomePa
 - `tests/content/settings-fallback.spec.ts` runs in CI's `pnpm test`, not only in fleet smoke: the Playwright `testDir` is `tests`.
 
 Promotion to `main` and publishing the release stay the operator's.
+
+## 2026-11-25 — The content release is seeded from the code's wording and checked against every route; publishing waits on the operator (Prismic release `awcTPxEAALgJ32ZY`)
+
+Step 2 of P1-120 phase 3, after the operator promoted #162 at 8:51am PT. The release is https://revogen.prismic.io/builder/upcoming/awcTPxEAALgJ32ZY, four documents, unpublished: a new `settings` document (all 23 fields, the 10-row menu, the 10 footer links, the address and the logo), the home page's three cards with their six images, the Hub's 11 `distributor_login` fields, and the contact form's 13 fields on `/distribution-opportunities`. Until it is published, every route keeps rendering from the code.
+
+**The values were read from the code, never retyped.** A script pulled each fallback out of the source files (the `||` literals, the `NAV_ITEMS_FALLBACK`, `FOOTER_LINKS_FALLBACK` and `ADDRESS_FALLBACK` arrays evaluated as written, the cards' image imports mapped to their files), and the seed payloads were built from its output. The images went up from the public repo at `7fd3f0b`; Prismic's byte counts matched the files (6,113,513 for `surgical.png`, and so on). The SVG logo is served raw, not re-encoded.
+
+**The read-back was by script, not by eye.** No token here can read a release ref, so, as on MSOT, the `get_document` results were lifted verbatim from the session transcript. 136 of 136 seeded values equal the code. On the three edited pages, everything not seeded is byte-identical to the published version. The checker caught 3 of 3 planted wrong values before its pass was trusted.
+
+**"Previewed" meant a build reading the release through a stand-in.** The "after" build set `VITE_PRISMIC_ENVIRONMENT` to a local server that proxies the real CDN and swaps in the four release documents. `present_release` then gave a preview ref, and the live Content API under it matched what the stand-in served on 142 of 143 fields. The one difference is the logo URL's `?auto=compress,format`; the CDN returns the same 4261 bytes with or without it.
+
+**The stand-in was wrong on its first run, and the HTML diff caught it.** The client sends `at(document.type,+"settings")`, and `decodeURIComponent` leaves `+` alone, so the settings document never matched and the build rendered the fallbacks. Every page came out "same" because nothing had been swapped in. The prerendered-HTML diff showed the logo still at its build path when it should have moved to Prismic's CDN; that is what exposed it.
+
+**Screens: 114 of 117 identical.** The brief's `tiles.cjs` scrolls `<main>` a screen at a time. Its control gave 54 px, as on 11-24. The run covered 12 routes at 1440 and 390, plus the open menu. The three screens that differ are the home cards (97,207, 61,790 and 22,943 px). They look the same, but the images now come from Prismic's image service (640 to 3840 wide) instead of the build's own avif/webp at 480, 1024 and 1920: a mean of 5 to 7 of 255 per changed pixel, and 2 to 8 pixels per screen above 64. The operator answered "accept as is" at 10:08am PT; the workspace's `decisions/2026-11-25-1805-p1-120-revogen-release-card-images.md` has the full ask. Not measured: whether the home page's Lighthouse score moves once the cards load from Prismic, since the PR gate measures code, not content.
+
+**Mutation 2** changed the Hub prompt's ":" to ";" in the release content. Only `/distributor-resource-hub` moved: 1130 px on desktop, 91 px on phone. Every other route was unchanged, and the three card screens kept their exact pixel counts, so that baseline is deterministic.
+
+**Two invisible differences, and one thing for the next editor to know.**
+- The footer's "surgical grafts" link becomes `/surgical-grafts`; the code had `/surgical-grafts/`, which is the same page.
+- The header logo now loads from Prismic's CDN.
+- `documents_label` and `papers_label` each have a second fallback in the Hub's hidden height-measuring copy ("Distributor Documents", "White paper / case studies", inside an `opacity-0` block). The release seeds the visible words, "Documents" and "Papers". Once it is published, the measuring copy uses those too. It is invisible, but it means one field holds what used to be two wordings.
+
+The scripts (`extract.mjs`, `readback.py`, `mockprismic.mjs`, `crosscheck.mjs`) are in the workspace at `briefs/2026-11-24-p1-120-phase3-revogen/step2/`. Publishing the release is the operator's.
