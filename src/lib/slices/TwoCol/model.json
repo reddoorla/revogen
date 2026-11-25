@@ -191,6 +191,97 @@
             "options": ["0", "5", "10", "20"],
             "default_value": "0"
           }
+        },
+        "first_name_label": {
+          "type": "Text",
+          "config": {
+            "label": "first name label",
+            "placeholder": "Leave empty to keep today's wording."
+          }
+        },
+        "last_name_label": {
+          "type": "Text",
+          "config": {
+            "label": "last name label",
+            "placeholder": "Leave empty to keep today's wording."
+          }
+        },
+        "city_label": {
+          "type": "Text",
+          "config": {
+            "label": "city label",
+            "placeholder": "Leave empty to keep today's wording."
+          }
+        },
+        "state_label": {
+          "type": "Text",
+          "config": {
+            "label": "state label",
+            "placeholder": "Leave empty to keep today's wording."
+          }
+        },
+        "email_label": {
+          "type": "Text",
+          "config": {
+            "label": "email label",
+            "placeholder": "Leave empty to keep today's wording."
+          }
+        },
+        "phone_label": {
+          "type": "Text",
+          "config": {
+            "label": "phone label",
+            "placeholder": "Leave empty to keep today's wording."
+          }
+        },
+        "distributorship_label": {
+          "type": "Text",
+          "config": {
+            "label": "distributorship label",
+            "placeholder": "Leave empty to keep today's wording."
+          }
+        },
+        "message_label": {
+          "type": "Text",
+          "config": {
+            "label": "message label",
+            "placeholder": "Leave empty to keep today's wording."
+          }
+        },
+        "honeypot_label": {
+          "type": "Text",
+          "config": {
+            "label": "spam-trap label",
+            "placeholder": "Hidden from visitors; read only by bots. Leave empty to keep today's wording."
+          }
+        },
+        "submit_label": {
+          "type": "Text",
+          "config": {
+            "label": "submit button",
+            "placeholder": "Leave empty to keep today's wording."
+          }
+        },
+        "sending_label": {
+          "type": "Text",
+          "config": {
+            "label": "submit button while sending",
+            "placeholder": "Leave empty to keep today's wording."
+          }
+        },
+        "success_message": {
+          "type": "Text",
+          "config": {
+            "label": "thank-you message",
+            "placeholder": "Leave empty to keep today's wording."
+          }
+        },
+        "error_message": {
+          "type": "Text",
+          "config": {
+            "label": "error message",
+            "placeholder": "Leave empty to keep today's wording."
+          }
         }
       },
       "items": {}

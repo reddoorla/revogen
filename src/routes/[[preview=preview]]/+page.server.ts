@@ -1,14 +1,15 @@
 import { createClient } from "$lib/prismicio";
 import { SITE_NAME } from "$lib/site";
 
-export async function load({ fetch, cookies }) {
+export async function load({ fetch, cookies, parent }) {
   const client = createClient({ fetch, cookies });
 
   const page = await client.getByUID("page", "home");
+  const { settings } = await parent();
 
   return {
     page,
-    title: page.data.meta_title || SITE_NAME,
+    title: page.data.meta_title || settings?.site_name || SITE_NAME,
     meta_description: page.data.meta_description,
     meta_title: page.data.meta_title,
     meta_image: page.data.meta_image.url,

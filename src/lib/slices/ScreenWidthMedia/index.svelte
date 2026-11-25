@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { page } from "$app/state";
   import DefaultButton from "$lib/components/Buttons/DefaultButton.svelte";
   import ContentWidth from "$lib/components/ContentWidth/ContentWidth.svelte";
   import ScreenWidthMedia from "$lib/components/ScreenWidth/ScreenWidthMedia.svelte";
@@ -75,7 +76,11 @@
 
     {#if slice.primary.show_scroll_arrow}
       <button class="absolute bottom-4 left-1/2 -translate-x-1/2" onclick={() => scrollToNext()}>
-        <img src={downArrow} alt="down" class="h-16 negative-bump" />
+        <img
+          src={downArrow}
+          alt={page.data.settings?.scroll_arrow_alt || "down"}
+          class="h-16 negative-bump"
+        />
       </button>
     {/if}
   </ScreenWidthMedia>

@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { page } from "$app/state";
+  import { STATE_PLACEHOLDER, US_STATES } from "$lib/us-states";
   import VimeoGate from "$lib/components/VimeoGate.svelte";
   import ContentWidth from "$lib/components/ContentWidth/ContentWidth.svelte";
   import type { Content } from "@prismicio/client";
@@ -210,7 +212,7 @@
             {/if}
             <VimeoGate>
               <iframe
-                title="video"
+                title={page.data.settings?.video_title || "video"}
                 src={`https://player.vimeo.com/video/${slice.primary.vimeo_id}?background=1&muted=1&loop=1&autoplay=1&dnt=1`}
                 class="absolute w-full h-full contrast-[1.15]"
                 frameborder="0"
@@ -317,7 +319,7 @@
                 for="cf-first-name"
                 class="block text-white mb-2 text-sm uppercase tracking-wide"
               >
-                FIRST NAME*
+                {slice.primary.first_name_label || "FIRST NAME*"}
               </label>
               <input
                 id="cf-first-name"
@@ -334,7 +336,7 @@
                 for="cf-last-name"
                 class="block text-white mb-2 text-sm uppercase tracking-wide"
               >
-                LAST NAME*
+                {slice.primary.last_name_label || "LAST NAME*"}
               </label>
               <input
                 id="cf-last-name"
@@ -352,7 +354,7 @@
           <div class="w-full flex flex-col md:flex-row gap-4">
             <div class="w-full md:w-1/2">
               <label for="cf-city" class="block text-white mb-2 text-sm uppercase tracking-wide">
-                CITY*
+                {slice.primary.city_label || "CITY*"}
               </label>
               <input
                 id="cf-city"
@@ -366,7 +368,7 @@
             </div>
             <div class="w-full md:w-1/2">
               <label for="cf-state" class="block text-white mb-2 text-sm uppercase tracking-wide">
-                STATE*
+                {slice.primary.state_label || "STATE*"}
               </label>
               <select
                 id="cf-state"
@@ -375,57 +377,10 @@
                 required
                 class="w-full bg-white/20 border border-white/30 p-3 text-white"
               >
-                <option value="" class="bg-gray-800 text-white">Select a state</option>
-                <option value="AL" class="bg-gray-800 text-white">Alabama</option>
-                <option value="AK" class="bg-gray-800 text-white">Alaska</option>
-                <option value="AZ" class="bg-gray-800 text-white">Arizona</option>
-                <option value="AR" class="bg-gray-800 text-white">Arkansas</option>
-                <option value="CA" class="bg-gray-800 text-white">California</option>
-                <option value="CO" class="bg-gray-800 text-white">Colorado</option>
-                <option value="CT" class="bg-gray-800 text-white">Connecticut</option>
-                <option value="DE" class="bg-gray-800 text-white">Delaware</option>
-                <option value="FL" class="bg-gray-800 text-white">Florida</option>
-                <option value="GA" class="bg-gray-800 text-white">Georgia</option>
-                <option value="HI" class="bg-gray-800 text-white">Hawaii</option>
-                <option value="ID" class="bg-gray-800 text-white">Idaho</option>
-                <option value="IL" class="bg-gray-800 text-white">Illinois</option>
-                <option value="IN" class="bg-gray-800 text-white">Indiana</option>
-                <option value="IA" class="bg-gray-800 text-white">Iowa</option>
-                <option value="KS" class="bg-gray-800 text-white">Kansas</option>
-                <option value="KY" class="bg-gray-800 text-white">Kentucky</option>
-                <option value="LA" class="bg-gray-800 text-white">Louisiana</option>
-                <option value="ME" class="bg-gray-800 text-white">Maine</option>
-                <option value="MD" class="bg-gray-800 text-white">Maryland</option>
-                <option value="MA" class="bg-gray-800 text-white">Massachusetts</option>
-                <option value="MI" class="bg-gray-800 text-white">Michigan</option>
-                <option value="MN" class="bg-gray-800 text-white">Minnesota</option>
-                <option value="MS" class="bg-gray-800 text-white">Mississippi</option>
-                <option value="MO" class="bg-gray-800 text-white">Missouri</option>
-                <option value="MT" class="bg-gray-800 text-white">Montana</option>
-                <option value="NE" class="bg-gray-800 text-white">Nebraska</option>
-                <option value="NV" class="bg-gray-800 text-white">Nevada</option>
-                <option value="NH" class="bg-gray-800 text-white">New Hampshire</option>
-                <option value="NJ" class="bg-gray-800 text-white">New Jersey</option>
-                <option value="NM" class="bg-gray-800 text-white">New Mexico</option>
-                <option value="NY" class="bg-gray-800 text-white">New York</option>
-                <option value="NC" class="bg-gray-800 text-white">North Carolina</option>
-                <option value="ND" class="bg-gray-800 text-white">North Dakota</option>
-                <option value="OH" class="bg-gray-800 text-white">Ohio</option>
-                <option value="OK" class="bg-gray-800 text-white">Oklahoma</option>
-                <option value="OR" class="bg-gray-800 text-white">Oregon</option>
-                <option value="PA" class="bg-gray-800 text-white">Pennsylvania</option>
-                <option value="RI" class="bg-gray-800 text-white">Rhode Island</option>
-                <option value="SC" class="bg-gray-800 text-white">South Carolina</option>
-                <option value="SD" class="bg-gray-800 text-white">South Dakota</option>
-                <option value="TN" class="bg-gray-800 text-white">Tennessee</option>
-                <option value="TX" class="bg-gray-800 text-white">Texas</option>
-                <option value="UT" class="bg-gray-800 text-white">Utah</option>
-                <option value="VT" class="bg-gray-800 text-white">Vermont</option>
-                <option value="VA" class="bg-gray-800 text-white">Virginia</option>
-                <option value="WA" class="bg-gray-800 text-white">Washington</option>
-                <option value="WV" class="bg-gray-800 text-white">West Virginia</option>
-                <option value="WI" class="bg-gray-800 text-white">Wisconsin</option>
-                <option value="WY" class="bg-gray-800 text-white">Wyoming</option>
+                <option value="" class="bg-gray-800 text-white">{STATE_PLACEHOLDER}</option>
+                {#each US_STATES as [code, name] (code)}
+                  <option value={code} class="bg-gray-800 text-white">{name}</option>
+                {/each}
               </select>
             </div>
           </div>
@@ -434,7 +389,7 @@
           <div class="w-full flex flex-col md:flex-row gap-4">
             <div class="w-full md:w-1/2">
               <label for="cf-email" class="block text-white mb-2 text-sm uppercase tracking-wide">
-                EMAIL*
+                {slice.primary.email_label || "EMAIL*"}
               </label>
               <input
                 id="cf-email"
@@ -448,7 +403,7 @@
             </div>
             <div class="w-full md:w-1/2">
               <label for="cf-phone" class="block text-white mb-2 text-sm uppercase tracking-wide">
-                PHONE
+                {slice.primary.phone_label || "PHONE"}
               </label>
               <input
                 id="cf-phone"
@@ -467,7 +422,7 @@
               for="cf-distributorship"
               class="block text-white mb-2 text-sm uppercase tracking-wide"
             >
-              CURRENT DISTRIBUTORSHIP
+              {slice.primary.distributorship_label || "CURRENT DISTRIBUTORSHIP"}
             </label>
             <input
               id="cf-distributorship"
@@ -483,7 +438,7 @@
           <!-- Message field (full width) -->
           <div class="w-full">
             <label for="cf-message" class="block text-white mb-2 text-sm uppercase tracking-wide">
-              MESSAGE
+              {slice.primary.message_label || "MESSAGE"}
             </label>
             <textarea
               id="cf-message"
@@ -498,12 +453,8 @@
           <!-- Hidden honeypot field -->
           <p class="hidden">
             <label>
-              Don't fill this out if you're human: <input
-                name="bot-field"
-                bind:value={formBotField}
-                tabindex="-1"
-                autocomplete="off"
-              />
+              {slice.primary.honeypot_label || "Don't fill this out if you're human:"}
+              <input name="bot-field" bind:value={formBotField} tabindex="-1" autocomplete="off" />
             </label>
           </p>
 
@@ -520,16 +471,21 @@
                  the fleet's form-e2e probe waits for. -->
             <div role="status" aria-live="polite">
               {#if submitted}
-                <p class="text-white">Thanks — your message has been sent.</p>
+                <p class="text-white">
+                  {slice.primary.success_message || "Thanks — your message has been sent."}
+                </p>
               {/if}
             </div>
             {#if !submitted}
               <DefaultButton type="submit" disabled={submitting}>
-                {submitting ? "SENDING..." : "SUBMIT"}
+                {submitting
+                  ? slice.primary.sending_label || "SENDING..."
+                  : slice.primary.submit_label || "SUBMIT"}
               </DefaultButton>
               {#if submitError}
                 <p class="text-white" role="alert">
-                  Something went wrong sending your message. Please try again.
+                  {slice.primary.error_message ||
+                    "Something went wrong sending your message. Please try again."}
                 </p>
               {/if}
             {/if}

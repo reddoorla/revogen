@@ -162,13 +162,15 @@
     {#if !isAuthenticated}
       <!-- Password Form -->
       <div out:fade class="flex flex-col items-center">
-        <p class="max-w-lg text-center">Enter password to access the Distributor Resource Hub:</p>
+        <p class="max-w-lg text-center">
+          {slice.primary.prompt || "Enter password to access the Distributor Resource Hub:"}
+        </p>
         <div class="flex flex-col mt-16 items-center gap-2">
           <!-- A <p> is not a label: it left the input with no accessible name,
                so screen readers announced only "password, edit text". As a flex
                child the <label> blockifies exactly as the <p> did, so this is a
                semantic change with no visual one. -->
-          <label for="distributor-password">PASSWORD</label>
+          <label for="distributor-password">{slice.primary.password_label || "PASSWORD"}</label>
           <input
             id="distributor-password"
             type="password"
@@ -189,7 +191,7 @@
                 in:fade={{ delay: 600 }}
                 out:fade
               >
-                Incorrect password. Please try again.
+                {slice.primary.error_message || "Incorrect password. Please try again."}
               </p>
             {:else}
               <p
@@ -197,14 +199,14 @@
                 in:fade={{ delay: 600 }}
                 out:fade
               >
-                This portal is password protected, please contact your RevoGen administrator for
-                access.
+                {slice.primary.help_text ||
+                  "This portal is password protected, please contact your RevoGen administrator for access."}
               </p>
             {/if}
           </div>
         </div>
         <button
-          aria-label="submit password"
+          aria-label={slice.primary.submit_label || "submit password"}
           class="h-8 w-8 border-2 border-white rounded-full mt-16 hover:border-light-blue hover:bg-white hover:text-light-blue transition duration-500 active:duration-200 active:text-white active:border-white {shakeButton
             ? 'animate-shake'
             : ''}"
@@ -219,11 +221,12 @@
         in:fly={{ delay: 400, x: "-100%" }}
       >
         <p class=" mt-12 md:mt-32 text-center max-w-lg">
-          At RevoGen Biologics, we are deeply committed to supporting the success of our
-          partners/distributors. Use the links below to access important resources and download
-          collateral designed to help you service your existing clients and win new business!
+          {slice.primary.intro ||
+            "At RevoGen Biologics, we are deeply committed to supporting the success of our partners/distributors. Use the links below to access important resources and download collateral designed to help you service your existing clients and win new business!"}
         </p>
-        <h5 class=" mt-12 mb-4 md:my-16">Select a Topic to View Resources</h5>
+        <h5 class=" mt-12 mb-4 md:my-16">
+          {slice.primary.topics_heading || "Select a Topic to View Resources"}
+        </h5>
 
         <!-- Desktop Layout (unchanged) -->
         <div class="w-full justify-center flex-wrap gap-12 hidden md:flex">
@@ -376,13 +379,16 @@
                   <h2>
                     {header.name}
                   </h2>
-                  {@render hubDocs(header.general, "General")}
+                  {@render hubDocs(header.general, slice.primary.general_label || "General")}
 
-                  {@render hubDocs(header.distributor_documents, "Documents")}
+                  {@render hubDocs(
+                    header.distributor_documents,
+                    slice.primary.documents_label || "Documents",
+                  )}
 
-                  {@render hubDocs(header.white_papers, "Papers")}
+                  {@render hubDocs(header.white_papers, slice.primary.papers_label || "Papers")}
 
-                  {@render hubDocs(header.videos, "Videos")}
+                  {@render hubDocs(header.videos, slice.primary.videos_label || "Videos")}
                 </div>
               {/each}
             </div>
@@ -397,7 +403,9 @@
                     <div>
                       <h2>{header.name}</h2>
                       {#if header.distributor_documents.length !== 0}
-                        <h5 class="mt-10 uppercase">Distributor Documents</h5>
+                        <h5 class="mt-10 uppercase">
+                          {slice.primary.documents_label || "Distributor Documents"}
+                        </h5>
                         <div class="h-0.5 w-full bg-white my-4"></div>
                         {#each header.distributor_documents as doc, docIndex (docIndex)}
                           {#if isFilled.link(doc)}
@@ -420,7 +428,9 @@
                       {/if}
 
                       {#if header.white_papers.length !== 0}
-                        <h5 class="mt-10 uppercase">White paper / case studies</h5>
+                        <h5 class="mt-10 uppercase">
+                          {slice.primary.papers_label || "White paper / case studies"}
+                        </h5>
                         <div class="h-0.5 w-full bg-white my-4"></div>
                         {#each header.white_papers as doc, docIndex (docIndex)}
                           {#if isFilled.link(doc)}

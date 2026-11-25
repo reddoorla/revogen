@@ -6,7 +6,8 @@
 export const SITE_URL = "https://revogen.com";
 
 // Canonical site name, used as the brand prefix in <title> fallbacks and as the
-// last-resort tab title. Kept here so it can't drift between routes.
+// last-resort tab title. Kept here so it can't drift between routes. The
+// `settings` document's site_name wins over it (P1-120); this is the fallback.
 export const SITE_NAME = "RevoGen Biologics";
 
 /**
@@ -17,14 +18,16 @@ export const SITE_NAME = "RevoGen Biologics";
  * "RevoGen Biologics | X" shape editors already use in Prismic meta_titles.
  *
  * @param {string | null | undefined} uid
+ * @param {string} siteName the brand prefix: the `settings` document's
+ *   site_name, or SITE_NAME when that is empty
  * @returns {string}
  */
-export function titleFromUid(uid) {
-  if (!uid) return SITE_NAME;
+export function titleFromUid(uid, siteName) {
+  if (!uid) return siteName;
   const label = uid
     .split("-")
     .filter(Boolean)
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
-  return label ? `${SITE_NAME} | ${label}` : SITE_NAME;
+  return label ? `${siteName} | ${label}` : siteName;
 }

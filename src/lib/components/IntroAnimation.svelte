@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { page } from "$app/state";
   import { hasIntroRun } from "$lib/stores/hasIntroRun";
   import { browser } from "$app/env";
   import { onMount, onDestroy } from "svelte";
@@ -235,7 +236,7 @@
         ? 'opacity-100'
         : 'opacity-0'}"
     >
-      Innovative Healing
+      {page.data.settings?.intro_eyebrow || "Innovative Healing"}
     </p>
     <h2
       data-hero-tagline
@@ -243,7 +244,7 @@
         ? 'opacity-100'
         : 'opacity-0'}"
     >
-      Elevating your patients' quality of life!
+      {page.data.settings?.intro_tagline || "Elevating your patients' quality of life!"}
     </h2>
   </ContentWidth>
 </div>
